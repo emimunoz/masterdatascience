@@ -57,3 +57,31 @@ dsc@master: first_dir % rm -R sub2                                              
 dsc@master: first_dir % ls                                                                                                             ~/first_dir 0 11:14:44
 sub1/  sub3/  text_file/  text_file.txt*
 dsc@master: first_dir %   
+
+
+
+
+
+dsc@master: ~ % cd Data/shell                                                                                                                    ~ 0 13:17:46
+dsc@master: shell % less Finn.txt                                                                                                     ~/Data/shell 0 13:20:27
+dsc@master: shell % cd Data/opentraveldata/optd_aircraft.csv                                                                          ~/Data/shell 0 13:21:12
+cd: no such file or directory: Data/opentraveldata/optd_aircraft.csv
+dsc@master: shell 1 % cd                                                                                                              ~/Data/shell 0 13:21:50
+dsc@master: ~ % cd Data/opentraveldata                                                                                                           ~ 0 13:21:56
+dsc@master: opentraveldata % less optd_aircraft.csv                                                                          ~/Data/opentraveldata 0 13:22:05
+dsc@master: opentraveldata % less optd_aircraft.csv                                                                          ~/Data/opentraveldata 0 13:23:30
+dsc@master: opentraveldata % man tree                                                                                        ~/Data/opentraveldata 0 13:24:32
+dsc@master: opentraveldata % tree -L 2                                                                                       ~/Data/opentraveldata 0 13:29:53
+.
+├── [ 18K]  optd_aircraft.csv
+├── [105K]  optd_airlines.csv
+├── [7.7M]  optd_por_public.csv
+└── [5.7K]  ref_airline_nb_of_flights.csv
+
+0 directories, 4 files
+dsc@master: opentraveldata %           
+
+
+
+
+
