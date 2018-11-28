@@ -1,0 +1,59 @@
+dsc@master: ~ % mkdir first_dir                                                                                                                  ~ 0 10:47:39
+dsc@master: ~ % ls                                                                                                                               ~ 0 10:47:56
+anaconda3/  Data/      Desktop/    Downloads/  masterdatascience/  Music/     Public/  Repos/      Videos/
+cd          derby.log  Documents/  first_dir/  metastore_db/       Pictures/  R/       Templates/
+dsc@master: ~ % touch text_file.txt /firs_dir                                                                                                    ~ 0 10:47:57
+touch: cannot touch '/firs_dir': Permission denied
+dsc@master: ~ 1 % cd first_dir                                                                                                                   ~ 0 10:48:58
+dsc@master: first_dir % touch text_file.txt                                                                                            ~/first_dir 0 10:49:10
+dsc@master: first_dir % ls                                                                                                             ~/first_dir 0 10:49:24
+text_file.txt
+dsc@master: first_dir % ls -1l                                                                                                         ~/first_dir 0 10:49:27
+total 0
+-rw-r--r-- 1 dsc dsc 0 nov 28 10:49 text_file.txt
+dsc@master: first_dir % chmod u+r+w,g+r+x,o+r+w text_file.txt                                                                          ~/first_dir 0 10:50:03
+dsc@master: first_dir % cd ..                                                                                                          ~/first_dir 0 10:51:01
+dsc@master: ~ % cd first_dir                                                                                                                     ~ 0 10:51:09
+dsc@master: first_dir % mkdir sub1 sub2 text_file                                                                                      ~/first_dir 0 10:51:17
+dsc@master: first_dir % ls                                                                                                             ~/first_dir 0 10:51:33
+sub1/  sub2/  text_file/  text_file.txt*
+dsc@master: first_dir % cp text_file.txt sub1                                                                                          ~/first_dir 0 10:51:42
+dsc@master: first_dir % cd sub1                                                                                                        ~/first_dir 0 10:51:56
+dsc@master: sub1 % ls                                                                                                             ~/first_dir/sub1 0 10:52:02
+text_file.txt*
+dsc@master: sub1 % cd ..                                                                                                          ~/first_dir/sub1 0 10:52:03
+dsc@master: first_dir % cp text_file.txt sub2                                                                                          ~/first_dir 0 10:52:09
+dsc@master: first_dir % cd sub2                                                                                                        ~/first_dir 0 10:52:35
+dsc@master: sub2 % ls                                                                                                             ~/first_dir/sub2 0 10:52:39
+text_file.txt*
+dsc@master: sub2 % mv text_file.txt text_file.txt.2                                                                               ~/first_dir/sub2 0 10:52:40
+dsc@master: sub2 % ls                                                                                                             ~/first_dir/sub2 0 10:53:11
+text_file.txt.2*
+dsc@master: sub2 % cd ..                                                                                                          ~/first_dir/sub2 0 10:53:12
+dsc@master: first_dir % cp sub1 sub3                                                                                                   ~/first_dir 0 10:53:46
+cp: -r not specified; omitting directory 'sub1'
+dsc@master: first_dir 1 % cp -r sub1 sub3                                                                                              ~/first_dir 0 10:55:48
+dsc@master: first_dir % ls                                                                                                             ~/first_dir 0 10:56:15
+sub1/  sub2/  sub3/  text_file/  text_file.txt*
+dsc@master: first_dir % mv first_dir/sub2/text_file.txt.2 first_dir/sub2/text_file.txt.backup                                          ~/first_dir 0 10:56:16
+mv: cannot stat 'first_dir/sub2/text_file.txt.2': No such file or directory
+dsc@master: first_dir 1 % cd sub2                                                                                                      ~/first_dir 0 10:58:41
+dsc@master: sub2 % ls                                                                                                             ~/first_dir/sub2 0 10:58:55
+text_file.txt.2*
+dsc@master: sub2 % mv text_file.txt.2 text_file.txt.backup                                                                        ~/first_dir/sub2 0 10:58:56
+dsc@master: sub2 % ls                                                                                                             ~/first_dir/sub2 0 11:11:19
+text_file.txt.backup*
+dsc@master: sub2 % cd ..                                                                                                          ~/first_dir/sub2 0 11:11:20
+dsc@master: first_dir % mv sub2/text_file.txt.backup first_dir                                                                         ~/first_dir 0 11:12:24
+dsc@master: first_dir % ls                                                                                                             ~/first_dir 0 11:12:52
+first_dir*  sub1/  sub2/  sub3/  text_file/  text_file.txt*
+dsc@master: first_dir % cd sub2                                                                                                        ~/first_dir 0 11:12:54
+dsc@master: sub2 % ls                                                                                                             ~/first_dir/sub2 0 11:13:29
+dsc@master: sub2 % cd ..                                                                                                          ~/first_dir/sub2 0 11:13:31
+dsc@master: first_dir % mv first_dir .firs_dir                                                                                         ~/first_dir 0 11:14:08
+dsc@master: first_dir % ls                                                                                                             ~/first_dir 0 11:14:32
+sub1/  sub2/  sub3/  text_file/  text_file.txt*
+dsc@master: first_dir % rm -R sub2                                                                                                     ~/first_dir 0 11:14:33
+dsc@master: first_dir % ls                                                                                                             ~/first_dir 0 11:14:44
+sub1/  sub3/  text_file/  text_file.txt*
+dsc@master: first_dir %   
