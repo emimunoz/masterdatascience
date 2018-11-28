@@ -142,3 +142,99 @@ dsc@master: shell %                                                             
 
 
 
+dsc@master: ~ % cd Data/us_dot/otp                                                                                                               ~ 0 17:52:31
+dsc@master: otp % ls -lsS1                                                                                                       ~/Data/us_dot/otp 0 17:54:24
+total 186M
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_7.zip*
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_6.zip*
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_8.zip*
+ 24M -rwxr-x--- 1 dsc dsc 24M mar 13  2018 On_Time_On_Time_Performance_2015_3.zip*
+ 24M -rwxr-x--- 1 dsc dsc 24M mar 13  2018 On_Time_On_Time_Performance_2015_5.zip*
+ 23M -rwxr-x--- 1 dsc dsc 23M mar 13  2018 On_Time_On_Time_Performance_2015_4.zip*
+ 22M -rwxr-x--- 1 dsc dsc 22M mar 13  2018 On_Time_On_Time_Performance_2015_1.zip*
+ 21M -rwxr-x--- 1 dsc dsc 21M mar 13  2018 On_Time_On_Time_Performance_2015_2.zip*
+4,0K -rw-r--r-- 1 dsc dsc 257 nov 24 13:32 three_largest_file.txt
+dsc@master: otp % ls -lsS1 | head -3                                                                                             ~/Data/us_dot/otp 0 17:55:15
+total 186M
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_7.zip*
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_6.zip*
+dsc@master: otp % ls -lsS1 | head -4                                                                                             ~/Data/us_dot/otp 0 17:55:42
+total 186M
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_7.zip*
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_6.zip*
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_8.zip*
+dsc@master: otp % ls -lsS1 | head -4 | touch 3_largest_file.txt                                                                  ~/Data/us_dot/otp 0 17:55:48
+dsc@master: otp % ls                                                                                                             ~/Data/us_dot/otp 0 17:57:16
+3_largest_file.txt                       On_Time_On_Time_Performance_2015_3.zip*  On_Time_On_Time_Performance_2015_6.zip*  three_largest_file.txt
+On_Time_On_Time_Performance_2015_1.zip*  On_Time_On_Time_Performance_2015_4.zip*  On_Time_On_Time_Performance_2015_7.zip*
+On_Time_On_Time_Performance_2015_2.zip*  On_Time_On_Time_Performance_2015_5.zip*  On_Time_On_Time_Performance_2015_8.zip*
+dsc@master: otp % less 3_largest_file.txt                                                                                        ~/Data/us_dot/otp 0 17:57:18
+dsc@master: otp % ls -lsS1 | head -4 > 3_largest_file.txt                                                                        ~/Data/us_dot/otp 0 17:57:26
+dsc@master: otp % less 3_largest_file.txt                                                                                        ~/Data/us_dot/otp 0 17:57:59
+dsc@master: otp % ls -lsS1 | head -4 | tail -3                                                                                   ~/Data/us_dot/otp 0 17:58:11
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_7.zip*
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_6.zip*
+ 25M -rwxr-x--- 1 dsc dsc 25M mar 13  2018 On_Time_On_Time_Performance_2015_8.zip*
+dsc@master: otp % ls -lsS1 | tail -3                                                                                             ~/Data/us_dot/otp 0 17:58:36
+ 21M -rwxr-x--- 1 dsc dsc 21M mar 13  2018 On_Time_On_Time_Performance_2015_2.zip*
+4,0K -rw-r--r-- 1 dsc dsc 260 nov 28 17:57 3_largest_file.txt
+4,0K -rw-r--r-- 1 dsc dsc 257 nov 24 13:32 three_largest_file.txt
+dsc@master: otp % cd                                                                                                             ~/Data/us_dot/otp 0 17:59:02
+dsc@master: ~ % history -20 > ultimos20.txt                                                                                                      ~ 0 18:00:07
+dsc@master: ~ % ls                                                                                                                               ~ 0 18:01:03
+anaconda3/  Data/      Desktop/    Downloads/  hello-word          metastore_db/  Pictures/  R/      Templates/     ultimos20.txt
+cd          derby.log  Documents/  first_dir/  masterdatascience/  Music/         Public/    Repos/  text_file.txt  Videos/
+dsc@master: ~ % less ultimos20.txt                                                                                                               ~ 0 18:01:06
+dsc@master: ~ % cat text_file.txt | head -4                                                                                                      ~ 0 18:01:15
+dsc@master: ~ % echo text_file.txt | head -4                                                                                                     ~ 0 18:02:40
+text_file.txt
+dsc@master: ~ % head -3 text_file.txt                                                                                                            ~ 0 18:02:54
+dsc@master: ~ % head-3 text_file.txt                                                                                                             ~ 0 18:03:26
+zsh: command not found: head-3
+dsc@master: ~ 127 % ls                                                                                                                           ~ 0 18:03:40
+anaconda3/  Data/      Desktop/    Downloads/  hello-word          metastore_db/  Pictures/  R/      Templates/     ultimos20.txt
+cd          derby.log  Documents/  first_dir/  masterdatascience/  Music/         Public/    Repos/  text_file.txt  Videos/
+dsc@master: ~ % less text_file.txt                                                                                                               ~ 0 18:04:16
+dsc@master: ~ % head -3 ultimos20.txt                                                                                                            ~ 0 18:04:25
+  607  cat Text_example.txt | wc
+  608  cat Text_example.txt | wc -l
+  609  wc Text_example.txt
+dsc@master: ~ % cat ultimos20.txt | head -4                                                                                                      ~ 0 18:04:36
+  607  cat Text_example.txt | wc
+  608  cat Text_example.txt | wc -l
+  609  wc Text_example.txt
+  610  cd 
+dsc@master: ~ % cat ultimos20.txt | head -n -3 | tail -n +3                                                                                      ~ 0 18:04:55
+  609  wc Text_example.txt
+  610  cd 
+  611  cd Data/opentraveldata
+  612  head -c 1K optd_aircraft.csv | wc
+  613  head -c 3K optd_aircraft.csv | wc
+  614  cd
+  615  cd Data/us_dot/otp
+  616  ls -lsS1
+  617  ls -lsS1 | head -3
+  618  ls -lsS1 | head -4
+  619  ls -lsS1 | head -4 | touch 3_largest_file.txt
+  620  ls
+  621  less 3_largest_file.txt
+  622  ls -lsS1 | head -4 > 3_largest_file.txt
+  623  less 3_largest_file.txt
+dsc@master: ~ % wc Data/opentraveldata/optd_aircraft.csv                                                                                         ~ 0 18:12:37
+  458  1068 18612 Data/opentraveldata/optd_aircraft.csv
+dsc@master: ~ % cat head -5 Data/shell/Finn.txt | wc                                                                                             ~ 0 18:13:48
+cat: invalid option -- '5'
+Try 'cat --help' for more information.
+      0       0       0
+dsc@master: ~ % cat Data/shell/Finn.txt | wc head -5                                                                                             ~ 0 18:14:59
+wc: invalid option -- '5'
+Try 'wc --help' for more information.
+dsc@master: ~ 1 % head -5 Data/shell/Finn.txt | wc -wc                                                                                           ~ 0 18:15:21
+     16     114
+dsc@master: ~ % head -5 Data/shell/Finn.txt | wc -w                                                                                              ~ 0 18:16:23
+16
+dsc@master: ~ %                                                                                                                                  ~ 0 18:16:31
+
+
+
+
