@@ -85,3 +85,60 @@ dsc@master: opentraveldata %
 
 
 
+dsc@master: ~ % cd Data/shell                                                                                                                    ~ 0 17:03:16
+dsc@master: shell % ls                                                                                                                ~/Data/shell 0 17:03:56
+Finn.txt*  first_dir/  Text_example.txt*
+dsc@master: shell % less Text_example.txt                                                                                             ~/Data/shell 0 17:04:01
+dsc@master: shell % cp -n Text_example.txt Text_example.txt.2                                                                         ~/Data/shell 0 17:04:42
+dsc@master: shell % ls                                                                                                                ~/Data/shell 0 17:04:59
+Finn.txt*  first_dir/  Text_example.txt*  Text_example.txt.2*
+dsc@master: shell % less Text_example.txt.2                                                                                           ~/Data/shell 0 17:05:03
+dsc@master: shell % less -N Text_example.txt.2                                                                                        ~/Data/shell 0 17:05:25
+dsc@master: shell % cat -n Text_example.txt>Text_example.txt.2                                                                        ~/Data/shell 0 17:06:20
+dsc@master: shell % ls                                                                                                                ~/Data/shell 0 17:07:11
+Finn.txt*  first_dir/  Text_example.txt*  Text_example.txt.2*
+dsc@master: shell % less Text_example.txt.2                                                                                           ~/Data/shell 0 17:07:13
+dsc@master: shell % cat Text_example.txt>>Text_example.txt>Text_example_double.txt                                                    ~/Data/shell 0 17:07:22
+dsc@master: shell % ls                                                                                                                ~/Data/shell 0 17:09:03
+Finn.txt*  first_dir/  Text_example_double.txt  Text_example.txt*  Text_example.txt.2*
+dsc@master: shell % less Text_example_double.txt                                                                                      ~/Data/shell 0 17:09:04
+dsc@master: shell % cat Text_example.txt >>Text_example.txt                                                                           ~/Data/shell 0 17:09:19
+cat: Text_example.txt: input file is output file
+dsc@master: shell 1 % cat Text_example.txt >>Text_example_double.txt                                                                  ~/Data/shell 0 17:11:36
+dsc@master: shell % echo Text_example_double.txt                                                                                      ~/Data/shell 0 17:11:58
+Text_example_double.txt
+dsc@master: shell % less Text_example_double.txt                                                                                      ~/Data/shell 0 17:12:07
+dsc@master: shell % echo "This file is created by KSCHOOL on`date`"                                                                   ~/Data/shell 0 17:12:16
+This file is created by KSCHOOL onmié nov 28 17:14:50 CET 2018
+dsc@master: shell % touch                                                                                                             ~/Data/shell 0 17:14:50
+touch: missing file operand
+Try 'touch --help' for more information.
+dsc@master: shell 1 % touch fecha                                                                                                     ~/Data/shell 0 17:15:14
+dsc@master: shell % ls                                                                                                                ~/Data/shell 0 17:15:23
+fecha  Finn.txt*  first_dir/  Text_example_double.txt  Text_example.txt*  Text_example.txt.2*
+dsc@master: shell % cat fecha>> "This file is created by KSCHOOL on`date`"                                                            ~/Data/shell 0 17:15:25
+dsc@master: shell % less fecha                                                                                                        ~/Data/shell 0 17:15:51
+dsc@master: shell % echo fecha                                                                                                        ~/Data/shell 0 17:15:57
+fecha
+dsc@master: shell % cat fecha>"This file is created by KSCHOOL on`date`"                                                              ~/Data/shell 0 17:16:01
+dsc@master: shell % echo fecha                                                                                                        ~/Data/shell 0 17:16:14
+fecha
+dsc@master: shell % cat fecha                                                                                                         ~/Data/shell 0 17:16:19
+dsc@master: shell % less fecha                                                                                                        ~/Data/shell 0 17:16:24
+dsc@master: shell % echo "# This file is created by KSCHOOL on: `date`">timestamp_header.txt                                          ~/Data/shell 0 17:16:29
+dsc@master: shell % ls                                                                                                                ~/Data/shell 0 17:17:32
+fecha      first_dir/               Text_example.txt*    This file is created by KSCHOOL onmié nov 28 17:15:51 CET 2018  timestamp_header.txt
+Finn.txt*  Text_example_double.txt  Text_example.txt.2*  This file is created by KSCHOOL onmié nov 28 17:16:14 CET 2018
+dsc@master: shell % rm fecha                                                                                                          ~/Data/shell 0 17:17:36
+                                                                                                                                                              
+dsc@master: shell %                                                                                                                   ~/Data/shell 0 17:17:40
+dsc@master: shell % ls                                                                                                                ~/Data/shell 0 17:17:40
+Finn.txt*                Text_example.txt*                                               This file is created by KSCHOOL onmié nov 28 17:16:14 CET 2018
+first_dir/               Text_example.txt.2*                                             timestamp_header.txt
+Text_example_double.txt  This file is created by KSCHOOL onmié nov 28 17:15:51 CET 2018
+dsc@master: shell %                                                                                                                   ~/Data/shell 0 17:17:42
+
+
+
+
+
