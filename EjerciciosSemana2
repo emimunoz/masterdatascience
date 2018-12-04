@@ -1,0 +1,1055 @@
+dsc@master: ~ % seq 1 2 10 > uniq_example.txt                                                                                                    ~ 0 16:54:59
+dsc@master: ~ % cat uniq_example.txt                                                                                                             ~ 0 16:57:08
+1
+3
+5
+7
+9
+dsc@master: ~ % seq 1 2 10 >> uniq_example.txt                                                                                                   ~ 0 16:57:14
+dsc@master: ~ % cat uniq_example.txt                                                                                                             ~ 0 16:57:32
+1
+3
+5
+7
+9
+1
+3
+5
+7
+9
+dsc@master: ~ % uniq uniq_example.txt                                                                                                            ~ 0 16:57:42
+1
+3
+5
+7
+9
+1
+3
+5
+7
+9
+dsc@master: ~ % sort uniq_example.txt|uniq                                                                                                       ~ 0 16:58:19
+1
+3
+5
+7
+9
+dsc@master: ~ % sort uniq_example.txt                                                                                                            ~ 0 16:58:51
+1
+1
+3
+3
+5
+5
+7
+7
+9
+9
+dsc@master: ~ % sort uniq_example.txt|uniq -d                                                                                                    ~ 0 16:58:58
+1
+3
+5
+7
+9
+dsc@master: ~ % sort uniq_example.txt|uniq -c                                                                                                    ~ 0 16:59:10
+      2 1
+      2 3
+      2 5
+      2 7
+      2 9
+dsc@master: ~ % sort -n uniq_example.txt                                                                                                         ~ 0 16:59:22
+1
+1
+3
+3
+5
+5
+7
+7
+9
+9
+dsc@master: ~ % sort -n -r uniq_example.txt                                                                                                      ~ 0 17:00:51
+9
+9
+7
+7
+5
+5
+3
+3
+1
+1
+dsc@master: ~ % sort -n uniq_example.txt uniq_example.txt                                                                                        ~ 0 17:01:14
+1
+1
+1
+1
+3
+3
+3
+3
+5
+5
+5
+5
+7
+7
+7
+7
+9
+9
+9
+9
+dsc@master: ~ % cat uniq_example.txt                                                                                                             ~ 0 17:01:29
+1
+3
+5
+7
+9
+1
+3
+5
+7
+9
+dsc@master: ~ % sort -n -u uniq_example.txt                                                                                                      ~ 0 17:01:41
+1
+3
+5
+7
+9
+dsc@master: ~ % cd Data/opentraveldata                                                                                                           ~ 0 17:02:04
+dsc@master: opentraveldata % sort -t "^" -k 6r optd_aircraft.csv | head                                                      ~/Data/opentraveldata 0 17:06:30
+APF^BAe^ATP Freighter^APF^2T^ZZZZ^2^T
+BTA^^Business Turbo-Prop Aircraft^BTA^2T^ZZZZ^2^T
+351^Airbus^A350-1000^350^2J^ZZZZ^2^J
+358^Airbus^A350-800^350^2J^ZZZZ^2^J
+359^Airbus^A350-900^350^2J^ZZZZ^2^J
+A58^Antonov^An-158^A58^2J^ZZZZ^2^J
+CRF^Canadair^CRJ Freighter^CRF^2J^ZZZZ^2^J
+CS1^Bombardier^CSeries CS100^CSB^2J^ZZZZ^2^J
+CS3^Bombardier^CS300^CSB^2J^ZZZZ^2^J
+H20^Hawker-Beechcraft^Hawker 200^HBA^2J^ZZZZ^2^J
+dsc@master: opentraveldata % ls                                                                                              ~/Data/opentraveldata 0 17:07:03
+opentravel.gz.tar  optd_aircraft_2.csv*  optd_aircraft.csv*  optd_airlines.csv*  optd_por_public.csv*  ref_airline_nb_of_flights.csv*
+dsc@master: opentraveldata % rm opentravel.gz.tar                                                                            ~/Data/opentraveldata 0 17:07:07
+dsc@master: opentraveldata % rm optd_aircraft_2.csv                                                                          ~/Data/opentraveldata 0 17:07:13
+dsc@master: opentraveldata % ls                                                                                              ~/Data/opentraveldata 0 17:07:19
+optd_aircraft.csv*  optd_airlines.csv*  optd_por_public.csv*  ref_airline_nb_of_flights.csv*
+dsc@master: opentraveldata % sort -t "^" -k 6r,6 optd_aircraft.csv | head                                                    ~/Data/opentraveldata 0 17:07:21
+351^Airbus^A350-1000^350^2J^ZZZZ^2^J
+358^Airbus^A350-800^350^2J^ZZZZ^2^J
+359^Airbus^A350-900^350^2J^ZZZZ^2^J
+A58^Antonov^An-158^A58^2J^ZZZZ^2^J
+APF^BAe^ATP Freighter^APF^2T^ZZZZ^2^T
+BTA^^Business Turbo-Prop Aircraft^BTA^2T^ZZZZ^2^T
+CRF^Canadair^CRJ Freighter^CRF^2J^ZZZZ^2^J
+CS1^Bombardier^CSeries CS100^CSB^2J^ZZZZ^2^J
+CS3^Bombardier^CS300^CSB^2J^ZZZZ^2^J
+H20^Hawker-Beechcraft^Hawker 200^HBA^2J^ZZZZ^2^J
+dsc@master: opentraveldata % cat optd_aircraft.csv | head                                                                    ~/Data/opentraveldata 0 17:08:20
+iata_code^manufacturer^model^iata_group^iata_category^icao_code^nb_engines^aircraft_type
+100^Fokker^100^100^2J^F100^2^J
+141^BAe^146-100^146^4J^B461^4^J
+142^BAe^BAE Systems 146-200 Passenger^146^4J^B462^4^J
+143^BAe^146-300^146^4J^B463^4^J
+146^BAe^146^^^^^
+14F^BAe^146 Freighter (-100/200/300QT & QC)^^^^^
+14X^BAe^146 Freighter (-100QT & QC)^14F^4J^B461^4^J
+14Y^BAe^146 Freighter (-200QT & QC)^14F^4J^B462^4^J
+14Z^BAe^146 Freighter (-300QT & QC)^14F^4J^B463^4^J
+dsc@master: opentraveldata % sort -t "^" -k 1,1 -u optd_aircraft.csv | head                                                  ~/Data/opentraveldata 0 17:09:53
+100^Fokker^100^100^2J^F100^2^J
+141^BAe^146-100^146^4J^B461^4^J
+142^BAe^BAE Systems 146-200 Passenger^146^4J^B462^4^J
+143^BAe^146-300^146^4J^B463^4^J
+146^BAe^146^^^^^
+14F^BAe^146 Freighter (-100/200/300QT & QC)^^^^^
+14X^BAe^146 Freighter (-100QT & QC)^14F^4J^B461^4^J
+14Y^BAe^146 Freighter (-200QT & QC)^14F^4J^B462^4^J
+14Z^BAe^146 Freighter (-300QT & QC)^14F^4J^B463^4^J
+19D^Airbus^A319^^^^^
+dsc@master: opentraveldata % man sort                                                                                        ~/Data/opentraveldata 0 17:11:14
+dsc@master: opentraveldata %                                                                                                 ~/Data/opentraveldata 0 17:15:12
+dsc@master: opentraveldata %                                                                                                 ~/Data/opentraveldata 0 17:15:12
+dsc@master: opentraveldata % cd                                                                                              ~/Data/opentraveldata 0 17:15:12
+dsc@master: ~ % find -type f -size +10MB -exec ls                                                                                                ~ 0 17:35:45
+find: invalid -size type `B'
+dsc@master: ~ 1 % find -type f -size +10 -exec ls                                                                                                ~ 0 17:36:59
+find: missing argument to `-exec'
+Try 'find --help' for more information.
+dsc@master: ~ 1 % find -type f -size +10 -exec ls {}                                                                                             ~ 0 17:37:05
+find: missing argument to `-exec'
+Try 'find --help' for more information.
+dsc@master: ~ 1 % find -type f -size +10 -exec ls -s {}                                                                                          ~ 0 17:40:38
+find: missing argument to `-exec'
+Try 'find --help' for more information.
+dsc@master: ~ 1 % find -type f -size +10M -exec ls -s {} \;                                                                                      ~ 0 17:40:55
+471872 ./Data/challenge/searches.csv.bz2
+541968 ./Data/challenge/bookings.csv.bz2
+17768 ./Data/airline_tickets/data.tar.bz2
+53944 ./Data/airline_tickets/sales_segments.csv.gz
+20736 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_2.zip
+25124 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_8.zip
+23072 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_4.zip
+24232 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_3.zip
+25592 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_7.zip
+22524 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_1.zip
+25156 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_6.zip
+23764 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_5.zip
+16476 ./Data/us_dot/traffic/T100_SEGMENT_ALL_CARRIER_2014.zip
+37140 ./Repos/csvkit/examples/realdata/census_2000/usgeo.upl
+21720 ./Repos/csvkit/.git/objects/pack/pack-125c47cd737bb34bf3c6f1ed1c8791241ba75a7c.pack
+58148 ./anaconda3/bin/pandoc
+53216 ./anaconda3/bin/pandoc-citeproc
+58148 ./anaconda3/pkgs/pandoc-1.19.2.1-hea2e7c5_1/bin/pandoc
+53216 ./anaconda3/pkgs/pandoc-1.19.2.1-hea2e7c5_1/bin/pandoc-citeproc
+29812 ./anaconda3/pkgs/python-3.6.4-hc3d631a_1.tar.bz2
+22284 ./anaconda3/pkgs/python-3.6.4-hc3d631a_1/lib/libpython3.6m.a
+37136 ./anaconda3/pkgs/qt-5.6.2-h974d657_12/lib/libQt5WebKit.so.5.6.2
+15060 ./anaconda3/pkgs/llvmlite-0.21.0-py36ha241eea_0.tar.bz2
+189092 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4.tar.bz2
+36892 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_mc.so
+10936 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_vml_mc3.so
+38296 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_mc3.so
+10324 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_intel_lp64.so
+22496 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_gnu_thread.so
+41552 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_avx.so
+18404 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_sequential.so
+10664 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_vml_mc2.so
+63860 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_avx512.so
+21736 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_tbb_thread.so
+35608 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_pgi_thread.so
+72644 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_avx512_mic.so
+11632 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_vml_avx512.so
+13372 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_vml_avx512_mic.so
+51656 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_ao_worker.so
+31168 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_def.so
+10268 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_gf_lp64.so
+34224 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_core.so
+12640 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_vml_avx2.so
+10656 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_vml_mc.so
+52700 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_avx2.so
+12800 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_vml_avx.so
+36360 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_intel_thread.so
+23564 ./anaconda3/pkgs/scikit-image-0.13.1-py36h14c3975_1.tar.bz2
+37124 ./anaconda3/pkgs/qt-5.6.2-hd25b39d_14/lib/libQt5WebKit.so.5.6.2
+53352 ./anaconda3/pkgs/llvmlite-0.21.0-py36ha241eea_0/lib/python3.6/site-packages/llvmlite/binding/libllvmlite.so
+18264 ./anaconda3/pkgs/scipy-1.0.0-py36hbf646e7_0.tar.bz2
+25600 ./anaconda3/pkgs/icu-58.2-h9c2bf20_1/lib/libicudata.a
+25604 ./anaconda3/pkgs/icu-58.2-h9c2bf20_1/lib/libicudata.so.58.2
+53352 ./anaconda3/pkgs/llvmlite-0.22.0-py36ha27ea49_0/lib/python3.6/site-packages/llvmlite/binding/libllvmlite.so
+45536 ./anaconda3/pkgs/qt-5.6.2-hd25b39d_14.tar.bz2
+10904 ./anaconda3/pkgs/pandas-0.22.0-py36hf484d3e_0.tar.bz2
+45536 ./anaconda3/pkgs/qt-5.6.2-h974d657_12.tar.bz2
+15064 ./anaconda3/pkgs/llvmlite-0.22.0-py36ha27ea49_0.tar.bz2
+18276 ./anaconda3/pkgs/pandoc-1.19.2.1-hea2e7c5_1.tar.bz2
+23064 ./anaconda3/pkgs/icu-58.2-h9c2bf20_1.tar.bz2
+36892 ./anaconda3/lib/libmkl_mc.so
+10936 ./anaconda3/lib/libmkl_vml_mc3.so
+38296 ./anaconda3/lib/libmkl_mc3.so
+53352 ./anaconda3/lib/python3.6/site-packages/llvmlite/binding/libllvmlite.so
+10324 ./anaconda3/lib/libmkl_intel_lp64.so
+22496 ./anaconda3/lib/libmkl_gnu_thread.so
+41552 ./anaconda3/lib/libmkl_avx.so
+18404 ./anaconda3/lib/libmkl_sequential.so
+25600 ./anaconda3/lib/libicudata.a
+10664 ./anaconda3/lib/libmkl_vml_mc2.so
+63860 ./anaconda3/lib/libmkl_avx512.so
+21736 ./anaconda3/lib/libmkl_tbb_thread.so
+35608 ./anaconda3/lib/libmkl_pgi_thread.so
+72644 ./anaconda3/lib/libmkl_avx512_mic.so
+11632 ./anaconda3/lib/libmkl_vml_avx512.so
+25604 ./anaconda3/lib/libicudata.so.58.2
+13372 ./anaconda3/lib/libmkl_vml_avx512_mic.so
+51656 ./anaconda3/lib/libmkl_ao_worker.so
+31168 ./anaconda3/lib/libmkl_def.so
+10268 ./anaconda3/lib/libmkl_gf_lp64.so
+37124 ./anaconda3/lib/libQt5WebKit.so.5.6.2
+22284 ./anaconda3/lib/libpython3.6m.a
+34224 ./anaconda3/lib/libmkl_core.so
+12640 ./anaconda3/lib/libmkl_vml_avx2.so
+10656 ./anaconda3/lib/libmkl_vml_mc.so
+52700 ./anaconda3/lib/libmkl_avx2.so
+12800 ./anaconda3/lib/libmkl_vml_avx.so
+36360 ./anaconda3/lib/libmkl_intel_thread.so
+dsc@master: ~ % find -type f -size +10M -exec ls -s {} \; | head                                                                                 ~ 0 17:42:10
+471872 ./Data/challenge/searches.csv.bz2
+541968 ./Data/challenge/bookings.csv.bz2
+17768 ./Data/airline_tickets/data.tar.bz2
+53944 ./Data/airline_tickets/sales_segments.csv.gz
+20736 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_2.zip
+25124 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_8.zip
+23072 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_4.zip
+24232 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_3.zip
+25592 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_7.zip
+22524 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_1.zip
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+dsc@master: ~ % find -type f -size +10M -exec ls -s {} \; | sort -nr | head                                                                      ~ 0 17:42:23
+541968 ./Data/challenge/bookings.csv.bz2
+471872 ./Data/challenge/searches.csv.bz2
+189092 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4.tar.bz2
+72644 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_avx512_mic.so
+72644 ./anaconda3/lib/libmkl_avx512_mic.so
+63860 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_avx512.so
+63860 ./anaconda3/lib/libmkl_avx512.so
+58148 ./anaconda3/pkgs/pandoc-1.19.2.1-hea2e7c5_1/bin/pandoc
+58148 ./anaconda3/bin/pandoc
+53944 ./Data/airline_tickets/sales_segments.csv.gz
+dsc@master: ~ % find -type f -size +10M -exec ls -s {} \; | head                                                                                 ~ 0 17:42:58
+471872 ./Data/challenge/searches.csv.bz2
+541968 ./Data/challenge/bookings.csv.bz2
+17768 ./Data/airline_tickets/data.tar.bz2
+53944 ./Data/airline_tickets/sales_segments.csv.gz
+20736 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_2.zip
+25124 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_8.zip
+23072 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_4.zip
+24232 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_3.zip
+25592 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_7.zip
+22524 ./Data/us_dot/otp/On_Time_On_Time_Performance_2015_1.zip
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+find: ‘ls’ terminated by signal 13
+dsc@master: ~ % find -type f -size +10M -exec ls -s {} \; | sort -nr | head                                                                      ~ 0 17:43:07
+541968 ./Data/challenge/bookings.csv.bz2
+471872 ./Data/challenge/searches.csv.bz2
+189092 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4.tar.bz2
+72644 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_avx512_mic.so
+72644 ./anaconda3/lib/libmkl_avx512_mic.so
+63860 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_avx512.so
+63860 ./anaconda3/lib/libmkl_avx512.so
+58148 ./anaconda3/pkgs/pandoc-1.19.2.1-hea2e7c5_1/bin/pandoc
+58148 ./anaconda3/bin/pandoc
+53944 ./Data/airline_tickets/sales_segments.csv.gz
+dsc@master: ~ % find -type f -size +10M -exec ls -s {} \; | sort -n | head                                                                       ~ 0 17:43:11
+10268 ./anaconda3/lib/libmkl_gf_lp64.so
+10268 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_gf_lp64.so
+10324 ./anaconda3/lib/libmkl_intel_lp64.so
+10324 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_intel_lp64.so
+10656 ./anaconda3/lib/libmkl_vml_mc.so
+10656 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_vml_mc.so
+10664 ./anaconda3/lib/libmkl_vml_mc2.so
+10664 ./anaconda3/pkgs/mkl-2018.0.1-h19d6760_4/lib/libmkl_vml_mc2.so
+10904 ./anaconda3/pkgs/pandas-0.22.0-py36hf484d3e_0.tar.bz2
+10936 ./anaconda3/lib/libmkl_vml_mc3.so
+dsc@master: ~ % ls                                                                                                                               ~ 0 17:44:15
+anaconda3/             d          Desktop/    first_dir/          metastore_db/  Public/  Templates/     uniq_example.txt
+cd                     Data/      Documents/  hello-word          Music/         R/       text_file.txt  Videos/
+colum_name_number.sh*  derby.log  Downloads/  masterdatascience/  Pictures/      Repos/   ultimos20.txt
+dsc@master: ~ % rm hello-word                                                                                                                    ~ 0 17:46:59
+dsc@master: ~ % rm ultimos20.txt                                                                                                                 ~ 0 17:47:11
+dsc@master: ~ % rm uniq_example.txt                                                                                                              ~ 0 17:47:19
+dsc@master: ~ % cat cd                                                                                                                           ~ 0 17:47:25
+dsc@master: ~ % less cd                                                                                                                          ~ 0 17:47:35
+dsc@master: ~ % ls                                                                                                                               ~ 0 17:47:43
+anaconda3/  colum_name_number.sh*  Data/      Desktop/    Downloads/  masterdatascience/  Music/     Public/  Repos/      text_file.txt
+cd          d                      derby.log  Documents/  first_dir/  metastore_db/       Pictures/  R/       Templates/  Videos/
+dsc@master: ~ % rm first_dir                                                                                                                     ~ 0 17:47:48
+rm: cannot remove 'first_dir': Is a directory
+dsc@master: ~ 1 % rm -R first_dir                                                                                                                ~ 0 17:47:59
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/2f/acf76fc50fb11431637104ae7352475ca6500b'? n
+rm: cannot remove 'first_dir/masterdatascience/.git/objects/2f': Directory not empty
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/c0/9d1d9d3574d4333d055ce3a7f61b2c09d66d0e'? ^C
+dsc@master: ~ 130 % cd first_dir                                                                                                                 ~ 0 17:48:22
+dsc@master: first_dir % ls                                                                                                             ~/first_dir 0 17:48:29
+masterdatascience/  sub3/  text_file.txt*
+dsc@master: first_dir % cd                                                                                                             ~/first_dir 0 17:48:30
+dsc@master: ~ % rm -R first_dir                                                                                                                  ~ 0 17:48:37
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/2f/acf76fc50fb11431637104ae7352475ca6500b'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/c0/9d1d9d3574d4333d055ce3a7f61b2c09d66d0e'? Y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/bb/6526811af5580beb53c0402f16dae231299394'? yes
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/52/1969aa4f6d9286af014ad83f4631540c454de5'? 
+rm: cannot remove 'first_dir/masterdatascience/.git/objects/52': Directory not empty
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/87/a76869145602c20d0ba808b6b9309bdc3833b6'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/34/b82eeb2942fd094a4cdb25bf311c1f6ef5f270'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/b4/889f43daff4aec34619855186022b2012cbc3f'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/82/3ae399ec34c081df56061c50145c5d71ac1f50'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/cb/bf4c274f7f3763792034b63d1f5fc218ea2e68'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/b7/67d16a1645ad2176d5a2aa493688e5b55f67c1'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/8b/137891791fe96927ad78e64b0aad7bded08bdc'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/48/af48acf9745e8ddb11f4dbede8a8326c5729db'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/48/75853be3ef5178e336b0d93b67ed02f4e9fccf'? y
+rm: remove write-protected regular file 'first_dir/masterdatascience/.git/objects/54/111ef22ca6178d51e512d5d47a61ff40a4f2a5'? ^C
+dsc@master: ~ 130 % rm -Rf first_dir                                                                                                             ~ 0 17:49:21
+dsc@master: ~ % ls                                                                                                                               ~ 0 17:49:29
+anaconda3/  colum_name_number.sh*  Data/      Desktop/    Downloads/          metastore_db/  Pictures/  R/      Templates/     Videos/
+cd          d                      derby.log  Documents/  masterdatascience/  Music/         Public/    Repos/  text_file.txt
+dsc@master: ~ % seq 15> 20lines.txt; seq 9 1 20 >> 20lines.txt; echo"20\n20" >> 20lines.txt;                                                     ~ 0 17:49:31
+zsh: command not found: echo20\n20
+dsc@master: ~ 127 % ls                                                                                                                           ~ 0 17:50:16
+20lines.txt  cd                     d      derby.log  Documents/  masterdatascience/  Music/     Public/  Repos/      text_file.txt
+anaconda3/   colum_name_number.sh*  Data/  Desktop/   Downloads/  metastore_db/       Pictures/  R/       Templates/  Videos/
+dsc@master: ~ % cat 20lines.txt                                                                                                                  ~ 0 17:50:20
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+dsc@master: ~ % echo "20\n20" >> 20lines.txt                                                                                                     ~ 0 17:50:42
+dsc@master: ~ % cat 20lines.txt                                                                                                                  ~ 0 17:51:46
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+20
+20
+dsc@master: ~ % sort 20lines.txt                                                                                                                 ~ 0 17:51:50
+1
+10
+10
+11
+11
+12
+12
+13
+13
+14
+14
+15
+15
+16
+17
+18
+19
+2
+20
+20
+20
+3
+4
+5
+6
+7
+8
+9
+9
+dsc@master: ~ % sort -nu 20lines.txt                                                                                                             ~ 0 17:53:57
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+dsc@master: ~ % uniq -d 20lines.txt                                                                                                              ~ 0 17:54:27
+20
+dsc@master: ~ % sort 20lines.txt| uniq -d 20lines.txt                                                                                            ~ 0 17:54:57
+20
+dsc@master: ~ % cat 20lines.txt                                                                                                                  ~ 0 17:55:36
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+20
+20
+dsc@master: ~ % sort -n 20lines.txt                                                                                                              ~ 0 17:56:01
+1
+2
+3
+4
+5
+6
+7
+8
+9
+9
+10
+10
+11
+11
+12
+12
+13
+13
+14
+14
+15
+15
+16
+17
+18
+19
+20
+20
+20
+dsc@master: ~ % sort -n 20lines.txt | uniq -d 20lines.txt                                                                                        ~ 0 17:56:25
+20
+dsc@master: ~ % sort -n 20lines.txt | uniq -d                                                                                                    ~ 0 17:56:56
+9
+10
+11
+12
+13
+14
+15
+20
+dsc@master: ~ % sort -n 20lines.txt | uniq -c                                                                                                    ~ 0 17:57:27
+      1 1
+      1 2
+      1 3
+      1 4
+      1 5
+      1 6
+      1 7
+      1 8
+      2 9
+      2 10
+      2 11
+      2 12
+      2 13
+      2 14
+      2 15
+      1 16
+      1 17
+      1 18
+      1 19
+      3 20
+dsc@master: ~ % sort -n 20lines.txt | uniq -d -c | sort -nr | head -1                                                                            ~ 0 17:58:21
+      3 20
+dsc@master: ~ % sort -n 20lines.txt | uniq -c | sort -n                                                                                          ~ 0 17:59:55
+      1 1
+      1 16
+      1 17
+      1 18
+      1 19
+      1 2
+      1 3
+      1 4
+      1 5
+      1 6
+      1 7
+      1 8
+      2 10
+      2 11
+      2 12
+      2 13
+      2 14
+      2 15
+      2 9
+      3 20
+dsc@master: ~ % seq 0 2 40 > 20lines2.txt                                                                                                        ~ 0 18:55:54
+dsc@master: ~ % cat 20lines2.txt                                                                                                                 ~ 0 18:57:32
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+22
+24
+26
+28
+30
+32
+34
+36
+38
+40
+dsc@master: ~ % sort -n 20lines.txt 20lines2.txt                                                                                                 ~ 0 18:57:38
+0
+1
+2
+2
+3
+4
+4
+5
+6
+6
+7
+8
+8
+9
+9
+10
+10
+10
+11
+11
+12
+12
+12
+13
+13
+14
+14
+14
+15
+15
+16
+16
+17
+18
+18
+19
+20
+20
+20
+20
+22
+24
+26
+28
+30
+32
+34
+36
+38
+40
+dsc@master: ~ % sort -nu 20lines.txt 20lines2.txt |                                                                                              ~ 0 19:02:45
+dsc@master ~ >                                                                                                                                   [pipe] 19:03
+dsc@master: ~ 1 % sort -nu 20lines.txt 20lines2.txt                                                                                              ~ 0 19:03:20
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+22
+24
+26
+28
+30
+32
+34
+36
+38
+40
+dsc@master: ~ % sort -nu 20lines.txt 20lines2.txt > 40lines.txt                                                                                  ~ 0 19:03:25
+dsc@master: ~ % cat 40lines.txt                                                                                                                  ~ 0 19:03:55
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+22
+24
+26
+28
+30
+32
+34
+36
+38
+40
+dsc@master: ~ % sort -nu 20lines.txt 20lines2.txt | uniq -c                                                                                      ~ 0 19:03:59
+      1 0
+      1 1
+      1 2
+      1 3
+      1 4
+      1 5
+      1 6
+      1 7
+      1 8
+      1 9
+      1 10
+      1 11
+      1 12
+      1 13
+      1 14
+      1 15
+      1 16
+      1 17
+      1 18
+      1 19
+      1 20
+      1 22
+      1 24
+      1 26
+      1 28
+      1 30
+      1 32
+      1 34
+      1 36
+      1 38
+      1 40
+dsc@master: ~ % sort -n 20lines.txt 20lines2.txt | uniq -c                                                                                       ~ 0 19:05:15
+      1 0
+      1 1
+      2 2
+      1 3
+      2 4
+      1 5
+      2 6
+      1 7
+      2 8
+      2 9
+      3 10
+      2 11
+      3 12
+      2 13
+      3 14
+      2 15
+      2 16
+      1 17
+      2 18
+      1 19
+      4 20
+      1 22
+      1 24
+      1 26
+      1 28
+      1 30
+      1 32
+      1 34
+      1 36
+      1 38
+      1 40
+dsc@master: ~ % sort -n 20lines.txt 20lines2.txt | uniq -c | sort -nr                                                                            ~ 0 19:05:28
+      4 20
+      3 14
+      3 12
+      3 10
+      2 9
+      2 8
+      2 6
+      2 4
+      2 2
+      2 18
+      2 16
+      2 15
+      2 13
+      2 11
+      1 7
+      1 5
+      1 40
+      1 38
+      1 36
+      1 34
+      1 32
+      1 30
+      1 3
+      1 28
+      1 26
+      1 24
+      1 22
+      1 19
+      1 17
+      1 1
+      1 0
+dsc@master: ~ % sort -n 20lines.txt 20lines2.txt | uniq -c | sort -k 2n,2                                                                        ~ 0 19:05:41
+      1 0
+      1 1
+      2 2
+      1 3
+      2 4
+      1 5
+      2 6
+      1 7
+      2 8
+      2 9
+      3 10
+      2 11
+      3 12
+      2 13
+      3 14
+      2 15
+      2 16
+      1 17
+      2 18
+      1 19
+      4 20
+      1 22
+      1 24
+      1 26
+      1 28
+      1 30
+      1 32
+      1 34
+      1 36
+      1 38
+      1 40
+dsc@master: ~ % cd Data/opentraveldata                                                                                                           ~ 0 19:06:42
+dsc@master: opentraveldata % cat optd_aircraft.csv | head                                                                    ~/Data/opentraveldata 0 19:07:33
+iata_code^manufacturer^model^iata_group^iata_category^icao_code^nb_engines^aircraft_type
+100^Fokker^100^100^2J^F100^2^J
+141^BAe^146-100^146^4J^B461^4^J
+142^BAe^BAE Systems 146-200 Passenger^146^4J^B462^4^J
+143^BAe^146-300^146^4J^B463^4^J
+146^BAe^146^^^^^
+14F^BAe^146 Freighter (-100/200/300QT & QC)^^^^^
+14X^BAe^146 Freighter (-100QT & QC)^14F^4J^B461^4^J
+14Y^BAe^146 Freighter (-200QT & QC)^14F^4J^B462^4^J
+14Z^BAe^146 Freighter (-300QT & QC)^14F^4J^B463^4^J
+dsc@master: opentraveldata % sort -t "^" -k 7nr,7 optd_aircraft.csv | head -1                                                ~/Data/opentraveldata 0 19:07:53
+A5F^Antonov^An-225^A5F^6J^A225^6^J
+dsc@master: opentraveldata % sort -t "^" -k 7nr,7 optd_aircraft.csv | head -0                                                ~/Data/opentraveldata 0 19:08:59
+dsc@master: opentraveldata % sort -t "^" -k 7nr,7 optd_aircraft.csv | head -2                                                ~/Data/opentraveldata 0 19:09:13
+A5F^Antonov^An-225^A5F^6J^A225^6^J
+141^BAe^146-100^146^4J^B461^4^J
+dsc@master: opentraveldata %    
+
+
+
+
+
+
