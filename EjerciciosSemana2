@@ -1053,3 +1053,3797 @@ dsc@master: opentraveldata %
 
 
 
+⌂76% dsc@master: ~ % cd Data/opentraveldata                                                                                                      ~ 0 16:14:49
+dsc@master: opentraveldata % cut -d "^" -f 1-3,5 optd_aircraft.csv | head                                                    ~/Data/opentraveldata 0 16:15:39
+iata_code^manufacturer^model^iata_category
+100^Fokker^100^2J
+141^BAe^146-100^4J
+142^BAe^BAE Systems 146-200 Passenger^4J
+143^BAe^146-300^4J
+146^BAe^146^
+14F^BAe^146 Freighter (-100/200/300QT & QC)^
+14X^BAe^146 Freighter (-100QT & QC)^4J
+14Y^BAe^146 Freighter (-200QT & QC)^4J
+14Z^BAe^146 Freighter (-300QT & QC)^4J
+dsc@master: opentraveldata % cut -d "^" -f 1,5 optd_aircraft.csv | head                                                      ~/Data/opentraveldata 0 16:16:07
+iata_code^iata_category
+100^2J
+141^4J
+142^4J
+143^4J
+146^
+14F^
+14X^4J
+14Y^4J
+14Z^4J
+dsc@master: opentraveldata % cut -d "^" -f 1,5 --output-delimiter "." optd_aircraft.csv | head                               ~/Data/opentraveldata 0 16:16:22
+iata_code.iata_category
+100.2J
+141.4J
+142.4J
+143.4J
+146.
+14F.
+14X.4J
+14Y.4J
+14Z.4J
+dsc@master: opentraveldata % seq 10 | paste                                                                                  ~/Data/opentraveldata 0 16:23:44
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+dsc@master: opentraveldata % seq 10 | paste -s                                                                               ~/Data/opentraveldata 0 16:24:58
+1	2	3	4	5	6	7	8	9	10
+dsc@master: opentraveldata % seq 10 | paste - - -                                                                            ~/Data/opentraveldata 0 16:25:09
+1	2	3
+4	5	6
+7	8	9
+10		
+dsc@master: opentraveldata % cd                                                                                              ~/Data/opentraveldata 0 16:25:30
+dsc@master: ~ % ls                                                                                                                               ~ 0 16:26:13
+20lines2.txt  40lines.txt  cd                     d      derby.log  Documents/  masterdatascience/  Music/     Public/  Repos/      text_file.txt
+20lines.txt   anaconda3/   colum_name_number.sh*  Data/  Desktop/   Downloads/  metastore_db/       Pictures/  R/       Templates/  Videos/
+dsc@master: ~ % cat 20lines2.txt                                                                                                                 ~ 0 16:26:14
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+22
+24
+26
+28
+30
+32
+34
+36
+38
+40
+dsc@master: ~ % paste 20lines2.txt 20lines2.txt                                                                                                  ~ 0 16:26:27
+0	0
+2	2
+4	4
+6	6
+8	8
+10	10
+12	12
+14	14
+16	16
+18	18
+20	20
+22	22
+24	24
+26	26
+28	28
+30	30
+32	32
+34	34
+36	36
+38	38
+40	40
+dsc@master: ~ % paste 20lines2.txt 20lines2.txt                                                                                                  ~ 0 16:26:40
+0	0
+2	2
+4	4
+6	6
+8	8
+10	10
+12	12
+14	14
+16	16
+18	18
+20	20
+22	22
+24	24
+26	26
+28	28
+30	30
+32	32
+34	34
+36	36
+38	38
+40	40
+dsc@master: ~ % seq 1 10 > num; paste num 20lines2.txt                                                                                           ~ 0 16:26:50
+1	0
+2	2
+3	4
+4	6
+5	8
+6	10
+7	12
+8	14
+9	16
+10	18
+	20
+	22
+	24
+	26
+	28
+	30
+	32
+	34
+	36
+	38
+	40
+dsc@master: ~ % paste < num 20lines2.txt                                                                                                         ~ 0 16:27:18
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+22
+24
+26
+28
+30
+32
+34
+36
+38
+40
+dsc@master: ~ % head < num 20lines2.txt                                                                                                          ~ 0 16:27:37
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+dsc@master: ~ % paste <(cat num) <(20lines2.txt)                                                                                                 ~ 0 16:28:23
+zsh: command not found: 20lines2.txt
+1	
+2	
+3	
+4	
+5	
+6	
+7	
+8	
+9	
+10	
+dsc@master: ~ % paste <(cat num) <(cat 20lines2.txt)                                                                                             ~ 0 16:28:56
+1	0
+2	2
+3	4
+4	6
+5	8
+6	10
+7	12
+8	14
+9	16
+10	18
+	20
+	22
+	24
+	26
+	28
+	30
+	32
+	34
+	36
+	38
+	40
+dsc@master: ~ % echo "master data science" | tr a A                                                                                              ~ 0 16:29:04
+mAster dAtA science
+dsc@master: ~ % echo "master      data    science" | tr -s                                                                                       ~ 0 16:31:06
+tr: missing operand
+Try 'tr --help' for more information.
+dsc@master: ~ 1 % echo "master      data    science" | tr -s " "                                                                                 ~ 0 16:31:44
+master data science
+dsc@master: ~ % echo "master      data    science" | tr -s " " "^"                                                                               ~ 0 16:31:50
+master^data^science
+dsc@master: ~ % echo "mmaster     daaaaaaata     science" | tr -s "ma" "ma"                                                                      ~ 0 16:31:58
+master     data     science
+dsc@master: ~ % echo "mmaster     daaaaaaata     science" | tr -s "ma" "ma" -s " "                                                               ~ 0 16:36:18
+tr: extra operand ‘-s’
+Try 'tr --help' for more information.
+dsc@master: ~ 1 % echo "mmaster     daaaaaaata     science" | tr -s "ma" "ma" " "                                                                ~ 0 16:36:51
+tr: extra operand ‘ ’
+Try 'tr --help' for more information.
+dsc@master: ~ 1 % echo "mmaster     daaaaaaata     science" | tr -s "ma " "ma"                                                                   ~ 0 16:36:57
+masteradatascience
+dsc@master: ~ % echo "mmaster     daaaaaaata     science" | tr -s "ma " "ma "                                                                    ~ 0 16:37:06
+master data science
+dsc@master: ~ % echo "master data science" | tr -d sa                                                                                            ~ 0 16:37:09
+mter dt cience
+dsc@master: ~ % echo "master data science" | tr -d s                                                                                             ~ 0 16:37:43
+mater data cience
+dsc@master: ~ % echo "master data science" | tr -cd sa                                                                                           ~ 0 16:38:15
+asaas%                                                                                                                                                        dsc@master: ~ % echo "master data science" | tr -s "[:alnum:]"                                                                                   ~ 0 16:38:34
+master data science
+dsc@master: ~ % echo "maaaaaaaaaaster dataaaaaa sciiiiiiiience" | tr -s "[:alnum:]"                                                              ~ 0 16:39:24
+master data science
+dsc@master: ~ % echo "master 123 data 124 science 1" | tr -cd "[:digit:]"                                                                        ~ 0 16:39:39
+1231241%                                                                                                                                                      dsc@master: ~ % echo "master 123 data 124 science 1" | tr -cd "[:alpha:]"                                                                        ~ 0 16:40:48
+masterdatascience%                                                                                                                                            dsc@master: ~ % echo "master 123 data 124 science 1" | tr -cd "[:digit:]" | tr -s " " "\n"                                                       ~ 0 16:42:10
+1231241%                                                                                                                                                      dsc@master: ~ % echo "master 123 data 124 science 1" | tr -cd "[:digit:]"                                                                        ~ 0 16:42:37
+dsc@master: ~ % cd Data/opentraveldata                                                                                                           ~ 0 17:55:18
+dsc@master: opentraveldata % cat optd_aircraft.csv| tr "^" ","                                                               ~/Data/opentraveldata 0 18:01:20
+iata_code,manufacturer,model,iata_group,iata_category,icao_code,nb_engines,aircraft_type
+100,Fokker,100,100,2J,F100,2,J
+141,BAe,146-100,146,4J,B461,4,J
+142,BAe,BAE Systems 146-200 Passenger,146,4J,B462,4,J
+143,BAe,146-300,146,4J,B463,4,J
+146,BAe,146,,,,,
+14F,BAe,146 Freighter (-100/200/300QT & QC),,,,,
+14X,BAe,146 Freighter (-100QT & QC),14F,4J,B461,4,J
+14Y,BAe,146 Freighter (-200QT & QC),14F,4J,B462,4,J
+14Z,BAe,146 Freighter (-300QT & QC),14F,4J,B463,4,J
+19D,Airbus,A319,,,,,
+310,Airbus,A310,,,,,
+312,Airbus,A310-200,310,2J,A310,2,J
+313,Airbus,A310-300,310,2J,A310,2,J
+318,Airbus,A318,32S,2J,A318,2,J
+319,Airbus,A319,32S,2J,A319,2,J
+31F,Airbus,A310F,,,,,
+31W,Airbus,A319 (Sharklets),,,,,
+31X,Airbus,A310-200F,31F,2J,A310,2,J
+31Y,Airbus,A310-300F,31F,2J,A310,2,J
+320,Airbus,A320-100/200,32S,2J,A320,2,J
+321,Airbus,A321-100/200,32S,2J,A321,2,J
+32A,Airbus,A320 (sharklets),32S,2J,A320,2,J
+32B,Airbus,A321 (sharklets),32S,2J,A321,2,J
+32C,Airbus,A318 (sharklets),,,,,
+32D,Airbus,A319 (sharklets),,,,,
+32F,Airbus,A320 Freighter,32F,2J,A320,2,J
+32X,Airbus,A321 Freighter,32X,2J,A321,2,J
+330,Airbus,A330,,,,,
+332,Airbus,A330-200,330,2J,A332,2,J
+333,Airbus,A330-300,330,2J,A333,2,J
+33F,Airbus,A330 Freighter,,,,,
+33X,Airbus,A330-200 Freighter,33F,2J,A332,2,J
+340,Airbus,A340,,,,,
+342,Airbus,A340-200,340,4J,A342,4,J
+343,Airbus,A340-300,340,4J,A343,4,J
+345,Airbus,A340-500,340,4J,A345,4,J
+346,Airbus,A340-600,340,4J,A346,4,J
+350,Airbus,A350,,,,,
+351,Airbus,A350-1000,350,2J,ZZZZ,2,J
+358,Airbus,A350-800,350,2J,ZZZZ,2,J
+359,Airbus,A350-900,350,2J,ZZZZ,2,J
+380,Airbus,A380,,,,,
+388,Airbus,A380,380,4J,A388,4,J
+38F,Airbus,A380F,38F,4J,A388,4,J
+703,Boeing,707-300,707,4J,B703,4,J
+707,Boeing,707/720,,,,,
+70F,Boeing,707 Freighter,70F,4J,B703,4,J
+70M,Boeing,707 Combi,70M,4J,B703,4,J
+717,Boeing,717,717,2J,B712,2,J
+721,Boeing,727-100,727,3J,B721,3,J
+722,Boeing,727-200,727,3J,B722,3,J
+727,Boeing,727,,,,,
+72A,Boeing,727-200 Advanced,,,,,
+72B,Boeing,727-100 Mixed,72M,3J,B721,3,J
+72C,Boeing,727-200 Mixed,72M,3J,B722,3,J
+72F,Boeing,727 Freighter (-100/200),,,,,
+72M,Boeing,727 Combi,,,,,
+72S,Boeing,727-200 Adv.,,,,,
+72W,Boeing,727-200 (winglets),727,3J,B722,3,J
+72X,Boeing,727-100 Freighter,72F,3J,B721,3,J
+72Y,Boeing,727-200 Freighter,72F,3J,B722,3,J
+731,Boeing,737-100,737,2J,B731,2,J
+732,Boeing,737-200,737,2J,B732,2,J
+733,Boeing,737-300,737,2J,B733,2,J
+734,Boeing,737-400,737,2J,B734,2,J
+735,Boeing,737-500,737,2J,B735,2,J
+736,Boeing,737-600,737,2J,B736,2,J
+737,Boeing,737,,,,,
+738,Boeing,737-800,737,2J,B738,2,J
+739,Boeing,737-900,737,2J,B739,2,J
+73A,Boeing,737-200 Advanced,,,,,
+73C,Boeing,737-300 (winglets),737,2J,B733,2,J
+73E,Boeing,737-500 (winglets),737,2J,B735,2,J
+73F,Boeing,737 Freighter,,,,,
+73G,Boeing,737-700,737,2J,B737,2,J
+73H,Boeing,737-800 (winglets),737,2J,B738,2,J
+73J,Boeing,737-900 (winglets),737,2J,B739,2,J
+73L,Boeing,737-200 Mixed Configuration,73M,2J,B732,2,J
+73M,Boeing,737-200 Combi,,,,,
+73N,Boeing,737-300 Mixed Configuration,73M,2J,B733,2,J
+73P,Boeing,737-400 Freighter,73F,2J,B734,2,J
+73Q,Boeing,737-400 Mixed Configuration,73M,2J,B734,2,J
+73R,Boeing,737-700 Mixed Configuration,73M,2J,B737,2,J
+73S,Boeing,737-200 Advanced,73F,2J,B737,2,J
+73W,Boeing,737-700 (winglets),737,2J,B737,2,J
+73X,Boeing,737-200 Freighter,73F,2J,B732,2,J
+73Y,Boeing,737-300 Freighter,73F,2J,B733,2,J
+73Z,Boeing,737-400 Freighter,,,,,
+741,Boeing,747-100,747,4J,B741,4,J
+742,Boeing,747-200,747,4J,B742,4,J
+743,Boeing,747-300,747,4J,B743,4,J
+744,Boeing,747-400,747,4J,B744,4,J
+747,Boeing,747,,,,,
+74B,Boeing,747-400 Swingtail Freighter,74F,4J,B744,4,J
+74C,Boeing,747-200 Combi,74M,4J,B742,4,J
+74D,Boeing,747-300 Combi,74M,4J,B743,4,J
+74E,Boeing,747-400 Combi,74M,4J,B744,4,J
+74F,Boeing,747 Freighter,,,,,
+74H,Boeing,747-8i,747,4J,B748,4,J
+74J,Boeing,747-400 (Domestic),747,4J,B74D,4,J
+74L,Boeing,747SP,747,4J,B74S,4,J
+74M,Boeing,747 Combi,,,,,
+74N,Boeing,747-8F,74F,4J,B748,4,J
+74R,Boeing,747SR,747,4J,B74R,4,J
+74T,Boeing,747-100 Freighter,74F,4J,B741,4,J
+74U,Boeing,747-300 / 747-200 SUD Freighter,74F,4J,B743,4,J
+74V,Boeing,747SR Freighter,74F,4J,B74R,4,J
+74X,Boeing,747-200 Freighter,74F,4J,B742,4,J
+74Y,Boeing,747-400 Freighter,74F,4J,B744,4,J
+752,Boeing,757-200,757,2J,B752,2,J
+753,Boeing,757-300,757,2J,B753,2,J
+757,Boeing,757,,,,,
+75F,Boeing,757 Freighter,75F,2J,B752,2,J
+75M,Boeing,757 Mixed,75M,2J,B752,2,J
+75T,Boeing,757-300 (winglets),757,2J,B753,2,J
+75W,Boeing,757-200 (winglets),757,2J,B752,2,J
+762,Boeing,767-200,767,2J,B762,2,J
+763,Boeing,767-300,767,2J,B763,2,J
+764,Boeing,767-400,767,2J,B764,2,J
+767,Boeing,767,,,,,
+76F,Boeing,767 Freighter,,,,,
+76V,Boeing,767-300 (winglets) Freighter,76F,2J,B763,2,J
+76W,Boeing,767-300 (winglets),767,2J,B763,2,J
+76X,Boeing,767-200 Freighter,76F,2J,B762,2,J
+76Y,Boeing,767-300 Freighter,76F,2J,B763,2,J
+772,Boeing,777-200,777,2J,B77L,2,J
+773,Boeing,777-300,777,2J,B773,2,J
+777,Boeing,777,,,,,
+77F,Boeing,777 Freighter,,,,,
+77L,Boeing,777-200LR,777,2J,B772,2,J
+77W,Boeing,777-300ER,777,2J,B77W,2,J
+77X,Boeing,777-200F Freighter,77F,2J,B772,2,J
+783,Boeing,787-3,787,2J,B783,2,J
+787,Boeing,787,,,,,
+788,Boeing,787-8,787,2J,B788,2,J
+789,Boeing,787-9,787,2J,B789,2,J
+A22,Antonov,An-22,A22,4T,AN22,4,T
+A26,Antonow / Antonov,An-26,AN6,2T,AN26,2,T
+A28,Antonow / Antonov,An-28 / PZL Mielec M-28,A28,2T,AN28,2,T
+A30,Antonow / Antonov,An-30,AN6,2T,AN30,2,T
+A32,Antonow / Antonov,An-32,AN6,2T,AN32,2,T
+A38,Antonov,An-38,A38,2T,AN38,2,T
+A40,Antonow / Antonov,An-140,A40,2T,A140,2,T
+A4F,Antonow / Antonov,An-124,A4F,4J,A124,4,J
+A58,Antonov,An-158,A58,2J,ZZZZ,2,J
+A5F,Antonov,An-225,A5F,6J,A225,6,J
+A81,Antonov,An-148-100,A81,2J,A148,2,J
+AB2,Airbus,A300B2,,,,,
+AB3,Airbus,A300,,,,,
+AB4,Airbus,A300B2/B4/C4,AB3,2J,A30B,2,J
+AB6,Airbus,A300-600,AB3,2J,A306,2,J
+ABB,Airbus,A300-600ST Beluga,ABF,2J,A3ST,2,J
+ABF,Airbus,A300F,,,,,
+ABM,Airbus,A300-600 Mixed Configuration,,,,,
+ABX,Airbus,A300C4/F4 Freighter,ABF,2J,A30B,2,J
+ABY,Airbus,A300-600F,ABF,2J,A306,2,J
+ACD,Rockwell,Commander/Turbo Commander,,,,,
+ACP,Rockwell,Commander,ACD,2P,*,2,P
+ACT,Rockwell,Turbo Commander,ACD,2T,*,2,T
+AGH,Agusta / AgustaWestland,A-109,AGH,H,A109,,H
+ALM,Ayres,LM-200 Loadmaster,,,,,
+AMD,Dassault,FALCON 10 / 20 / 50,,,,,
+AN2,Antonov,An-2,,,,,
+AN4,Antonow / Antonov,An-24,AN4,2T,AN24,2,T
+AN6,Antonow / Antonov,An-26 / An-30 / An-32,,,,,
+AN7,Antonow / Antonov,An-72 / An-74,AN7,2J,AN72,2,J
+ANF,Antonow / Antonov,An-12,ANF,4T,AN12,4,T
+APF,BAe,ATP Freighter,APF,2T,ZZZZ,2,T
+APH,Eurocopter,SA330 Puma / AS332 Super Puma,APH,H,*,,H
+AR1,BAe,Avro RJ100,ARJ,4J,RJ1H,4,J
+AR7,BAe,Avro RJ70,ARJ,4J,RJ70,4,J
+AR8,BAe,Avro RJ85,ARJ,4J,RJ85,4,J
+ARJ,BAe,Avro RJ70 / RJ85 / RJ100,,,,,
+AT4,ATR,ATR 42-300 / 320,ATR,2T,AT43,2,T
+AT5,ATR,ATR 42-500,ATR,2T,AT45,2,T
+AT7,ATR,ATR 72,ATR,2T,AT72,2,T
+ATD,ATR,ATR 42-400,ATR,2T,AT44,2,T
+ATF,ATR,ATR 72 Freighter,ATF,2T,AT72,2,T
+ATP,BAe,ATP,ATP,2T,ATP,2,T
+ATR,ATR,ATR 42 / ATR 72,,,,,
+ATZ,ATR,ATR 42 Freighter,ATZ,2T,*,2,T
+AWH,AgustaWestland,AW139,AWH,2T,A139,2,T
+B11,BAC,One Eleven,,,,,
+B12,BAC,One Eleven 200,B11,2J,BA11,2,J
+B13,BAC,One Eleven 300,B11,2J,BA11,2,J
+B14,BAC,One Eleven 400/47,B11,2J,BA11,2,J
+B15,BAC,One Eleven 500,B11,2J,BA11,2,J
+B72,Boeing,720B,707,4J,B720,4,J
+BE1,Beechcraft,1900/1900C/1900D,,,,,
+BE2,Beechcraft,Beech twin piston,BEC,2P,*,2,P
+BE4,Beechcraft,Beechcraft 400,HBA,2J,BE40,2,J
+BE9,Beechcraft,Beechcraft C99,BE9,2T,BE99,2,T
+BEC,Beechcraft,Beech light aircraft,,,,,
+BEF,Beechcraft,Beechcraft 1900 Freighter,BEF,2T,B190,2,T
+BEH,Beechcraft,1900D,BE1,2T,B190,2,T
+BEP,Beechcraft,Beech singe piston,BEC,1P,*,1,P
+BES,Beechcraft,1900/1900C,BE1,2T,B190,2,T
+BET,Beechcraft,Beech twin turboprop,BEC,2T,*,2,T
+BH2,Bell Helicopter,Bell Helicopters,BH2,H,*,,H
+BNI,Britten Norman,BN-2A/B Islander,BNI,2P,BN2P,2,P
+BNT,Britten Norman,BN-2A Mk III Trislander,BNT,3P,TRIS,3,P
+BTA,,Business Turbo-Prop Aircraft,BTA,2T,ZZZZ,2,T
+BUS,Surface Equipment,Bus,BUS,S,0000,,S
+C27,Comac,ARJ21-700,C21,2J,AJ27,2,J
+C9B,Canadair,CRJ 900NG,,,,,
+CCJ,Canadair,Challenger,CCJ,2J,CL60,2,J
+CCX,Bombardier,Global Express,CCX,2J,GLEX,2,J
+CD2,GAF,N22B / N24A Nomad,CD2,2T,NOMA,2,T
+CJ1,Cessna,500/501/525 Citation,CNJ,2J,*,2,J
+CJ2,Cessna,550/551/552 Citation,CNJ,2J,*,2,J
+CJ5,Cessna,560 Citation,CNJ,2J,*,2,J
+CJ6,Cessna,650 Citation,CNJ,2J,*,2,J
+CJ8,Cessna,680 Citation,CNJ,2J,*,2,J
+CJL,Cessna,560 XL/XLS Citation,CNJ,2J,*,2,J
+CJM,Cessna,510 Mustang Citation,CNJ,2J,C510,2,J
+CL3,Bombardier,Challenger 300,CL3,2J,CL30,2,J
+CL4,Canadair,CL-44,,,,,
+CN1,Cessna,Cessna single piston engine,CNA,1P,*,1,P
+CN2,Cessna,Cessna twin piston engines,CNA,2P,*,2,P
+CN7,Cessna,750 Citation X,CN7,2J,C750,2,J
+CNA,Cessna,Cessna light aircraft,,,,,
+CNC,Cessna,Cessna single turboprop engine,CNA,1T,*,1,T
+CNF,Cessna,208B Freighter,CNF,2T,*,2,T
+CNJ,Cessna,Citation,CNJ,2J,*,2,J
+CNT,Cessna,Cessna twin turboprop engines,CNA,2T,*,2,T
+CR1,Canadair,CRJ 100,CRJ,2J,CRJ1,2,J
+CR2,Canadair,CRJ 200,CRJ,2J,CRJ2,2,J
+CR7,Canadair,CRJ 700,CRJ,2J,CRJ7,2,J
+CR9,Canadair,CRJ 900,CRJ,2J,CRJ9,2,J
+CRA,Canadair,CRJ 705,CRJ,2J,CRJ9,2,J
+CRF,Canadair,CRJ Freighter,CRF,2J,ZZZZ,2,J
+CRJ,Canadair,CRJ,,,,,
+CRK,Canadair,CRJ 1000,CRJ,2J,CRJX,2,J
+CRV,Sud-Est,SE.210 Caravelle,,,,,
+CS1,Bombardier,CSeries CS100,CSB,2J,ZZZZ,2,J
+CS2,CASA,212 Aviocar,CS2,2T,C212,2,T
+CS3,Bombardier,CS300,CSB,2J,ZZZZ,2,J
+CS5,Airtech,CN-235,CS5,2T,CN35,2,T
+CV2,Convair,CV-240,CVR,2P,CVLP,2,P
+CV4,Convair,CV-440 Metropolitan,CVR,2P,CVLP,2,P
+CV5,Convair,CV-580,CVR,2T,CVLT,2,T
+CV6,Convair,CV-600/640,,,,,
+CVF,Convair,CV-240 / 440 / 580 / 600 / 640 Freighter,,,,,
+CVR,Convair,CV-240 / 440 / 580 / 600 / 640,,,,,
+CVV,Convair,CV-240 Freighter,CVF,2P,CVLP,2,P
+CVX,Convair,CV-440 Freighter,CVF,2P,CVLP,2,P
+CVY,Convair,CV-580 / 600 / 640 Freighter,CVF,2T,CVLT,2,T
+CWC,Curtiss,C-46 Commando,CWC,2P,C46,2,P
+D10,McDonnell Douglas,DC-10,,,,,
+D11,McDonnell Douglas,DC-10-10/15,D10,3J,DC10,3,J
+D14,McDonnell Douglas,DC-10-40,,,,,
+D1C,McDonnell Douglas,DC-10-30/40,D10,3J,DC10,3,J
+D1F,McDonnell Douglas,DC-10 Freighter,,,,,
+D1M,McDonnell Douglas,DC-10 Combi,D1M,3J,DC10,3,J
+D1X,McDonnell Douglas,DC-10-10 Freighter,D1F,3J,DC10,3,J
+D1Y,McDonnell Douglas,DC-10-30 / 40 Freighter,D1F,3J,DC10,3,J
+D20,Dassault,Falcon 2000/2000DX,DFL,2J,F2TH,2,J
+D28,Dornier,Do 228,D28,2T,D228,2,T
+D2L,Dassault,Falcon 2000EX/EASY/LX,DFL,2J,F2TH,2,J
+D38,Dornier,Do 328,D38,2T,D328,2,T
+D3F,Douglas,DC-3 Freighter,D3F,2P,DC3,2,P
+D42,Diamond Aircraft, DA42 Twin Star,D42,2P,DA42,2,P
+D4X,De Havilland Canada-Bombardier,DHC-8-400 Dash 8Q Freighter,DHF,2T,DH8D,2,T
+D6F,Douglas,DC-6A/B/C Freighter,D6F,4P,DC6,4,P
+D85,Douglas,DC-8-50,,,,,
+D86,Douglas,DC-8-61,,,,,
+D87,Douglas,DC-8-71,,,,,
+D8A,Douglas,DC-8-63,,,,,
+D8B,Douglas,DC-8-73,,,,,
+D8F,Douglas,DC-8 Freighter,,,,,
+D8L,Douglas,DC-8-62,DC8,4J,DC86,4,J
+D8M,Douglas,DC-8 Combi,D8M,4J,DC86,4,J
+D8Q,Douglas,DC-8-72,DC8,4J,DC87,4,J
+D8T,Douglas,DC-8-50 Freighter,D8F,4J,DC85,4,J
+D8X,Douglas,DC-8-61 / 62 / 63 Freighter,D8F,4J,DC86,4,J
+D8Y,Douglas,DC-8-71 / 72 / 73 Freighter,D8F,4J,DC87,4,J
+D91,Douglas,DC-9-10,DC9,2J,DC91,2,J
+D92,Douglas,DC-9-20,DC9,2J,DC92,2,J
+D93,Douglas,DC-9-30,DC9,2J,DC93,2,J
+D94,Douglas,DC-9-40,DC9,2J,DC94,2,J
+D95,Douglas,DC-9-50,DC9,2J,DC95,2,J
+D9C,Douglas,DC-9-30 Freighter,D9F,2J,DC93,2,J
+D9D,Douglas,DC-9-40 Freighter,D9F,2J,DC94,2,J
+D9F,Douglas,DC-9 Freighter,,,,,
+D9L,Dassault,Falcon 900LX,DFL,3J,F900,3,J
+D9X,Douglas,DC-9-10 Freighter,D9F,2J,DC91,2,J
+DC3,Douglas,DC-3,DC3,2P,DC3,2,P
+DC4,Douglas,DC-4,DC4,4P,DC4,4,P
+DC6,Douglas,DC6A/B,DC6,4P,DC6,4,P
+DC8,Douglas,DC-8,,,,,
+DC9,Douglas,DC-9,,,,,
+DF1,Dassault,Falcon 10/100,DFL,2J,FA10,2,J
+DF2,Dassault,Falcon 10 / 100 / 20 / 200 / 2000,DFL,2J,FA20,2,J
+DF3,Dassault,Falcon 50 / 900,,,,,
+DF5,Dassault,Falcon 50/50EX,DFL,3J,FA50,3,J
+DF7,Dassault,Falcon 7X,DFL,3J,FA7X,3,J
+DF9,Dassault,Falcon 900/900B/900C/900DX/900EX/EASY,DFL,3J,F900,3,J
+DFL,Dassault,Falcon,,,,,
+DH1,De Havilland Canada-Bombardier,DHC-8-100 Dash 8 / 8Q,DH8,2T,DH8A,2,T
+DH2,De Havilland Canada-Bombardier,DHC-8-200 Dash 8 / 8Q,DH8,2T,DH8B,2,T
+DH3,De Havilland Canada-Bombardier,DHC-8-300 Dash 8 / 8Q,DH8,2T,DH8C,2,T
+DH4,De Havilland Canada-Bombardier,DHC-8-400 Dash 8Q,DH8,2T,DH8D,2,T
+DH7,De Havilland Canada,DHC-7 Dash 7,DH7,4T,DHC7,4,T
+DH8,De Havilland Canada-Bombardier,DHC-8 Dash 8,,,,,
+DHB,De Havilland Canada,DHC-2 Beaver / Turbo Beaver,,,,,
+DHC,De Havilland Canada,DHC-4 Caribou,DHC,2P,DHC4,2,P
+DHD,De Havilland,DH.104 Dove,DHD,2P,DOVE,2,P
+DHF,De Havilland-Bombardier,DHC-8 Freighter,000,00,0000,,
+DHH,De Havilland,DH.114 Heron,DHH,4P,HERN,4,P
+DHL,De Havilland Canada,DHC-3 Turbo Otter,DHO,1T,DH3T,1,T
+DHO,De Havilland Canada,DHC-3 Otter / Turbo Otter,,,,,
+DHP,De Havilland Canada,DHC-2 Beaver,DHB,1P,DHC2,1,P
+DHR,De Havilland Canada,DHC-2 Turbo-Beaver,DHB,1T,DH2T,1,T
+DHS,De Havilland Canada,DHC-3 Otter,DHO,1P,DHC3,1,P
+DHT,De Havilland Canada,DHC-6 Twin Otter,DHT,Twin Otter,2T,,T
+E70,Embraer,EMB 170 / EMB 175,EMJ,2J,E170,2,J
+E75,Embraer,EMB 175,EMJ,2J,E170,2,J
+E90,Embraer,EMB 190 / EMB 195,EMJ,2J,E190,2,J
+E95,Embraer,EMB 195,EMJ,2J,E190,2,J
+EA5,Eclipse,Eclipse 500,EAC,2J,EA50,2,J
+EC3,Eurocopter,EC130,EC3,H,EC30,,H
+EM2,Embraer,EMB 120 Brasilia,EM2,2T,E120,2,T
+EMB,Embraer,EMB 110 Bandeirante,EMB,2T,E110,2,T
+EMJ,Embraer,EMB 170 / EMB 190,,,,,
+EP1,Embraer,EMB-500 Phenom 100,EPH,2J,E50P,2,J
+EP3,Embraer,EMB-505 Phenom 300,EPH,2J,E55P,2,J
+ER3,Embraer,ERJ 135,ERJ,2J,E135,2,J
+ER4,Embraer,ERJ 145,ERJ,2J,E145,2,J
+ERD,Embraer,ERJ 140,ERJ,2J,E135,2,J
+ERJ,Embraer,ERJ 135 / ERJ 140 / ERJ 145,,,,,
+F21,Fokker,F28 Fellowship 1000,F28,2J,F28,2,J
+F22,Fokker,F28 Fellowship 2000,F28,2J,F28,2,J
+F23,Fokker,F28 Fellowship 3000,F28,2J,F28,2,J
+F24,Fokker,F28 Fellowship 4000,F28,2J,F28,2,J
+F27,Fokker,F27 Friendship,F27,2T,F27,2,T
+F28,Fokker,F28 Fellowship,,,,,
+F50,Fokker,50,F50,2T,F50,2,T
+F5F,Fokker,50 Freighter,F5F,2T,F50,2,T
+F70,Fokker,70,F70,2J,F70,2,J
+FK7,Fairchild-Hiller,FH-227,FK7,2T,F27,2,T
+FR3,Dornier,328JET,,,,,
+FR4,Dornier,428JET,,,,,
+FRJ,Dornier,328JET,FRJ,2J,J328,2,J
+GA8,GippsAero,GA8 Airvan,GA8,1P,GA8,1,P
+GR1,Gulfstream,G-100/G-150,GR1,2J,G150,2,J
+GR2,Gulfstream,G-200 (Galaxy),GR2,2J,GALX,2,J
+GR3,Gulfstream,G-250,GR3,2J,G250,2,J
+GRG,Grumman,G-21 Goose,GRG,2P,G21,2,P
+GRJ,Gulfstream,G-1159 Gulfstream II / III / IV / V,GRJ,2J,*,2,J
+GRM,Gulfstream,G-73 Turbo Mallard,GRM,2T,G73T,2,T
+GRS,Gulfstream,G-159 Gulfstream I,GRS,2T,G159,2,T
+H20,Hawker-Beechcraft,Hawker 200,HBA,2J,ZZZZ,2,J
+H21,Hawker-Beechcraft,Hawker 1000,HBA,2J,H25C,2,J
+H24,Hawker-Beechcraft,Hawker 4000,HBA,2J,HA4T,2,J
+H25,Hawker-Siddeley,HS.125,HBA,2J,H25B,2,J
+H28,Hawker-Beechcraft,Hawker 850XP/900,HBA,2J,H25B,2,J
+H29,Hawker-Beechcraft,Hawker 900XP,HBA,2J,H25B,2,J
+HEC,Helio,H-250 Courier / H-295 / 385 Super Courie,HEC,1P,COUR,1,P
+HOV,,Surface Equipment-Hovercraft,HOV,S,0000,,S
+HS7,BAe,HS.748,HS7,2T,A748,2,T
+I14,Ilyushin,IL-114,I14,2T,I114,2,T
+I93,Ilyushin,IL-96-300,,,,,
+I9F,Ilyushin,IL-96 Freighter,I9F,4J,IL96,4,J
+I9M,Ilyushin,IL-96M,,,,,
+I9X,Ilyushin,IL-96-300 Freighter,,,,,
+I9Y,Ilyushin,IL-96T Freighter,,,,,
+IL6,Ilyushin,IL-62,IL6,4J,IL62,4,J
+IL7,Ilyushin,IL-76,IL7,4J,IL76,4,J
+IL8,Ilyushin,IL-18,IL8,4T,IL18,4,T
+IL9,Ilyushin,IL-96,IL9,4J,IL96,4,J
+ILW,Ilyushin,IL-86,ILW,4J,IL86,4,J
+J31,BAe,Jetstream 31,JST,2T,JS31,2,T
+J32,BAe,Jetstream 32,JST,2T,JS32,2,T
+J41,BAe,Jetstream 41,JST,2T,JS41,2,T
+JST,BAe,Jetstream 31 / 32 / 41,,,,,
+JU5,Junkers,Ju 52/3M,JU5,3P,JU52,3,P
+L10,Lockheed,L-1011 Tristar,,,,,
+L11,Lockheed,L-1011 1 / 50 / 100 / 150 / 200 / 250 Tr,L10,3J,L101,3,J
+L15,Lockheed,L-1011 500 Tristar,L10,3J,L101,3,J
+L1F,Lockheed,L-1011 Tristar Freighter,L1F,3J,L101,3,J
+L49,Lockheed,L-1049 Super Constellation,,,,,
+L4F,Aircraft Industries (LET),L-410 Freighter,L4F,2T,L410,2,T
+L4T,LET,L-410,L4T,2T,L410,2,T
+LCH,Surface Equipment,Launch/Boat,LCH,S,0000,,S
+LJA,,Light Jet Aircraft,LJA,2J,ZZZZ,2,J
+LMO,Surface Equipment,Limousine,LMO,S,0000,,S
+LOE,Lockheed,L-188 Electra,LOE,4T,L188,4,T
+LOF,Lockheed,L-188 Electra Freighter,LOF,4T,L188,4,T
+LOH,Lockheed,L-182 / 282 / 382 (L-100) Hercules,LOH,4T,C130,4,T
+LOM,Lockheed,L-188 Electra Mixed,,,,,
+LRJ,Learjet,Gates Learjet,LRJ,2J,*,2,J
+M11,McDonnell Douglas,MD-11,M11,3J,MD11,3,J
+M1F,McDonnell Douglas,MD-11 Freighter,M1F,3J,MD11,3,J
+M1M,McDonnell Douglas,MD-11 Mixed,M1M,3J,MD11,3,J
+M2F,McDonnell Douglas,MD82 Freighter,M2F,2J,MD82,2,J
+M3F,McDonnell Douglas,MD83 Freighter,M3F,2J,MD83,2,J
+M80,McDonnell Douglas,MD-80,,,,,
+M81,McDonnell Douglas,MD-81,M80,2J,MD81,2,J
+M82,McDonnell Douglas,MD-82,M80,2J,MD82,2,J
+M83,McDonnell Douglas,MD-83,M80,2J,MD83,2,J
+M87,McDonnell Douglas,MD-87,M80,2J,MD87,2,J
+M88,McDonnell Douglas,MD-88,M80,2J,MD88,2,J
+M8F,McDonnell Douglas,MD88 Freighter,M8F,2J,MD88,2,J
+M90,McDonnell Douglas,MD-90,M90,2J,MD90,2,J
+M95,McDonnell Douglas,MD-95,,,,,
+MA6,Xian,MA-60,MA6,2T,AN24,2,T
+MBH,MBB,Bo 105,MBH,H,B105,,H
+MD9,MD Helicopters,MD900 Explorer,MD9,H,EXPL,,H
+MIH,Mil,Mi-8 / Mi-17 / Mi-171 / Mil-172,MIH,H,MI8,,H
+MU2,Mitsubishi,Mu-2,MU2,2T,MU2,2,T
+ND2,Nord / SNCAN,N.262,,,,,
+NDC,Aerospatiale / SNIAS,SN.601 Corvette,NDC,2J,S601,2,J
+NDE,Eurocopter,AS350 Ecureuil / AS355 Ecureuil 2,NDE,H,*,,H
+NDH,Eurocopter,SA365C / SA365N Dauphin 2,NDH,H,*,,H
+P18,Piaggio Aero,P180 Avanti II,P18,2T,P180,2,T
+PA1,Piper,Piper single piston engine,PAG,1P,*,1,P
+PA2,Piper,Piper twin piston engines,PAG,2P,*,2,P
+PAG,Piper,Piper light aircraft,,,,,
+PAT,Piper,Piper twin turboprop engines,PAG,2T,*,2,T
+PL2,Pilatus,PC-12,PL2,1T,PC12,1,T
+PL6,Pilatus,PC-6 Turbo Porter,PL6,1T,PC6T,1,T
+PN6,Partenavia,P.68,PN6,2P,P68,2,P
+PRI,Hawker-Beechcraft,Hawker 390 Premier 1/1A,HBA,2J,PRM1,2,J
+RFS,,Surface Equipment-Road Feeder Service (Truck),RFS,S,0000,,S
+S20,Saab,2000,S20,2T,SB20,2,T
+S58,Sikorsky,S-58T,S58,H,S58T,,H
+S61,Sikorsky,S-61,S61,H,S61,,H
+S76,Sikorsky,S-76,S76,H,S76,,H
+SF3,Saab,SF340A/B,SF3,2T,SF34,2,T
+SFB,Saab,SF340B,SF3,2T,SF34,2,T
+SFF,Saab,SF340 Freighter,SFF,2T,SF34,2,T
+SH3,Shorts,SD.330,SH3,2T,SH33,2,T
+SH6,Shorts,SD.360,SH6,2T,SH36,2,T
+SHB,Shorts,SC-5 Belfast,,,,,
+SHS,Shorts,SC-7 Skyvan,SHS,2T,SC7,2,T
+SSC,Aerospatiale / SNIAS,Concorde,,,,,
+SU1,Sukhoi,Superjet 100,,,,,
+SU7,Sukhoi,Superjet 100-75,SU1,2J,ZZZZ,2,J
+SU9,Sukhoi,Superjet 100-95,SU1,2J,SU95,2,J
+SWF,Fairchild-Swearingen,SA226 Freighter,SWF,2T,*,2,T
+SWM,Fairchild-Swearingen,SA26 / SA226 / SA227 Metro / Merlin,SWM,2T,*,2,T
+SY8,Shaanxi,Y-8,SY8,4T,AN12,4,T
+T20,Tupolev,Tu-204 / Tu-214,T20,2J,T204,2,J
+T2F,Tupolev,Tu-204 Freighter,T2F,2J,T204,2,J
+T34,Tupolev,Tu-334,T34,2J,T334,2,J
+TBM,DAHER-SOCATA,TBM-700,TBM,1T,TBM7,1,T
+TRN,Surface Equipment,Train,TRN,S,0000,,S
+TU3,Tupolev,Tu-134,TU3,2J,T134,2,J
+TU5,Tupolev,Tu-154,TU5,3J,T154,3,J
+VCV,Vickers,Viscount,,,,,
+VCX,Vickers,VC-10,,,,,
+WWP,IAI,1124 Westwind,WWP,2J,WW24,2,J
+YK2,Yakovlev / Jakovlev,Yak 42,YK2,3J,YK42,3,J
+YK4,Yakovlev / Jakovlev,Yak 40,YK4,3J,YK40,3,J
+YN2,HAMC / Harbin,Y12,YN2,2T,Y12,2,T
+YN7,Xian,Yunshuji Y7,YN7,2T,AN24,2,T
+YS1,NAMC,YS-11,YS1,2T,YS11,2,T
+dsc@master: opentraveldata % cat optd_aircraft.csv| head                                                                     ~/Data/opentraveldata 0 18:01:47
+iata_code^manufacturer^model^iata_group^iata_category^icao_code^nb_engines^aircraft_type
+100^Fokker^100^100^2J^F100^2^J
+141^BAe^146-100^146^4J^B461^4^J
+142^BAe^BAE Systems 146-200 Passenger^146^4J^B462^4^J
+143^BAe^146-300^146^4J^B463^4^J
+146^BAe^146^^^^^
+14F^BAe^146 Freighter (-100/200/300QT & QC)^^^^^
+14X^BAe^146 Freighter (-100QT & QC)^14F^4J^B461^4^J
+14Y^BAe^146 Freighter (-200QT & QC)^14F^4J^B462^4^J
+14Z^BAe^146 Freighter (-300QT & QC)^14F^4J^B463^4^J
+dsc@master: opentraveldata % cat optd_por_public.csv | tr -s " " | wc                                                        ~/Data/opentraveldata 0 18:04:10
+  18190  202528 8079990
+dsc@master: opentraveldata % wc optd_por_public.csv                                                                          ~/Data/opentraveldata 0 18:04:46
+  18190  202528 8080005 optd_por_public.csv
+dsc@master: opentraveldata % cat optd_por_public.csv | head -1 | tr "^" "\n" | wc -l                                         ~/Data/opentraveldata 0 18:04:52
+46
+dsc@master: opentraveldata % cat optd_por_public.csv | head -1 | tr "^" "\n"                                                 ~/Data/opentraveldata 0 18:07:56
+iata_code
+icao_code
+faa_code
+is_geonames
+geoname_id
+envelope_id
+name
+asciiname
+latitude
+longitude
+fclass
+fcode
+page_rank
+date_from
+date_until
+comment
+country_code
+cc2
+country_name
+continent_name
+adm1_code
+adm1_name_utf
+adm1_name_ascii
+adm2_code
+adm2_name_utf
+adm2_name_ascii
+adm3_code
+adm4_code
+population
+elevation
+gtopo30
+timezone
+gmt_offset
+dst_offset
+raw_offset
+moddate
+city_code_list
+city_name_list
+city_detail_list
+tvl_por_list
+state_code
+location_type
+wiki_link
+alt_name_section
+wac
+wac_name
+dsc@master: opentraveldata % head -n 1 optd_por_public.csv| tr "^" "\n" | wc -l                                              ~/Data/opentraveldata 0 18:08:33
+46
+dsc@master: opentraveldata % paste <(seq 1-46) <(cat optd_por_public.csv | head -1 | tr "^" "\n")                            ~/Data/opentraveldata 0 18:08:59
+seq: invalid floating point argument: ‘1-46’
+Try 'seq --help' for more information.
+	iata_code
+	icao_code
+	faa_code
+	is_geonames
+	geoname_id
+	envelope_id
+	name
+	asciiname
+	latitude
+	longitude
+	fclass
+	fcode
+	page_rank
+	date_from
+	date_until
+	comment
+	country_code
+	cc2
+	country_name
+	continent_name
+	adm1_code
+	adm1_name_utf
+	adm1_name_ascii
+	adm2_code
+	adm2_name_utf
+	adm2_name_ascii
+	adm3_code
+	adm4_code
+	population
+	elevation
+	gtopo30
+	timezone
+	gmt_offset
+	dst_offset
+	raw_offset
+	moddate
+	city_code_list
+	city_name_list
+	city_detail_list
+	tvl_por_list
+	state_code
+	location_type
+	wiki_link
+	alt_name_section
+	wac
+	wac_name
+dsc@master: opentraveldata % paste <(seq 46) <(cat optd_por_public.csv | head -1 | tr "^" "\n")                              ~/Data/opentraveldata 0 18:10:44
+1	iata_code
+2	icao_code
+3	faa_code
+4	is_geonames
+5	geoname_id
+6	envelope_id
+7	name
+8	asciiname
+9	latitude
+10	longitude
+11	fclass
+12	fcode
+13	page_rank
+14	date_from
+15	date_until
+16	comment
+17	country_code
+18	cc2
+19	country_name
+20	continent_name
+21	adm1_code
+22	adm1_name_utf
+23	adm1_name_ascii
+24	adm2_code
+25	adm2_name_utf
+26	adm2_name_ascii
+27	adm3_code
+28	adm4_code
+29	population
+30	elevation
+31	gtopo30
+32	timezone
+33	gmt_offset
+34	dst_offset
+35	raw_offset
+36	moddate
+37	city_code_list
+38	city_name_list
+39	city_detail_list
+40	tvl_por_list
+41	state_code
+42	location_type
+43	wiki_link
+44	alt_name_section
+45	wac
+46	wac_name
+dsc@master: opentraveldata % cat optd_airlines.csv | head                                                                    ~/Data/opentraveldata 0 18:11:03
+pk^env_id^validity_from^validity_to^3char_code^2char_code^num_code^name^name2^alliance_code^alliance_status^type^wiki_link^flt_freq
+air-9-air^^2015-01-01^^^AQ^902^9 Air^^^^^http://en.wikipedia.org/wiki/9_Air^3555
+air-ab-aviation^^2013-01-01^^AYD^Y6^0^AB Aviation^^^^^http://en.wikipedia.org/wiki/AB_Aviation^
+air-abc-aerolineas^^2005-12-01^^AIJ^4O^837^Interjet^ABC Aerolineas^^^^http://en.wikipedia.org/wiki/Interjet^102905
+air-acg-air-cargo-germany^^^^ACX^6U^0^Acg Air Cargo Germany^Air Ukraine^^^C^^
+air-act-havayollari^^^^ABS^9T^556^Act Havayollari^Athabaska^^^^^
+air-adria-airways^^^^ADR^JP^165^Adria Airways^Adria^Star Alliance^Member^^^22373
+air-aegean-airlines^^1999-05-28^^AEE^A3^390^Aegean Airlines^^Star Alliance^Member^^http://en.wikipedia.org/wiki/Aegean_Airlines^73063
+air-aer-arann^^1970-01-01^^STK^RE^743^Stobart Air^Aer Arann^^^^http://en.wikipedia.org/wiki/Stobart_Air^28313
+air-aer-lingus^^1936-05-27^^EIN^EI^53^Aer Lingus^^^^^http://en.wikipedia.org/wiki/Aer_Lingus^69013
+dsc@master: opentraveldata % cat optd_airlines.csv | cut -d "^" -f 8 |head                                                   ~/Data/opentraveldata 0 18:11:36
+name
+9 Air
+AB Aviation
+Interjet
+Acg Air Cargo Germany
+Act Havayollari
+Adria Airways
+Aegean Airlines
+Stobart Air
+Aer Lingus
+dsc@master: opentraveldata % cat optd_airlines.csv | cut -d "^" -f 8 | sort | uniq                                           ~/Data/opentraveldata 0 18:19:01
+
+9 Air
+9G Rail
+Abacus
+AB Aviation
+AccesRail
+Acg Air Cargo Germany
+Act Havayollari
+Adria Airways
+Aegean Airlines
+Aer Lingus
+Aero4M
+Aero Airlines
+Aero Benin
+Aero Caribbean
+Aero Charter
+Aerocomercial Oriente Norte
+Aero Contractors Company Nigeria
+Aeroenlaces Nacionales
+Aero Flight
+Aeroflot
+Aerogaviota
+Aerolíneas Argentinas
+Aerolineas Galapagos
+Aerolineas Mas
+Aerolineas Sosa
+Aerolink Uganda
+Aeromar
+AeroMexico
+Aeromexico Connect
+Aero Mongolia
+Aeropelican Air Services
+Aeroperlas
+Aeropostal
+Aerosur
+AeroSvit Airlines
+Aero Transporte
+Aerovias DAP
+Aero VIP
+Aero VIP (Argentina)
+Afghan Jet International
+African Express Airways
+Afric Aviation
+Africa West Cargo Ghd
+Africa World Airlines
+Afrinat International Airlines
+Afriqiyah Airways
+Aigle Azur
+Air Algerie
+Air Alps Aviation
+Air Alsie
+Air Antilles Express
+Air Arabia
+Air Arabia Egypt
+Air Arabia Jordan
+Air Arabia Maroc
+Air Armenia
+AirAsia
+AirAsia India
+AirAsia Japan
+AirAsia X
+AirAsia Zest
+Air Astana
+Air Austral
+Air Azul
+Air Bagan
+airBaltic
+Air Bashkortostan
+Air Berlin
+Air Bishkek
+Airblue
+Air Botswana
+Air Bridge Cargo
+Air Burkina
+Air Burundi
+Air Busan
+Air Cairo
+Air Caledonie
+Aircalin
+Air Canada
+Air Canada Rouge
+Air Caraibes
+Air Cargo Carriers
+Air Caucasus
+Air China
+Air City
+Air Comet
+Air Contact
+Air Corsica
+Air Cote D Ivoire
+Air Creebec
+Air Do
+Air Dolomiti
+Air East
+Air Europa
+Air Excursions
+Air Explore
+Air Finland
+Air Flamenco
+Air France
+Air Freight NZ
+Air Gabon
+Air Georgia
+Air Georgian
+Air Go Egypt
+Air Greenland
+Air Guinea
+Air Iceland
+Air Incheon
+Air India
+Air India Express
+Air India Regional
+Air Indus
+Air Inuit
+Air Italy
+Air Ivoire
+Air Jamaica
+Air Japan
+Air Jet
+Air KBZ
+Air Kenya Aviation
+Air Kenya Express
+Air Koryo
+Air Kyrgyzstan
+Air Labrador
+Air Leisure
+Airliaison
+Airline Service
+Airlines PNG
+Airlines Reporting Corp
+Airlink
+Air Link
+Air Lituanica
+Air Luxor
+Air Macau
+Air Madagascar
+Air Malawi
+Air Mali
+Air Malta
+Air Mandalay
+Air Marshall Islands
+Air Mauritius
+Airmax
+Air Mediterranee
+Air Mekong
+Air Minas Linhas Aereas
+Air Mobility Command
+Air Moldova
+Air Namibia
+Air New Zealand
+Air Next
+Air Niamey
+Air Nigeria
+Air Nippon
+Air Niugini
+Airnorth
+Air North
+Air Nostrum
+Air One
+Air Onix
+Air Panama
+Air Pegasus
+Airphil Express
+Air Rarotonga
+Air Saint Pierre
+Air Serbia
+Air Service Liege (ASL)
+Air Seychelles
+Air Sinai
+Air Slovakia
+Air Sunshine
+Air Tahiti
+Air Tahiti Nui
+Air Tanzania
+Air Timor
+Air Tindi
+Airtran Airways
+Air Transat
+Air Transport International
+Air Uganda
+Air Urga
+Air Vanuatu
+Air Via
+Airways International
+Air Wisconsin
+Air Zimbabwe
+Ais Airlines B V
+Ak Bars Aero
+Aklak Air
+Aladia Airlines
+Alajnihah Airways
+Alaska Airlines
+Alaska Seaplane Service
+Alas Uruguay
+Alidaunia
+Alitalia
+Alitalia CityLiner
+Allegiant Air
+Alliance Airlines
+All Nippon Airways
+Alma De Mexico
+Almasria Universal Airlines
+Al Naser Airlines
+Al-Naser Airlines
+Alpha Air Transport
+ALS
+ALSA
+Amadeus
+Amadeus 7N
+Amadeus 8Z
+Amadeus Eight
+Amadeus PDF 0E
+Amadeus PDF 2D
+Amadeus PDF 2Y
+Amadeus PDF 7S
+Amadeus PDF 8Z
+Amadeus PDF 9S
+Amadeus PDF 9Z
+Amadeus Seven
+Amadeus Six
+Amadeus Two
+Amapola Flyg
+Amaszonas Del Paraguay
+American Airlines
+Amsterdam Airlines Bv
+Amtrak
+ANA Wings
+Andes Líneas Aéreas
+Angara Airlines
+Angkor Airways
+Anguilla Air Services
+Antrak Air
+Apex Airline
+Arc
+Ariana Afghan Airlines
+Arik Air
+Arkia
+Armavia
+Armenia Airways
+Aruba Airlines
+Aserca
+Asia Atlantic Airlines
+Asiana Airlines
+Asian Air
+Asian Express Airline
+Asian Wings Airways
+Asky
+Astra Airlines
+Astral Aviation
+Ata Airlines
+Athens Airways
+Atlantic Airways
+Atlantic Express Airline
+Atlantique Air Assistance
+Atlantis European Airways
+Atlas Air
+Atlasjet Airlines
+AtlasJet Ukraine
+Augsburg Airways
+Auric Air Services
+Aurigny Air Services
+Aurora Airlines
+Austral Líneas Aéreas
+Austrian Airlines
+Avanza
+Aviaenergo
+Aviana Airways
+Avianca
+Avianca Brasil
+Avianca Costa Rica
+Avianca El Salvador
+Avianca Perú
+Avianova Lcc
+Aviaprad
+Aviastar Mandiri
+Aviateca
+Aviation Starlink
+Aviator Aviation
+Avia Traffic Company
+Avies
+Avion Express
+Avior
+Avitrans Nordic
+Axess International
+Axis International Lines
+Azerbaijan Airlines
+Aztec Worldwide Airlines
+Azul Brazilian Airlines
+BA CityFlyer
+Badr Airlines
+Bahamasair
+Bahrain Air
+Bangkok Airways
+Bassaka Air
+Batavia Air
+Batik Air
+BB Airways
+Bearskin Airlines
+Beijing Capital Airlines
+Belair Airlines
+Belavia
+Belle Air Company
+Belle Air Europe
+Bemidji Airlines
+Benin Golf Air
+Bering Air
+Berjaya Air
+BH Air
+B&H Airlines
+Biman Bangladesh Airline
+Binter Canarias
+Bird Information Systems
+Bismillah Airlines
+Blue1
+Blue Air
+Blue Bird Airways
+Bluebird Cargo
+Blue Islands
+Blue Panorama Airlines
+bmi regional
+Boliviana de Aviación (BoA)
+Boutique Air
+BQB Líneas Aéreas
+Braathens Regional
+Branson Air
+Brindabella Airlines
+Bringer Air Cargo
+British Airways
+British International
+British Midland
+Brussels Airlines
+Buddha Air
+Bukovyna Airlines
+Bulgaria Air
+Bulgarian Air Charter
+Buraq Air
+Business Air
+Business Aviation Centre
+BVI Airways
+Caicos Express Airways
+CAI First
+Cairo Aviation
+CAI Second
+Calima Aviacion
+Calm Air International
+Camair Co
+Cambodia Airlines
+Cambodia Angkor Air
+Cambodia Bayon Airlines
+Canadian Airlines
+Canadian North
+Canary Fly
+Canjet Airlines
+Cape Air
+Cargolux Airlines
+Cargolux Italia
+Carib Aviation Limited
+Caribbean Airlines
+Caribbean Winds Airlines
+Carpatair
+Caspian Airlines
+Cathay Pacific
+Catovair
+Cayman Airways
+Cebu Pacific
+Ceiba Intercontinental
+CemAir
+Central Air Transport Services
+Central Mountain Air
+Centralwings
+Chalair Aviation
+Challenge Aero
+Champion Air
+Cham Wings Airlines
+Chanchangi Airlines
+Charter Air Transport
+Chautauqua Airlines
+Chengdu Airlines
+China Airlines
+China Cargo Airlines
+China Eastern Airlines
+China Express Airlines
+China Postal Airlines
+China Southern Airlines
+China United Airlines
+China West Air
+China Xinhua Airlines
+Chongqing Airlines
+Chu Kong Passenger Transport
+Cimber A/S
+Cimber Sterling
+Cinnamon Air
+Cions Software
+Cirrus Airlines
+Citilink Indonesia
+City Airline
+City Airways
+CityJet
+Club Air
+CM Airlines
+Coastal Travels
+Cobham Aviation Services Australia
+Colorful Guizhou Airlines
+Comair
+CommutAir
+Comores Aviation International
+Compagnie Africaine d'Aviation
+Compass Airlines
+Condor
+Condor Berlin
+Congo Express
+Continental Airlines
+Continental Micronesia
+Conviasa
+Copa Airlines
+Copa Airlines Colombia
+Corendon Airlines
+Corendon Dutch Airlines
+Corsair
+Croatia Airlines
+Cronos Airlines
+Crystal Thai Airlines
+CTS Viaggi
+Cubana De Aviacion
+Cyprus Airways
+Czech Airlines
+Czech Connect Airlines
+Daallo Airlines
+Dagestan Airlines
+Dana Air
+Danish Air Transport
+Danube Wings
+Darwin Airline
+Dauair
+Deer Jet Airlines
+Delta Air Lines
+Delta Connection
+Denim Air
+Deutsche Bahn
+Direktflyg
+Discovery Airways
+Djibouti Airlines
+Dniproavia
+Dobrolet Airlines
+Dokasch
+Donavia
+Donbassaero Airlines
+Donghai Airlines
+DOT LT
+Douniah Airlines
+Dragonair
+Druk Air
+Dutch Antilles Express
+Dynamic Airways
+Eagle Air
+Eagle Atlantic Airlines
+East African Safari Air
+East Air
+Eastar Jet
+Eastern Airways
+Eastern Caribbean Airlines
+East Horizon Airlines
+East Line
+easyJet
+easyJet Switzerland
+Edelweiss Air
+EDS Information Business
+EgyptAir
+El Al
+Electronic Data Systems (EDS)
+Elite Airways
+Ellinair
+Emirates
+Endeavor Air
+Enkor
+Envoy Air
+Equaflight Service
+Equatorial Congo Airline
+Era Aviation
+Eritrean Airlines
+Ero Sun D Or
+E Savtravel
+Estafeta Carga Aerea
+Estelar Latinoamerica
+Estonian Air
+Ethiopian Airlines
+Etihad Airways
+Etihad Regional
+Eurasia Air
+Euroatlantic Airways
+Eurolot
+Europe Airpost
+European Air Transport
+Eurostar
+Eurowings
+EVA Air
+Evelop Airlines
+Everts
+Ewa Air
+Exec Air
+Executive Airlines
+ExpressJet
+Expressjet Airlines Inc
+Express Rail Link, Malaysia
+Eznis Airways
+Fantasia Info Network
+Far Eastern
+Farelogix
+Farnair Switzerland
+Fars Qeshm Airlines
+Fastjet Airlines
+Federal Airlines
+Fedex
+Felix Airways
+Fiji Airways
+Finnair
+Finncomm Airlines
+First Air
+Five Fourty Aviation
+Flair Airlines
+Flexflight
+Flight Alaska
+Florida Coastal Airlines
+Fly 540
+Fly 540 Ghana
+FlyBaghdad
+Flybe
+Flycongo
+Flydamas Airlines
+flydubai
+FlyEgypt
+Flyfirefly
+Fly Georgia
+Fly Jamaica Airways
+Fly Logic Malmo
+Flynas
+FMI Air
+Forty Mile Air
+Freebird Airlines
+Freedom Air
+Freedom Airlines
+French Military Force
+Freshair
+Frontier Airlines
+Fuji Dream Airlines
+Fuzhou Airlines
+Galileo International
+Gambia Bird
+Gambia International Airlines
+Garuda Indonesia
+Gazpromavia
+Georgian Airways
+Georgian International Air
+Georgian International Airlines
+Germania
+Germania Flug
+Germanwings
+Ghadames Air Transport
+Girjet
+Globus
+GMG Airlines
+Go
+GoAir
+GoJet Airlines
+Golden Myanmar Airlines
+Gol Transportes Aéreos
+Grand China Air
+Grant Aviation
+Great Lakes Airlines
+Groznyy Avia
+Gryphon Airlines
+G Switch Works
+Guangxi Beibu Gulf Airlines
+Guinea Airlines
+Guizhou Airlines
+Gulf Air
+Hahn Air
+Hahn Air Systems
+Hainan Airlines
+Haiti Aviation
+Halcyon Air Cabo Verde
+Hamburg Airways
+Hamburg International
+Hawaiian Airlines
+Hawkair
+Hebei Airlines
+Heli Air Monaco
+Helicopteros Del Sureste
+Helijet International
+Heli Securite
+Helitrans
+Helitt Líneas Aereas
+Hellas Jet
+Hellenic Imperial Airways
+Helvetic Airways
+Hennan Airlines
+Hermes Airlines
+Hesa Airlines
+Hevilift
+Hex Air
+Hi Fly
+Highland Airways
+Himalaya Airlines
+Hinterland Aviation
+Holidays Czech Airlines
+Homer Air
+Hong Kong Airlines
+Hong Kong Express Airways
+HOP!
+HOP Airlinair
+HOP Brit Air
+Horizon Air
+Hunnu Air
+IATA
+IBC Airways
+Iberia
+Iberia Express
+Iberworld Airlines
+Ibex Airlines
+IBS Software Services Americas
+Icelandair
+Ihy Izmir Havayollari
+Ikar
+Iliamna Air
+IndiGo
+Indonesia AirAsia
+Indonesia Air Transport
+Infini Travel Information
+Insel Air Aruba
+Insel Air International
+Interair
+Inter Airlines
+InterCaribbean Airways
+Interjet
+InterJet
+Interlink
+Intersky Luftfahrt
+InvestAvia
+IrAero
+Iran Air
+Iran Air Tours
+Iran Aseman Airlines
+Iranian Naft Airline
+Iraqi Airways
+Island Air
+Island Aviation Services
+Islas Airways
+Islena Airlines
+Israir Airlines
+ITA Software
+Itek Air
+ITI Air
+Izhavia
+JAL Express
+Japan Air Commuter
+Japan Airlines
+Japan Transocean Air
+Jatayu Airlines
+Jazeera Airways
+Jazz Aviation
+Jeju Air
+Jet2.com
+Jet Air
+Jetairfly
+Jet Airways
+Jet Asia Airways
+Jet Aviation Business
+JetBlue
+Jetgo Australia
+Jetlink Express
+Jet Lite
+Jetstar
+Jetstar Asia
+Jetstar Japan
+Jetstar Pacific Airlines
+Jet Time
+Jin Air
+Job Air
+Joint Stock Company Ital
+Jordan Aviation
+Joy Air
+Jsc Bek Air
+Jsc Irtysh Air
+Jsc Nordavia
+Jubba Airways Kenya
+Juneyao Airlines
+Kalitta Charters
+Kal Star Aviation
+Kam Air
+Kan Air
+Karinou Airlines
+Karthago Airlines
+Kartika Airlines
+Katekavia
+Katmai Air
+Kato Airlines
+Kaya Airlines
+Kazaviaspas
+Kenmore Air
+Kenn Borek Air
+Kenya Airways
+Kharkiv Airlines
+Khors Air
+Kinda Airlines
+Kingfisher Airlines
+Kish Airlines
+KLM
+KLM Cityhopper
+Kogalymavia Airlines
+Korean Air
+Korongo Airlines
+KrasAvia
+Kunming Airlines
+Kuwait Airways
+Kyrgyz Airlines
+Kyrgyzstan Airlines
+Kyrgyz Trans Avia
+Lacbravo
+La Compagnie
+LagunAir
+Lam Mozambique
+LAN Airlines
+LAN Argentina
+LAN Cargo
+LAN Colombia
+LAN Ecuador
+LAN Express
+LAN Perú
+Lao Airlines
+Lao Central
+Latpass Airlines
+L'Avion
+LC Perú
+Lepl
+LGW Luftfahrtges Walter
+Liat
+Libyan Airlines
+Libyan Wings
+Línea Aérea Amaszonas
+Línea Aerea Cuencana
+Linea Aerea De Servicio
+Línea Aerea Eco Jet
+Línea Turística Aereotuy (LTA)
+Lion Air
+Loganair
+LOT Polish Airlines
+Lucky Air
+Lufthansa
+Lufthansa CityLine
+Lufthansa Systems
+Lugansk Airlines
+Luxair
+Lynx Aviation
+Macair Jet
+Macedonian Airlines
+Magnum Air
+Mahan Airlines
+Malawian Airlines
+Malaysia Airlines
+Malev Hungarian Airlines
+Malindo Airways
+Malmo Aviation
+Mandala Airlines
+Mandarin Airlines
+Mango
+Mann Yadanarpon Airlines
+Manx
+Map Management Planning
+Marsland Aviation
+Martinair
+MASwings
+MAT Airways
+MAT Macedonian Airlines
+Mauritania Airways
+Mauritanian Airlines Int
+Max Air
+MAXjet Airways
+Mayair
+Maya Island Air
+Mega Maldives
+Meridiana Fly
+Mesa Airlines
+Mexicana
+MHS Aviation
+Miami Air International
+Miat Mongolian Airlines
+Middle East Airlines
+Midwest Airlines
+Midwest Connect
+Mihin Lanka
+Mint Líneas Aéreas
+Mirny Air
+Mng Airlines Cargo
+Mokulele Airlines
+Moldavian Airlines
+Monarch Airlines
+Montenegro Airlines
+Montserrat Airways
+Moskovia Airlines
+Motor Sich Jsc
+MS Royal Airlines
+Multi Aero
+Myanmar Airways International
+Myanmar National Airlines
+Nacil Indian Airline
+Nakina Air Service
+NAM Air
+name
+Nasair
+National Airlines
+National Airways
+National Airways Cameroon
+National Airways Ethiopia
+National Jet Systems
+Nature Air
+Nauru Airlines
+Navitaire New Skies
+Navitaire Open Skies
+Naysa
+Nego Airline One
+Neos
+Nepal Airlines
+Nesma Airlines
+Netjets Aviation
+New England Airlines
+New Gen Airways
+New Livingston
+Nextjet
+Nice Helicopteres
+Niger Airlines
+Niki
+Nile Air
+Nok Air
+NokScoot
+Nomad Aviation
+Non Iata Codeshare Carrier
+Nordic Global Airlines
+Nordic Regional Airlines
+NordStar
+Nord Wind
+Norfolk Air
+North American Airlines
+North Flying
+Northwest Airlines
+Northwestern Air Lease
+North Wright Air
+Norwegian Air International
+Norwegian Air Shuttle (NAS)
+Norwegian Long Haul
+Nouvelair
+Nova Airlines
+Novoair
+Nuovo Trasporto Viaggiatori
+OAG Worldwide
+Odessa Airlines
+Okay Airways
+OLT Express Germany
+Olympic Air
+Oman Air
+Oneworld
+Onur Air
+OpenSkies
+Orbest
+Ord Air Charter
+Orenair
+Orenburg Region Airlines
+Oriental Air Bridge
+Orient Thai Airlines
+Pacific Airways
+Pacific Coastal Airlines
+Pacific Wings
+Pakistan International Airlines (PIA)
+PAL Airlines
+Palau National Airlines
+Palau Pacific Airways
+Pan African Airways
+Panama Airways
+Pan American World Airways Dominicana
+Papillon Airways
+Pascan Aviation
+Passaredo
+Passaredo Transportes
+Peach Aviation
+Pegasus Airlines
+Pegasus Asia
+Penair
+Peoples Viennaline
+Perimeter Aviation
+Perla Airlines
+Peruvian Airlines
+Philippine Airlines
+Philippines AirAsia
+Phoenix Systems Dertours
+Piedmont Airlines
+Pison Airways Ltd
+PLUNA
+Plus Ultra Líneas Aéreas
+PM Air
+Pobeda
+Polar Airlines
+Polet Airlines
+Polynesian Airlines
+Porter Airlines
+Portugalia
+Precision Air
+Premium Jet AG
+Prima Air
+Primair
+Primera Air
+Primera Air Nordic
+Primera Air Scandinavia
+Private Wings
+Proflight Commuter
+Provincial Airlines
+PSA Airlines
+Publiccharters Com
+Punto Azul
+Qantas
+Qatar Airways
+Qazaq Air
+Qeshm Air
+Qingdao Airlines
+Quantum Air
+Quebecair Express
+Raddix Solutions
+Rak Airways
+Redemption
+Red Wings Airlines
+Regent Airways
+Region Airline
+Regional
+Regional Air Services
+Regional Express
+Reliable Unique Services
+Renfe Viajeros
+Republic Airline
+Rheintal flug
+Robin Hood Aviation
+Romavia
+Rossiya
+Rotana Jet
+Royal Air Force
+Royal Air Maroc (RAM)
+Royal Brunei
+Royal Falcon
+Royal Flight
+Royal Jordanian
+Royal Wings
+Ruili Airlines
+Rusline
+Rutaca
+Rwandair Express
+Ryanair
+Ryan Air Services
+S7 Airlines
+Sabre
+Saereo
+Safair
+Safarilink Aviation
+Safi Airways
+Saint Barth Commuter
+Salsa d'Haiti
+Samara Airlines
+Sansa
+Santa Barbara Airlines
+Saratov Airlines
+SATA Air Açores
+SATA International
+SATENA
+Saudia
+Sayakhat Airlines
+Scandinavian Airlines
+SCAT Airlines
+Scenic Airlines
+Scoot
+ScotAirways
+Scott Air
+Seaborne Airlines
+Seair
+SeaPort Airlines
+Senegal Airlines
+Servant Air
+Servicios Aereos De Los Andes
+Servicios Aereos Profesionales
+Severstal Air Company
+Shaheen Air
+Shandong Airlines
+Shanghai Airlines
+Sharp Aviation
+Shenzhen Airlines
+Shun Tak China
+Shuttle America
+Siam Air Transport
+Siam Ga
+Sichuan Airlines
+SilkAir
+Silk Way Airlines
+Silver Airways
+Singapore Airlines
+Sirena Jsc
+Sirena Travel
+SITA
+Sky Airline
+Sky Airlines
+Sky Angkor Airlines
+Sky Bahamas Airlines
+Sky Bishek
+Sky Express
+SkyGreece Airlines
+Skyking
+Skymark Airlines
+Sky Regional Airlines
+Sky Taxi
+Skyteam
+Skytrans Regional
+Skyways
+SkyWest Airlines
+Sky Wings Airlines
+Skywise Airlines
+SkyWork Airlines
+Slok Air International
+Small Planet Airline
+Smart Aviation
+SmartLynx Airlines
+Smartwings
+Smokey Bay Air
+SNCF
+Solaseed Air
+Sol Líneas Aéreas
+Solomon Airlines
+Somon Air
+Songbird Airways
+Sounds Air
+South African Airways
+South African Express
+South Airlines
+Southern Air Charter
+Southern Airways
+Southwest Airlines
+Spanair
+Speed Alliance Westbahn
+SpiceJet
+Spirit Airlines
+Spring Airlines
+Spring Airlines Japan
+Sqiva Sistem
+SriLankan Airlines
+Sriwijaya Air
+Star Airways
+Star Alliance
+Starbow
+StarFlyer
+Star Perú
+STA Travel
+Sterling Airlines
+Stobart Air
+STP Airways
+Strategic Airlines
+Sudan Airways
+Sum Air Services
+Sunair
+Sun Air Express
+Sun Air of Scandinavia
+Sun Country
+SunExpress
+Sun Express Germany
+Sunrise Airways
+Sunwing Airlines
+Surinam Airways
+Sutra
+Swe Fly
+Swiss International Air Lines
+Sylt Air
+Syphax Airlines
+Syrian Arab Airlines
+Taag
+Taban Airlines
+Tacv Cabo Verde Airlines
+TAF Linhas Aereas
+Tailwind Hava Yollari As
+Tajik Air
+TAM Airlines
+TAME
+Tampa Cargo
+Tanana Air Service
+Tandem Aero
+TAP Portugal
+Taquan Air Services
+Tarco Air
+TAROM
+Tashi Air
+Tassili Airlines
+Tatarstan Air
+Tavrey Airlines
+Tectimes Sudamerica
+Ten Airways
+Thai AirAsia
+Thai AirAsia X
+Thai Airways
+Thai Lion Mentari
+Thai Smile Airways
+Thalys
+The Qualiflyer Group
+Thomas Cook Airlines
+Thomas Cook Airlines Belgium
+Thomson Airways
+Tianjin Airlines
+Tiara Air Aruba
+Tibet Airlines
+Tigerair
+Tiger Air Philippines
+Tigerair Taiwan
+Tiger Airways Australia
+Tik Systems
+Titan Airways
+Tnt Airways
+TonleSap Airlines
+Toumai Air Tchad
+Trade Air
+Tradewind Aviation
+Transaero Airlines
+Trans Air Congo
+TransAsia Airways
+Transavia Airlines
+Transavia Denmark
+Transavia France
+TransNusa
+Transportes Aereos Guatemaltecos
+Trans States Airlines
+Travel Air
+Travelport Galileo
+Travelport Worldspan
+Travel Service Hungary
+Travel Service Polska
+Travelsky Technology
+Travel Technology Interactive
+Trenitalia
+Trigana Air Service
+Trip
+Tropic Air
+TTA Airlink
+TUI Airlines Netherlands
+TUIfly
+Tuifly Nordic
+Tunisair
+Tunisair Express
+Turkish Airlines
+Turkmenistan Airlines
+T'way Air
+Twin Jet
+Tyrolean Airways
+Ukraine International Airlines
+Um Air
+Uni Airways
+United Airlines
+United Airways Bangladesh
+Universal Airlines
+Ural Airlines
+US Airways
+US-Bangla Airlines
+UTair Aviation
+UTair Express
+UTair Ukraine
+Uzbekistan Airways
+V Air
+Valuair
+Van Air Europe
+Varig Linhas
+Velvet Sky Aviation
+ViaAir
+Viaggio Air
+VIA Rail Canada
+Videcom International
+Vieques Air Link
+VietJet Air
+Vietnam Airlines
+Vietnam Air Services Company
+Villa Air
+Vim Airlines
+Vincent Aviation
+Virgin America
+Virgin Atlantic
+Virgin Australia
+Virgin Australia International
+Virgin Australia Regional
+Vision Airlines
+Vista Georgia
+Vistara
+Viva Colombia
+Vladivostok Air
+VLM Airlines
+Volaris
+Volga Dnepr Airline
+Volotea
+Vueling
+Vuelos Economicos
+Wamos Air
+Warbelows Air Ventures
+Wasaya Airways
+Wataniya Airways
+W Caribbean Costa Rica
+Welcome Air
+West African Airlines
+West Air Sweden
+WestJet
+WestJet Encore
+West Link Airways
+White Airways
+Widerøe
+Wind Rose Aviation
+Windward Island Airways
+Wings Air
+Wizz Air
+Wizz Air Bulgaria
+Wizz Air Ukraine
+World Airways
+World Atlantic Airlines
+WorldTicket
+Wow Air
+Wright Air Services
+XiamenAir
+XL Airways France
+Xtra Airways
+Yakutia Airlines
+Yamal Airlines
+Yan Air
+Yangon Airways
+Yangtze River Express
+Yellow Airtaxi
+Yemen Airways
+Yeti Airlines
+Ygnus Air
+Yunnan Yingan Airline
+Zagros Air
+Zagros Airlines
+Zambezi Airlines
+Zambian Airways
+Zambia Skyways
+Zanair
+Zhejiang Loong Airlines
+Zimbabwe Airlink
+Zimbabwe flyafrica.com
+dsc@master: opentraveldata % cat optd_airlines.csv | cut -d "^" -f 8 | sort | uniq -c                                        ~/Data/opentraveldata 0 18:19:49
+      4 
+      1 9 Air
+      1 9G Rail
+      1 Abacus
+      1 AB Aviation
+      1 AccesRail
+      1 Acg Air Cargo Germany
+      1 Act Havayollari
+      1 Adria Airways
+      1 Aegean Airlines
+      1 Aer Lingus
+      1 Aero4M
+      1 Aero Airlines
+      1 Aero Benin
+      1 Aero Caribbean
+      1 Aero Charter
+      1 Aerocomercial Oriente Norte
+      1 Aero Contractors Company Nigeria
+      1 Aeroenlaces Nacionales
+      1 Aero Flight
+      1 Aeroflot
+      1 Aerogaviota
+      1 Aerolíneas Argentinas
+      1 Aerolineas Galapagos
+      1 Aerolineas Mas
+      1 Aerolineas Sosa
+      1 Aerolink Uganda
+      1 Aeromar
+      1 AeroMexico
+      1 Aeromexico Connect
+      1 Aero Mongolia
+      1 Aeropelican Air Services
+      1 Aeroperlas
+      1 Aeropostal
+      1 Aerosur
+      1 AeroSvit Airlines
+      1 Aero Transporte
+      1 Aerovias DAP
+      1 Aero VIP
+      2 Aero VIP (Argentina)
+      1 Afghan Jet International
+      1 African Express Airways
+      1 Afric Aviation
+      1 Africa West Cargo Ghd
+      1 Africa World Airlines
+      1 Afrinat International Airlines
+      1 Afriqiyah Airways
+      1 Aigle Azur
+      1 Air Algerie
+      1 Air Alps Aviation
+      1 Air Alsie
+      1 Air Antilles Express
+      1 Air Arabia
+      1 Air Arabia Egypt
+      1 Air Arabia Jordan
+      1 Air Arabia Maroc
+      1 Air Armenia
+      1 AirAsia
+      1 AirAsia India
+      1 AirAsia Japan
+      1 AirAsia X
+      1 AirAsia Zest
+      1 Air Astana
+      1 Air Austral
+      1 Air Azul
+      1 Air Bagan
+      1 airBaltic
+      1 Air Bashkortostan
+      1 Air Berlin
+      1 Air Bishkek
+      1 Airblue
+      1 Air Botswana
+      1 Air Bridge Cargo
+      1 Air Burkina
+      1 Air Burundi
+      1 Air Busan
+      1 Air Cairo
+      1 Air Caledonie
+      1 Aircalin
+      1 Air Canada
+      1 Air Canada Rouge
+      1 Air Caraibes
+      1 Air Cargo Carriers
+      1 Air Caucasus
+      1 Air China
+      1 Air City
+      1 Air Comet
+      1 Air Contact
+      1 Air Corsica
+      1 Air Cote D Ivoire
+      1 Air Creebec
+      1 Air Do
+      1 Air Dolomiti
+      1 Air East
+      1 Air Europa
+      1 Air Excursions
+      1 Air Explore
+      1 Air Finland
+      1 Air Flamenco
+      1 Air France
+      1 Air Freight NZ
+      1 Air Gabon
+      1 Air Georgia
+      1 Air Georgian
+      1 Air Go Egypt
+      1 Air Greenland
+      1 Air Guinea
+      1 Air Iceland
+      1 Air Incheon
+      1 Air India
+      1 Air India Express
+      1 Air India Regional
+      1 Air Indus
+      1 Air Inuit
+      1 Air Italy
+      1 Air Ivoire
+      1 Air Jamaica
+      1 Air Japan
+      1 Air Jet
+      1 Air KBZ
+      1 Air Kenya Aviation
+      1 Air Kenya Express
+      1 Air Koryo
+      1 Air Kyrgyzstan
+      1 Air Labrador
+      1 Air Leisure
+      1 Airliaison
+      1 Airline Service
+      1 Airlines PNG
+      1 Airlines Reporting Corp
+      1 Airlink
+      1 Air Link
+      1 Air Lituanica
+      1 Air Luxor
+      1 Air Macau
+      1 Air Madagascar
+      1 Air Malawi
+      1 Air Mali
+      1 Air Malta
+      1 Air Mandalay
+      1 Air Marshall Islands
+      1 Air Mauritius
+      1 Airmax
+      1 Air Mediterranee
+      1 Air Mekong
+      1 Air Minas Linhas Aereas
+      1 Air Mobility Command
+      1 Air Moldova
+      1 Air Namibia
+      1 Air New Zealand
+      1 Air Next
+      1 Air Niamey
+      1 Air Nigeria
+      1 Air Nippon
+      1 Air Niugini
+      1 Airnorth
+      1 Air North
+      1 Air Nostrum
+      1 Air One
+      1 Air Onix
+      1 Air Panama
+      1 Air Pegasus
+      1 Airphil Express
+      1 Air Rarotonga
+      1 Air Saint Pierre
+      1 Air Serbia
+      1 Air Service Liege (ASL)
+      1 Air Seychelles
+      1 Air Sinai
+      1 Air Slovakia
+      1 Air Sunshine
+      1 Air Tahiti
+      1 Air Tahiti Nui
+      1 Air Tanzania
+      1 Air Timor
+      1 Air Tindi
+      1 Airtran Airways
+      1 Air Transat
+      1 Air Transport International
+      1 Air Uganda
+      1 Air Urga
+      1 Air Vanuatu
+      1 Air Via
+      1 Airways International
+      1 Air Wisconsin
+      1 Air Zimbabwe
+      1 Ais Airlines B V
+      1 Ak Bars Aero
+      1 Aklak Air
+      1 Aladia Airlines
+      1 Alajnihah Airways
+      1 Alaska Airlines
+      1 Alaska Seaplane Service
+      1 Alas Uruguay
+      1 Alidaunia
+      1 Alitalia
+      1 Alitalia CityLiner
+      1 Allegiant Air
+      1 Alliance Airlines
+      1 All Nippon Airways
+      1 Alma De Mexico
+      1 Almasria Universal Airlines
+      1 Al Naser Airlines
+      1 Al-Naser Airlines
+      1 Alpha Air Transport
+      1 ALS
+      1 ALSA
+      1 Amadeus
+      1 Amadeus 7N
+      1 Amadeus 8Z
+      1 Amadeus Eight
+      1 Amadeus PDF 0E
+      1 Amadeus PDF 2D
+      1 Amadeus PDF 2Y
+      1 Amadeus PDF 7S
+      1 Amadeus PDF 8Z
+      1 Amadeus PDF 9S
+      1 Amadeus PDF 9Z
+      1 Amadeus Seven
+      1 Amadeus Six
+      1 Amadeus Two
+      1 Amapola Flyg
+      1 Amaszonas Del Paraguay
+      1 American Airlines
+      1 Amsterdam Airlines Bv
+      1 Amtrak
+      1 ANA Wings
+      1 Andes Líneas Aéreas
+      1 Angara Airlines
+      1 Angkor Airways
+      1 Anguilla Air Services
+      1 Antrak Air
+      1 Apex Airline
+      1 Arc
+      1 Ariana Afghan Airlines
+      1 Arik Air
+      1 Arkia
+      1 Armavia
+      1 Armenia Airways
+      1 Aruba Airlines
+      1 Aserca
+      1 Asia Atlantic Airlines
+      1 Asiana Airlines
+      1 Asian Air
+      1 Asian Express Airline
+      1 Asian Wings Airways
+      1 Asky
+      1 Astra Airlines
+      1 Astral Aviation
+      1 Ata Airlines
+      1 Athens Airways
+      1 Atlantic Airways
+      1 Atlantic Express Airline
+      1 Atlantique Air Assistance
+      1 Atlantis European Airways
+      1 Atlas Air
+      1 Atlasjet Airlines
+      1 AtlasJet Ukraine
+      1 Augsburg Airways
+      1 Auric Air Services
+      1 Aurigny Air Services
+      1 Aurora Airlines
+      1 Austral Líneas Aéreas
+      1 Austrian Airlines
+      1 Avanza
+      1 Aviaenergo
+      1 Aviana Airways
+      1 Avianca
+      1 Avianca Brasil
+      1 Avianca Costa Rica
+      1 Avianca El Salvador
+      1 Avianca Perú
+      1 Avianova Lcc
+      1 Aviaprad
+      1 Aviastar Mandiri
+      1 Aviateca
+      1 Aviation Starlink
+      1 Aviator Aviation
+      1 Avia Traffic Company
+      1 Avies
+      1 Avion Express
+      1 Avior
+      1 Avitrans Nordic
+      1 Axess International
+      1 Axis International Lines
+      1 Azerbaijan Airlines
+      1 Aztec Worldwide Airlines
+      1 Azul Brazilian Airlines
+      1 BA CityFlyer
+      1 Badr Airlines
+      1 Bahamasair
+      1 Bahrain Air
+      1 Bangkok Airways
+      1 Bassaka Air
+      1 Batavia Air
+      1 Batik Air
+      1 BB Airways
+      1 Bearskin Airlines
+      1 Beijing Capital Airlines
+      1 Belair Airlines
+      1 Belavia
+      1 Belle Air Company
+      1 Belle Air Europe
+      1 Bemidji Airlines
+      1 Benin Golf Air
+      1 Bering Air
+      1 Berjaya Air
+      1 BH Air
+      1 B&H Airlines
+      1 Biman Bangladesh Airline
+      1 Binter Canarias
+      1 Bird Information Systems
+      1 Bismillah Airlines
+      1 Blue1
+      1 Blue Air
+      1 Blue Bird Airways
+      1 Bluebird Cargo
+      1 Blue Islands
+      1 Blue Panorama Airlines
+      1 bmi regional
+      1 Boliviana de Aviación (BoA)
+      1 Boutique Air
+      1 BQB Líneas Aéreas
+      1 Braathens Regional
+      1 Branson Air
+      1 Brindabella Airlines
+      1 Bringer Air Cargo
+      1 British Airways
+      1 British International
+      1 British Midland
+      1 Brussels Airlines
+      1 Buddha Air
+      1 Bukovyna Airlines
+      1 Bulgaria Air
+      1 Bulgarian Air Charter
+      1 Buraq Air
+      1 Business Air
+      1 Business Aviation Centre
+      1 BVI Airways
+      1 Caicos Express Airways
+      1 CAI First
+      1 Cairo Aviation
+      1 CAI Second
+      1 Calima Aviacion
+      1 Calm Air International
+      1 Camair Co
+      1 Cambodia Airlines
+      1 Cambodia Angkor Air
+      1 Cambodia Bayon Airlines
+      1 Canadian Airlines
+      1 Canadian North
+      1 Canary Fly
+      1 Canjet Airlines
+      1 Cape Air
+      1 Cargolux Airlines
+      1 Cargolux Italia
+      1 Carib Aviation Limited
+      1 Caribbean Airlines
+      1 Caribbean Winds Airlines
+      1 Carpatair
+      1 Caspian Airlines
+      1 Cathay Pacific
+      1 Catovair
+      1 Cayman Airways
+      1 Cebu Pacific
+      1 Ceiba Intercontinental
+      1 CemAir
+      1 Central Air Transport Services
+      1 Central Mountain Air
+      1 Centralwings
+      1 Chalair Aviation
+      1 Challenge Aero
+      1 Champion Air
+      1 Cham Wings Airlines
+      1 Chanchangi Airlines
+      1 Charter Air Transport
+      1 Chautauqua Airlines
+      1 Chengdu Airlines
+      1 China Airlines
+      2 China Cargo Airlines
+      1 China Eastern Airlines
+      1 China Express Airlines
+      1 China Postal Airlines
+      1 China Southern Airlines
+      1 China United Airlines
+      1 China West Air
+      1 China Xinhua Airlines
+      1 Chongqing Airlines
+      1 Chu Kong Passenger Transport
+      1 Cimber A/S
+      1 Cimber Sterling
+      1 Cinnamon Air
+      1 Cions Software
+      1 Cirrus Airlines
+      1 Citilink Indonesia
+      1 City Airline
+      1 City Airways
+      1 CityJet
+      1 Club Air
+      1 CM Airlines
+      1 Coastal Travels
+      1 Cobham Aviation Services Australia
+      1 Colorful Guizhou Airlines
+      2 Comair
+      1 CommutAir
+      1 Comores Aviation International
+      1 Compagnie Africaine d'Aviation
+      1 Compass Airlines
+      1 Condor
+      1 Condor Berlin
+      1 Congo Express
+      1 Continental Airlines
+      1 Continental Micronesia
+      1 Conviasa
+      1 Copa Airlines
+      1 Copa Airlines Colombia
+      1 Corendon Airlines
+      1 Corendon Dutch Airlines
+      1 Corsair
+      1 Croatia Airlines
+      1 Cronos Airlines
+      1 Crystal Thai Airlines
+      1 CTS Viaggi
+      1 Cubana De Aviacion
+      1 Cyprus Airways
+      1 Czech Airlines
+      1 Czech Connect Airlines
+      1 Daallo Airlines
+      1 Dagestan Airlines
+      1 Dana Air
+      1 Danish Air Transport
+      1 Danube Wings
+      1 Darwin Airline
+      1 Dauair
+      1 Deer Jet Airlines
+      1 Delta Air Lines
+      1 Delta Connection
+      1 Denim Air
+      1 Deutsche Bahn
+      1 Direktflyg
+      1 Discovery Airways
+      1 Djibouti Airlines
+      1 Dniproavia
+      1 Dobrolet Airlines
+      1 Dokasch
+      1 Donavia
+      1 Donbassaero Airlines
+      1 Donghai Airlines
+      1 DOT LT
+      1 Douniah Airlines
+      1 Dragonair
+      1 Druk Air
+      1 Dutch Antilles Express
+      1 Dynamic Airways
+      1 Eagle Air
+      1 Eagle Atlantic Airlines
+      1 East African Safari Air
+      1 East Air
+      1 Eastar Jet
+      1 Eastern Airways
+      1 Eastern Caribbean Airlines
+      1 East Horizon Airlines
+      1 East Line
+      1 easyJet
+      1 easyJet Switzerland
+      1 Edelweiss Air
+      1 EDS Information Business
+      1 EgyptAir
+      1 El Al
+      1 Electronic Data Systems (EDS)
+      1 Elite Airways
+      1 Ellinair
+      1 Emirates
+      1 Endeavor Air
+      1 Enkor
+      1 Envoy Air
+      1 Equaflight Service
+      1 Equatorial Congo Airline
+      1 Era Aviation
+      1 Eritrean Airlines
+      1 Ero Sun D Or
+      1 E Savtravel
+      1 Estafeta Carga Aerea
+      1 Estelar Latinoamerica
+      1 Estonian Air
+      1 Ethiopian Airlines
+      1 Etihad Airways
+      1 Etihad Regional
+      1 Eurasia Air
+      1 Euroatlantic Airways
+      1 Eurolot
+      1 Europe Airpost
+      1 European Air Transport
+      1 Eurostar
+      1 Eurowings
+      1 EVA Air
+      1 Evelop Airlines
+      1 Everts
+      1 Ewa Air
+      1 Exec Air
+      1 Executive Airlines
+      1 ExpressJet
+      1 Expressjet Airlines Inc
+      1 Express Rail Link, Malaysia
+      1 Eznis Airways
+      1 Fantasia Info Network
+      1 Far Eastern
+      1 Farelogix
+      1 Farnair Switzerland
+      1 Fars Qeshm Airlines
+      1 Fastjet Airlines
+      1 Federal Airlines
+      1 Fedex
+      1 Felix Airways
+      1 Fiji Airways
+      1 Finnair
+      1 Finncomm Airlines
+      1 First Air
+      1 Five Fourty Aviation
+      1 Flair Airlines
+      1 Flexflight
+      1 Flight Alaska
+      1 Florida Coastal Airlines
+      1 Fly 540
+      1 Fly 540 Ghana
+      1 FlyBaghdad
+      1 Flybe
+      1 Flycongo
+      1 Flydamas Airlines
+      1 flydubai
+      1 FlyEgypt
+      1 Flyfirefly
+      1 Fly Georgia
+      1 Fly Jamaica Airways
+      1 Fly Logic Malmo
+      1 Flynas
+      1 FMI Air
+      1 Forty Mile Air
+      1 Freebird Airlines
+      1 Freedom Air
+      1 Freedom Airlines
+      1 French Military Force
+      1 Freshair
+      1 Frontier Airlines
+      1 Fuji Dream Airlines
+      1 Fuzhou Airlines
+      1 Galileo International
+      1 Gambia Bird
+      1 Gambia International Airlines
+      1 Garuda Indonesia
+      1 Gazpromavia
+      1 Georgian Airways
+      1 Georgian International Air
+      1 Georgian International Airlines
+      1 Germania
+      1 Germania Flug
+      1 Germanwings
+      1 Ghadames Air Transport
+      1 Girjet
+      1 Globus
+      1 GMG Airlines
+      1 Go
+      1 GoAir
+      1 GoJet Airlines
+      1 Golden Myanmar Airlines
+      1 Gol Transportes Aéreos
+      1 Grand China Air
+      1 Grant Aviation
+      1 Great Lakes Airlines
+      1 Groznyy Avia
+      1 Gryphon Airlines
+      1 G Switch Works
+      1 Guangxi Beibu Gulf Airlines
+      1 Guinea Airlines
+      1 Guizhou Airlines
+      1 Gulf Air
+      1 Hahn Air
+      1 Hahn Air Systems
+      1 Hainan Airlines
+      1 Haiti Aviation
+      1 Halcyon Air Cabo Verde
+      1 Hamburg Airways
+      1 Hamburg International
+      1 Hawaiian Airlines
+      1 Hawkair
+      1 Hebei Airlines
+      1 Heli Air Monaco
+      1 Helicopteros Del Sureste
+      1 Helijet International
+      1 Heli Securite
+      1 Helitrans
+      1 Helitt Líneas Aereas
+      1 Hellas Jet
+      1 Hellenic Imperial Airways
+      1 Helvetic Airways
+      1 Hennan Airlines
+      1 Hermes Airlines
+      1 Hesa Airlines
+      1 Hevilift
+      1 Hex Air
+      1 Hi Fly
+      1 Highland Airways
+      1 Himalaya Airlines
+      1 Hinterland Aviation
+      1 Holidays Czech Airlines
+      1 Homer Air
+      1 Hong Kong Airlines
+      1 Hong Kong Express Airways
+      1 HOP!
+      1 HOP Airlinair
+      1 HOP Brit Air
+      1 Horizon Air
+      1 Hunnu Air
+      1 IATA
+      1 IBC Airways
+      1 Iberia
+      1 Iberia Express
+      1 Iberworld Airlines
+      1 Ibex Airlines
+      1 IBS Software Services Americas
+      1 Icelandair
+      1 Ihy Izmir Havayollari
+      1 Ikar
+      1 Iliamna Air
+      1 IndiGo
+      1 Indonesia AirAsia
+      1 Indonesia Air Transport
+      1 Infini Travel Information
+      1 Insel Air Aruba
+      1 Insel Air International
+      1 Interair
+      1 Inter Airlines
+      1 InterCaribbean Airways
+      1 Interjet
+      1 InterJet
+      1 Interlink
+      1 Intersky Luftfahrt
+      1 InvestAvia
+      1 IrAero
+      1 Iran Air
+      1 Iran Air Tours
+      1 Iran Aseman Airlines
+      1 Iranian Naft Airline
+      1 Iraqi Airways
+      1 Island Air
+      1 Island Aviation Services
+      1 Islas Airways
+      1 Islena Airlines
+      1 Israir Airlines
+      1 ITA Software
+      1 Itek Air
+      1 ITI Air
+      1 Izhavia
+      1 JAL Express
+      1 Japan Air Commuter
+      1 Japan Airlines
+      1 Japan Transocean Air
+      1 Jatayu Airlines
+      1 Jazeera Airways
+      1 Jazz Aviation
+      1 Jeju Air
+      1 Jet2.com
+      1 Jet Air
+      1 Jetairfly
+      1 Jet Airways
+      1 Jet Asia Airways
+      1 Jet Aviation Business
+      1 JetBlue
+      1 Jetgo Australia
+      1 Jetlink Express
+      1 Jet Lite
+      1 Jetstar
+      1 Jetstar Asia
+      1 Jetstar Japan
+      1 Jetstar Pacific Airlines
+      1 Jet Time
+      1 Jin Air
+      1 Job Air
+      1 Joint Stock Company Ital
+      1 Jordan Aviation
+      1 Joy Air
+      1 Jsc Bek Air
+      1 Jsc Irtysh Air
+      1 Jsc Nordavia
+      1 Jubba Airways Kenya
+      1 Juneyao Airlines
+      1 Kalitta Charters
+      1 Kal Star Aviation
+      1 Kam Air
+      1 Kan Air
+      1 Karinou Airlines
+      1 Karthago Airlines
+      1 Kartika Airlines
+      1 Katekavia
+      1 Katmai Air
+      1 Kato Airlines
+      1 Kaya Airlines
+      1 Kazaviaspas
+      1 Kenmore Air
+      1 Kenn Borek Air
+      1 Kenya Airways
+      1 Kharkiv Airlines
+      1 Khors Air
+      1 Kinda Airlines
+      1 Kingfisher Airlines
+      1 Kish Airlines
+      1 KLM
+      1 KLM Cityhopper
+      1 Kogalymavia Airlines
+      1 Korean Air
+      1 Korongo Airlines
+      1 KrasAvia
+      1 Kunming Airlines
+      1 Kuwait Airways
+      1 Kyrgyz Airlines
+      1 Kyrgyzstan Airlines
+      1 Kyrgyz Trans Avia
+      1 Lacbravo
+      1 La Compagnie
+      1 LagunAir
+      1 Lam Mozambique
+      1 LAN Airlines
+      1 LAN Argentina
+      1 LAN Cargo
+      1 LAN Colombia
+      1 LAN Ecuador
+      1 LAN Express
+      1 LAN Perú
+      1 Lao Airlines
+      1 Lao Central
+      1 Latpass Airlines
+      1 L'Avion
+      1 LC Perú
+      1 Lepl
+      1 LGW Luftfahrtges Walter
+      1 Liat
+      1 Libyan Airlines
+      1 Libyan Wings
+      1 Línea Aérea Amaszonas
+      1 Línea Aerea Cuencana
+      1 Linea Aerea De Servicio
+      1 Línea Aerea Eco Jet
+      1 Línea Turística Aereotuy (LTA)
+      1 Lion Air
+      1 Loganair
+      1 LOT Polish Airlines
+      1 Lucky Air
+      1 Lufthansa
+      1 Lufthansa CityLine
+      1 Lufthansa Systems
+      1 Lugansk Airlines
+      1 Luxair
+      1 Lynx Aviation
+      1 Macair Jet
+      1 Macedonian Airlines
+      1 Magnum Air
+      1 Mahan Airlines
+      1 Malawian Airlines
+      1 Malaysia Airlines
+      1 Malev Hungarian Airlines
+      1 Malindo Airways
+      1 Malmo Aviation
+      1 Mandala Airlines
+      1 Mandarin Airlines
+      1 Mango
+      1 Mann Yadanarpon Airlines
+      1 Manx
+      1 Map Management Planning
+      1 Marsland Aviation
+      1 Martinair
+      1 MASwings
+      1 MAT Airways
+      1 MAT Macedonian Airlines
+      1 Mauritania Airways
+      1 Mauritanian Airlines Int
+      2 Max Air
+      1 MAXjet Airways
+      1 Mayair
+      1 Maya Island Air
+      1 Mega Maldives
+      1 Meridiana Fly
+      1 Mesa Airlines
+      1 Mexicana
+      1 MHS Aviation
+      1 Miami Air International
+      1 Miat Mongolian Airlines
+      1 Middle East Airlines
+      1 Midwest Airlines
+      1 Midwest Connect
+      1 Mihin Lanka
+      1 Mint Líneas Aéreas
+      1 Mirny Air
+      1 Mng Airlines Cargo
+      1 Mokulele Airlines
+      1 Moldavian Airlines
+      1 Monarch Airlines
+      1 Montenegro Airlines
+      1 Montserrat Airways
+      1 Moskovia Airlines
+      1 Motor Sich Jsc
+      1 MS Royal Airlines
+      1 Multi Aero
+      1 Myanmar Airways International
+      1 Myanmar National Airlines
+      1 Nacil Indian Airline
+      1 Nakina Air Service
+      1 NAM Air
+      1 name
+      1 Nasair
+      1 National Airlines
+      1 National Airways
+      1 National Airways Cameroon
+      1 National Airways Ethiopia
+      1 National Jet Systems
+      1 Nature Air
+      1 Nauru Airlines
+      1 Navitaire New Skies
+      1 Navitaire Open Skies
+      1 Naysa
+      1 Nego Airline One
+      1 Neos
+      1 Nepal Airlines
+      1 Nesma Airlines
+      1 Netjets Aviation
+      1 New England Airlines
+      1 New Gen Airways
+      1 New Livingston
+      1 Nextjet
+      1 Nice Helicopteres
+      1 Niger Airlines
+      1 Niki
+      1 Nile Air
+      1 Nok Air
+      1 NokScoot
+      1 Nomad Aviation
+      1 Non Iata Codeshare Carrier
+      1 Nordic Global Airlines
+      1 Nordic Regional Airlines
+      1 NordStar
+      1 Nord Wind
+      1 Norfolk Air
+      1 North American Airlines
+      1 North Flying
+      1 Northwest Airlines
+      1 Northwestern Air Lease
+      1 North Wright Air
+      1 Norwegian Air International
+      1 Norwegian Air Shuttle (NAS)
+      1 Norwegian Long Haul
+      1 Nouvelair
+      2 Nova Airlines
+      1 Novoair
+      1 Nuovo Trasporto Viaggiatori
+      1 OAG Worldwide
+      1 Odessa Airlines
+      1 Okay Airways
+      1 OLT Express Germany
+      1 Olympic Air
+      1 Oman Air
+      1 Oneworld
+      1 Onur Air
+      1 OpenSkies
+      1 Orbest
+      1 Ord Air Charter
+      1 Orenair
+      1 Orenburg Region Airlines
+      1 Oriental Air Bridge
+      1 Orient Thai Airlines
+      1 Pacific Airways
+      1 Pacific Coastal Airlines
+      1 Pacific Wings
+      1 Pakistan International Airlines (PIA)
+      1 PAL Airlines
+      1 Palau National Airlines
+      1 Palau Pacific Airways
+      1 Pan African Airways
+      1 Panama Airways
+      1 Pan American World Airways Dominicana
+      1 Papillon Airways
+      1 Pascan Aviation
+      1 Passaredo
+      1 Passaredo Transportes
+      1 Peach Aviation
+      1 Pegasus Airlines
+      1 Pegasus Asia
+      1 Penair
+      1 Peoples Viennaline
+      1 Perimeter Aviation
+      1 Perla Airlines
+      1 Peruvian Airlines
+      1 Philippine Airlines
+      1 Philippines AirAsia
+      1 Phoenix Systems Dertours
+      1 Piedmont Airlines
+      1 Pison Airways Ltd
+      1 PLUNA
+      1 Plus Ultra Líneas Aéreas
+      1 PM Air
+      1 Pobeda
+      1 Polar Airlines
+      1 Polet Airlines
+      1 Polynesian Airlines
+      1 Porter Airlines
+      1 Portugalia
+      1 Precision Air
+      1 Premium Jet AG
+      1 Prima Air
+      1 Primair
+      1 Primera Air
+      1 Primera Air Nordic
+      1 Primera Air Scandinavia
+      1 Private Wings
+      1 Proflight Commuter
+      1 Provincial Airlines
+      1 PSA Airlines
+      1 Publiccharters Com
+      1 Punto Azul
+      1 Qantas
+      1 Qatar Airways
+      1 Qazaq Air
+      1 Qeshm Air
+      1 Qingdao Airlines
+      1 Quantum Air
+      1 Quebecair Express
+      1 Raddix Solutions
+      1 Rak Airways
+      1 Redemption
+      1 Red Wings Airlines
+      1 Regent Airways
+      1 Region Airline
+      1 Regional
+      1 Regional Air Services
+      1 Regional Express
+      1 Reliable Unique Services
+      1 Renfe Viajeros
+      1 Republic Airline
+      1 Rheintal flug
+      1 Robin Hood Aviation
+      1 Romavia
+      1 Rossiya
+      1 Rotana Jet
+      1 Royal Air Force
+      1 Royal Air Maroc (RAM)
+      1 Royal Brunei
+      1 Royal Falcon
+      1 Royal Flight
+      1 Royal Jordanian
+      1 Royal Wings
+      1 Ruili Airlines
+      1 Rusline
+      1 Rutaca
+      1 Rwandair Express
+      1 Ryanair
+      1 Ryan Air Services
+      1 S7 Airlines
+      2 Sabre
+      1 Saereo
+      1 Safair
+      1 Safarilink Aviation
+      1 Safi Airways
+      1 Saint Barth Commuter
+      1 Salsa d'Haiti
+      1 Samara Airlines
+      1 Sansa
+      1 Santa Barbara Airlines
+      1 Saratov Airlines
+      1 SATA Air Açores
+      1 SATA International
+      1 SATENA
+      1 Saudia
+      1 Sayakhat Airlines
+      2 Scandinavian Airlines
+      1 SCAT Airlines
+      1 Scenic Airlines
+      1 Scoot
+      1 ScotAirways
+      1 Scott Air
+      1 Seaborne Airlines
+      1 Seair
+      1 SeaPort Airlines
+      1 Senegal Airlines
+      1 Servant Air
+      1 Servicios Aereos De Los Andes
+      1 Servicios Aereos Profesionales
+      1 Severstal Air Company
+      1 Shaheen Air
+      1 Shandong Airlines
+      1 Shanghai Airlines
+      1 Sharp Aviation
+      1 Shenzhen Airlines
+      1 Shun Tak China
+      1 Shuttle America
+      1 Siam Air Transport
+      1 Siam Ga
+      1 Sichuan Airlines
+      1 SilkAir
+      1 Silk Way Airlines
+      1 Silver Airways
+      1 Singapore Airlines
+      1 Sirena Jsc
+      1 Sirena Travel
+      1 SITA
+      1 Sky Airline
+      1 Sky Airlines
+      1 Sky Angkor Airlines
+      1 Sky Bahamas Airlines
+      1 Sky Bishek
+      1 Sky Express
+      1 SkyGreece Airlines
+      1 Skyking
+      1 Skymark Airlines
+      1 Sky Regional Airlines
+      1 Sky Taxi
+      1 Skyteam
+      1 Skytrans Regional
+      1 Skyways
+      1 SkyWest Airlines
+      1 Sky Wings Airlines
+      1 Skywise Airlines
+      1 SkyWork Airlines
+      1 Slok Air International
+      1 Small Planet Airline
+      1 Smart Aviation
+      1 SmartLynx Airlines
+      1 Smartwings
+      1 Smokey Bay Air
+      1 SNCF
+      1 Solaseed Air
+      1 Sol Líneas Aéreas
+      1 Solomon Airlines
+      1 Somon Air
+      1 Songbird Airways
+      1 Sounds Air
+      1 South African Airways
+      1 South African Express
+      1 South Airlines
+      1 Southern Air Charter
+      1 Southern Airways
+      1 Southwest Airlines
+      1 Spanair
+      1 Speed Alliance Westbahn
+      1 SpiceJet
+      1 Spirit Airlines
+      1 Spring Airlines
+      1 Spring Airlines Japan
+      1 Sqiva Sistem
+      1 SriLankan Airlines
+      1 Sriwijaya Air
+      1 Star Airways
+      1 Star Alliance
+      1 Starbow
+      1 StarFlyer
+      1 Star Perú
+      1 STA Travel
+      1 Sterling Airlines
+      1 Stobart Air
+      1 STP Airways
+      1 Strategic Airlines
+      1 Sudan Airways
+      1 Sum Air Services
+      1 Sunair
+      1 Sun Air Express
+      1 Sun Air of Scandinavia
+      1 Sun Country
+      1 SunExpress
+      1 Sun Express Germany
+      1 Sunrise Airways
+      1 Sunwing Airlines
+      1 Surinam Airways
+      1 Sutra
+      1 Swe Fly
+      1 Swiss International Air Lines
+      1 Sylt Air
+      1 Syphax Airlines
+      1 Syrian Arab Airlines
+      1 Taag
+      1 Taban Airlines
+      1 Tacv Cabo Verde Airlines
+      1 TAF Linhas Aereas
+      1 Tailwind Hava Yollari As
+      1 Tajik Air
+      2 TAM Airlines
+      1 TAME
+      1 Tampa Cargo
+      1 Tanana Air Service
+      1 Tandem Aero
+      1 TAP Portugal
+      1 Taquan Air Services
+      1 Tarco Air
+      1 TAROM
+      1 Tashi Air
+      1 Tassili Airlines
+      1 Tatarstan Air
+      1 Tavrey Airlines
+      1 Tectimes Sudamerica
+      1 Ten Airways
+      1 Thai AirAsia
+      1 Thai AirAsia X
+      1 Thai Airways
+      1 Thai Lion Mentari
+      1 Thai Smile Airways
+      1 Thalys
+      1 The Qualiflyer Group
+      2 Thomas Cook Airlines
+      1 Thomas Cook Airlines Belgium
+      1 Thomson Airways
+      1 Tianjin Airlines
+      1 Tiara Air Aruba
+      1 Tibet Airlines
+      1 Tigerair
+      1 Tiger Air Philippines
+      1 Tigerair Taiwan
+      1 Tiger Airways Australia
+      1 Tik Systems
+      1 Titan Airways
+      1 Tnt Airways
+      1 TonleSap Airlines
+      1 Toumai Air Tchad
+      1 Trade Air
+      1 Tradewind Aviation
+      1 Transaero Airlines
+      1 Trans Air Congo
+      1 TransAsia Airways
+      1 Transavia Airlines
+      1 Transavia Denmark
+      1 Transavia France
+      1 TransNusa
+      1 Transportes Aereos Guatemaltecos
+      1 Trans States Airlines
+      1 Travel Air
+      1 Travelport Galileo
+      1 Travelport Worldspan
+      1 Travel Service Hungary
+      1 Travel Service Polska
+      1 Travelsky Technology
+      1 Travel Technology Interactive
+      1 Trenitalia
+      1 Trigana Air Service
+      1 Trip
+      1 Tropic Air
+      1 TTA Airlink
+      1 TUI Airlines Netherlands
+      1 TUIfly
+      1 Tuifly Nordic
+      1 Tunisair
+      1 Tunisair Express
+      1 Turkish Airlines
+      1 Turkmenistan Airlines
+      1 T'way Air
+      1 Twin Jet
+      1 Tyrolean Airways
+      1 Ukraine International Airlines
+      1 Um Air
+      1 Uni Airways
+      1 United Airlines
+      1 United Airways Bangladesh
+      1 Universal Airlines
+      1 Ural Airlines
+      1 US Airways
+      1 US-Bangla Airlines
+      1 UTair Aviation
+      1 UTair Express
+      1 UTair Ukraine
+      1 Uzbekistan Airways
+      1 V Air
+      1 Valuair
+      1 Van Air Europe
+      1 Varig Linhas
+      1 Velvet Sky Aviation
+      1 ViaAir
+      1 Viaggio Air
+      1 VIA Rail Canada
+      1 Videcom International
+      1 Vieques Air Link
+      1 VietJet Air
+      1 Vietnam Airlines
+      1 Vietnam Air Services Company
+      1 Villa Air
+      1 Vim Airlines
+      1 Vincent Aviation
+      1 Virgin America
+      1 Virgin Atlantic
+      1 Virgin Australia
+      1 Virgin Australia International
+      1 Virgin Australia Regional
+      1 Vision Airlines
+      1 Vista Georgia
+      1 Vistara
+      1 Viva Colombia
+      1 Vladivostok Air
+      1 VLM Airlines
+      1 Volaris
+      1 Volga Dnepr Airline
+      1 Volotea
+      1 Vueling
+      1 Vuelos Economicos
+      1 Wamos Air
+      1 Warbelows Air Ventures
+      1 Wasaya Airways
+      1 Wataniya Airways
+      1 W Caribbean Costa Rica
+      1 Welcome Air
+      1 West African Airlines
+      1 West Air Sweden
+      1 WestJet
+      1 WestJet Encore
+      1 West Link Airways
+      1 White Airways
+      1 Widerøe
+      1 Wind Rose Aviation
+      1 Windward Island Airways
+      1 Wings Air
+      1 Wizz Air
+      1 Wizz Air Bulgaria
+      1 Wizz Air Ukraine
+      1 World Airways
+      1 World Atlantic Airlines
+      1 WorldTicket
+      1 Wow Air
+      1 Wright Air Services
+      1 XiamenAir
+      1 XL Airways France
+      1 Xtra Airways
+      1 Yakutia Airlines
+      1 Yamal Airlines
+      1 Yan Air
+      1 Yangon Airways
+      1 Yangtze River Express
+      1 Yellow Airtaxi
+      1 Yemen Airways
+      1 Yeti Airlines
+      1 Ygnus Air
+      1 Yunnan Yingan Airline
+      1 Zagros Air
+      1 Zagros Airlines
+      1 Zambezi Airlines
+      1 Zambian Airways
+      1 Zambia Skyways
+      1 Zanair
+      1 Zhejiang Loong Airlines
+      1 Zimbabwe Airlink
+      1 Zimbabwe flyafrica.com
+dsc@master: opentraveldata % cat optd_airlines.csv | cut -d "^" -f | sort -t "^" -k 2nr,2 | head -1                          ~/Data/opentraveldata 0 18:20:11
+cut: option requires an argument -- 'f'
+Try 'cut --help' for more information.
+dsc@master: opentraveldata % cat optd_airlines.csv | cut -d "^" -f 8 | sort -t "^" -k 2nr,2 | head -1                        ~/Data/opentraveldata 0 18:22:20
+
+dsc@master: opentraveldata % cat optd_airlines.csv | cut -d "^" -f 8,14 | sort -t "^" -k 2nr,2 | head -1                     ~/Data/opentraveldata 0 18:22:29
+AccesRail^1467079
+dsc@master: opentraveldata % cat optd_airlines.csv | cut -d "^" -f 8 | sort | uniq -c | sort -n | head                       ~/Data/opentraveldata 0 18:22:37
+      1 9 Air
+      1 9G Rail
+      1 Abacus
+      1 AB Aviation
+      1 AccesRail
+      1 Acg Air Cargo Germany
+      1 Act Havayollari
+      1 Adria Airways
+      1 Aegean Airlines
+      1 Aer Lingus
+dsc@master: opentraveldata % cat optd_airlines.csv | cut -d "^" -f 8 | sort | uniq -c | sort -nr | head                      ~/Data/opentraveldata 0 18:23:38
+      4 
+      2 Thomas Cook Airlines
+      2 TAM Airlines
+      2 Scandinavian Airlines
+      2 Sabre
+      2 Nova Airlines
+      2 Max Air
+      2 Comair
+      2 China Cargo Airlines
+      2 Aero VIP (Argentina)
+dsc@master: opentraveldata % cat optd_airlines.csv | cut -d "^" -f 10 | sort | uniq -c | sort -nr | head                     ~/Data/opentraveldata 0 18:23:44
+   1158 
+     37 OneWorld
+     33 Star Alliance
+     25 Skyteam
+      1 alliance_code
+dsc@master: opentraveldata % cd                                                                                              ~/Data/opentraveldata 0 18:24:24
+dsc@master: ~ % grep this text_file.txt                                                                                                          ~ 0 18:32:27
+dsc@master: ~ 1 % cd Data                                                                                                                        ~ 0 18:32:34
+dsc@master: Data % ls                                                                                                                       ~/Data 0 18:32:58
+airline_tickets/  challenge/  opentraveldata/  README.md*  shell/  us_dot/
+dsc@master: Data % cd shell                                                                                                                 ~/Data 0 18:32:59
+dsc@master: shell % ls                                                                                                                ~/Data/shell 0 18:33:14
+colum_name_number.sh*  postgres/                This file is created by KSCHOOL onmié nov 28 17:15:51 CET 2018
+Finn.txt*              Text_example_double.txt  This file is created by KSCHOOL onmié nov 28 17:16:14 CET 2018
+first_dir/             Text_example.txt*        timestamp_header.txt
+numbers                Text_example.txt.2*
+dsc@master: shell % grep this Text_example.txt                                                                                        ~/Data/shell 0 18:33:15
+this line is the 1st lower case line in this file.
+Two lines above this are empty.
+And this is the last line.
+this line is the 1st lower case line in this file.
+Two lines above this are empty.
+And this is the last line.
+dsc@master: shell % grep -v this Text_example.txt                                                                                     ~/Data/shell 0 18:33:39
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+dsc@master: shell % grep -i -n this Text_example.txt                                                                                  ~/Data/shell 0 18:35:06
+1:THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+2:this line is the 1st lower case line in this file.
+3:This Line Has All Its First Character Of The Word With Upper Case.
+6:Two lines above this are empty.
+7:And this is the last line.
+8:THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+9:this line is the 1st lower case line in this file.
+10:This Line Has All Its First Character Of The Word With Upper Case.
+13:Two lines above this are empty.
+14:And this is the last line.
+dsc@master: shell % grep -i -c this Text_example.txt                                                                                  ~/Data/shell 0 18:35:30
+10
+dsc@master: shell % grep -i -cv this Text_example.txt                                                                                 ~/Data/shell 0 18:36:56
+4
+dsc@master: shell % grep -n line Text_example.txt                                                                                     ~/Data/shell 0 18:37:54
+2:this line is the 1st lower case line in this file.
+6:Two lines above this are empty.
+7:And this is the last line.
+9:this line is the 1st lower case line in this file.
+13:Two lines above this are empty.
+14:And this is the last line.
+dsc@master: shell % grep -nw line Text_example.txt                                                                                    ~/Data/shell 0 18:39:30
+2:this line is the 1st lower case line in this file.
+7:And this is the last line.
+9:this line is the 1st lower case line in this file.
+14:And this is the last line.
+dsc@master: shell % cat Text_example.txt                                                                                              ~/Data/shell 0 18:39:45
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+this line is the 1st lower case line in this file.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+Two lines above this are empty.
+And this is the last line.
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+this line is the 1st lower case line in this file.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+Two lines above this are empty.
+And this is the last line.
+dsc@master: shell % grep -nB 1 line Text_example.txt                                                                                  ~/Data/shell 0 18:40:20
+1-THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+2:this line is the 1st lower case line in this file.
+--
+5-
+6:Two lines above this are empty.
+7:And this is the last line.
+8-THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+9:this line is the 1st lower case line in this file.
+--
+12-
+13:Two lines above this are empty.
+14:And this is the last line.
+dsc@master: shell % grep -nA 1 line Text_example.txt                                                                                  ~/Data/shell 0 18:40:29
+2:this line is the 1st lower case line in this file.
+3-This Line Has All Its First Character Of The Word With Upper Case.
+--
+6:Two lines above this are empty.
+7:And this is the last line.
+8-THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+9:this line is the 1st lower case line in this file.
+10-This Line Has All Its First Character Of The Word With Upper Case.
+--
+13:Two lines above this are empty.
+14:And this is the last line.
+dsc@master: shell % grep -n -i -E "^T" Text_example.txt                                                                               ~/Data/shell 0 18:41:01
+1:THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+2:this line is the 1st lower case line in this file.
+3:This Line Has All Its First Character Of The Word With Upper Case.
+6:Two lines above this are empty.
+8:THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+9:this line is the 1st lower case line in this file.
+10:This Line Has All Its First Character Of The Word With Upper Case.
+13:Two lines above this are empty.
+dsc@master: shell % grep -n -E "^T" Text_example.txt                                                                                  ~/Data/shell 0 18:43:50
+1:THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+3:This Line Has All Its First Character Of The Word With Upper Case.
+6:Two lines above this are empty.
+8:THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+10:This Line Has All Its First Character Of The Word With Upper Case.
+13:Two lines above this are empty.
+dsc@master: shell % seq 5 5 200 | grep -w -E "[1-5]{2}"                                                                               ~/Data/shell 0 18:44:28
+15
+25
+35
+45
+55
+dsc@master: shell % seq 5 5 200 | grep -E "[1-5]{2}"                                                                                  ~/Data/shell 0 18:47:00
+15
+25
+35
+45
+55
+110
+115
+120
+125
+130
+135
+140
+145
+150
+155
+dsc@master: shell % cd                                                                                                                ~/Data/shell 0 18:47:08
+dsc@master: ~ % cd Data/opentraveldata                                                                                                           ~ 0 18:47:34
+dsc@master: opentraveldata % cat optd_aircraft.csv| head                                                                     ~/Data/opentraveldata 0 18:47:39
+iata_code^manufacturer^model^iata_group^iata_category^icao_code^nb_engines^aircraft_type
+100^Fokker^100^100^2J^F100^2^J
+141^BAe^146-100^146^4J^B461^4^J
+142^BAe^BAE Systems 146-200 Passenger^146^4J^B462^4^J
+143^BAe^146-300^146^4J^B463^4^J
+146^BAe^146^^^^^
+14F^BAe^146 Freighter (-100/200/300QT & QC)^^^^^
+14X^BAe^146 Freighter (-100QT & QC)^14F^4J^B461^4^J
+14Y^BAe^146 Freighter (-200QT & QC)^14F^4J^B462^4^J
+14Z^BAe^146 Freighter (-300QT & QC)^14F^4J^B463^4^J
+dsc@master: opentraveldata % cat optd_aircraft.csv| cut -d "^" -f 3 | grep -E "7[0-9]7"                                      ~/Data/opentraveldata 0 18:48:01
+707-300
+707/720
+707 Freighter
+707 Combi
+717
+727-100
+727-200
+727
+727-200 Advanced
+727-100 Mixed
+727-200 Mixed
+727 Freighter (-100/200)
+727 Combi
+727-200 Adv.
+727-200 (winglets)
+727-100 Freighter
+727-200 Freighter
+737-100
+737-200
+737-300
+737-400
+737-500
+737-600
+737
+737-800
+737-900
+737-200 Advanced
+737-300 (winglets)
+737-500 (winglets)
+737 Freighter
+737-700
+737-800 (winglets)
+737-900 (winglets)
+737-200 Mixed Configuration
+737-200 Combi
+737-300 Mixed Configuration
+737-400 Freighter
+737-400 Mixed Configuration
+737-700 Mixed Configuration
+737-200 Advanced
+737-700 (winglets)
+737-200 Freighter
+737-300 Freighter
+737-400 Freighter
+747-100
+747-200
+747-300
+747-400
+747
+747-400 Swingtail Freighter
+747-200 Combi
+747-300 Combi
+747-400 Combi
+747 Freighter
+747-8i
+747-400 (Domestic)
+747SP
+747 Combi
+747-8F
+747SR
+747-100 Freighter
+747-300 / 747-200 SUD Freighter
+747SR Freighter
+747-200 Freighter
+747-400 Freighter
+757-200
+757-300
+757
+757 Freighter
+757 Mixed
+757-300 (winglets)
+757-200 (winglets)
+767-200
+767-300
+767-400
+767
+767 Freighter
+767-300 (winglets) Freighter
+767-300 (winglets)
+767-200 Freighter
+767-300 Freighter
+777-200
+777-300
+777
+777 Freighter
+777-200LR
+777-300ER
+777-200F Freighter
+787-3
+787
+787-8
+787-9
+dsc@master: opentraveldata % cat optd_aircraft.csv| cut -d "^" -f 3 | grep -E "3[0-9][1-9]" | head                           ~/Data/opentraveldata 0 18:49:50
+A319
+A318
+A319
+A319 (Sharklets)
+A321-100/200
+A321 (sharklets)
+A318 (sharklets)
+A319 (sharklets)
+A321 Freighter
+SA330 Puma / AS332 Super Puma
+dsc@master: opentraveldata % cut -d "^" -f 8 optd_airlines.csv | grep aero | head                                            ~/Data/opentraveldata 0 18:50:31
+Donbassaero Airlines
+Transaero Airlines
+dsc@master: opentraveldata % cut -d "^" -f 8 optd_airlines.csv | grep -i -E "^Aero" | wc -l                                  ~/Data/opentraveldata 0 18:54:15
+30
+dsc@master: opentraveldata % cat optd_por_public.csv | cut <(head -1)                                                        ~/Data/opentraveldata 0 18:55:11
+cut: you must specify a list of bytes, characters, or fields
+Try 'cut --help' for more information.
+dsc@master: opentraveldata 1 % cat optd_por_public.csv | cut head -1                                                         ~/Data/opentraveldata 0 18:57:03
+cut: invalid option -- '1'
+Try 'cut --help' for more information.
+dsc@master: opentraveldata 1 % cat optd_por_public.csv | head -1                                                             ~/Data/opentraveldata 0 18:57:12
+iata_code^icao_code^faa_code^is_geonames^geoname_id^envelope_id^name^asciiname^latitude^longitude^fclass^fcode^page_rank^date_from^date_until^comment^country_code^cc2^country_name^continent_name^adm1_code^adm1_name_utf^adm1_name_ascii^adm2_code^adm2_name_utf^adm2_name_ascii^adm3_code^adm4_code^population^elevation^gtopo30^timezone^gmt_offset^dst_offset^raw_offset^moddate^city_code_list^city_name_list^city_detail_list^tvl_por_list^state_code^location_type^wiki_link^alt_name_section^wac^wac_name
+dsc@master: opentraveldata % cat optd_por_public.csv | head -1 | sort -t "^"                                                 ~/Data/opentraveldata 0 18:57:35
+iata_code^icao_code^faa_code^is_geonames^geoname_id^envelope_id^name^asciiname^latitude^longitude^fclass^fcode^page_rank^date_from^date_until^comment^country_code^cc2^country_name^continent_name^adm1_code^adm1_name_utf^adm1_name_ascii^adm2_code^adm2_name_utf^adm2_name_ascii^adm3_code^adm4_code^population^elevation^gtopo30^timezone^gmt_offset^dst_offset^raw_offset^moddate^city_code_list^city_name_list^city_detail_list^tvl_por_list^state_code^location_type^wiki_link^alt_name_section^wac^wac_name
+dsc@master: opentraveldata % cat optd_por_public.csv | head -1 | sort -t "^"                                                 ~/Data/opentraveldata 0 18:58:46
+iata_code^icao_code^faa_code^is_geonames^geoname_id^envelope_id^name^asciiname^latitude^longitude^fclass^fcode^page_rank^date_from^date_until^comment^country_code^cc2^country_name^continent_name^adm1_code^adm1_name_utf^adm1_name_ascii^adm2_code^adm2_name_utf^adm2_name_ascii^adm3_code^adm4_code^population^elevation^gtopo30^timezone^gmt_offset^dst_offset^raw_offset^moddate^city_code_list^city_name_list^city_detail_list^tvl_por_list^state_code^location_type^wiki_link^alt_name_section^wac^wac_name
+dsc@master: opentraveldata % cat optd_por_public.csv | head -1 | sort -t                                                     ~/Data/opentraveldata 0 19:00:45
+sort: option requires an argument -- 't'
+Try 'sort --help' for more information.
+dsc@master: opentraveldata 2 % cat optd_por_public.csv | head -1 | sort -t "^"                                               ~/Data/opentraveldata 0 19:02:33
+iata_code^icao_code^faa_code^is_geonames^geoname_id^envelope_id^name^asciiname^latitude^longitude^fclass^fcode^page_rank^date_from^date_until^comment^country_code^cc2^country_name^continent_name^adm1_code^adm1_name_utf^adm1_name_ascii^adm2_code^adm2_name_utf^adm2_name_ascii^adm3_code^adm4_code^population^elevation^gtopo30^timezone^gmt_offset^dst_offset^raw_offset^moddate^city_code_list^city_name_list^city_detail_list^tvl_por_list^state_code^location_type^wiki_link^alt_name_section^wac^wac_name
+dsc@master: opentraveldata % cat optd_por_public.csv | head -1 | tr "^" "\n"                                                 ~/Data/opentraveldata 0 19:02:41
+iata_code
+icao_code
+faa_code
+is_geonames
+geoname_id
+envelope_id
+name
+asciiname
+latitude
+longitude
+fclass
+fcode
+page_rank
+date_from
+date_until
+comment
+country_code
+cc2
+country_name
+continent_name
+adm1_code
+adm1_name_utf
+adm1_name_ascii
+adm2_code
+adm2_name_utf
+adm2_name_ascii
+adm3_code
+adm4_code
+population
+elevation
+gtopo30
+timezone
+gmt_offset
+dst_offset
+raw_offset
+moddate
+city_code_list
+city_name_list
+city_detail_list
+tvl_por_list
+state_code
+location_type
+wiki_link
+alt_name_section
+wac
+wac_name
+dsc@master: opentraveldata % cat optd_por_public.csv | head -1 | tr "^" "\n" | wc -l                                         ~/Data/opentraveldata 0 19:03:34
+46
+dsc@master: opentraveldata % cat optd_por_public.csv | head -1 | tr "^" "\n" | grep name | wc -l                             ~/Data/opentraveldata 0 19:03:44
+13
+dsc@master: opentraveldata % paste <(seq 13) <(cat optd_por_public.csv | head -1 | tr "^" "\n" | grep name)                  ~/Data/opentraveldata 0 19:04:15
+1	is_geonames
+2	geoname_id
+3	name
+4	asciiname
+5	country_name
+6	continent_name
+7	adm1_name_utf
+8	adm1_name_ascii
+9	adm2_name_utf
+10	adm2_name_ascii
+11	city_name_list
+12	alt_name_section
+13	wac_name
+dsc@master: opentraveldata %  paste <(seq 50) <(head -n 1 optd_por_public.csv | tr "^" "\n")|grep name                       ~/Data/opentraveldata 0 19:04:50
+4	is_geonames
+5	geoname_id
+7	name
+8	asciiname
+19	country_name
+20	continent_name
+22	adm1_name_utf
+23	adm1_name_ascii
+25	adm2_name_utf
+26	adm2_name_ascii
+38	city_name_list
+44	alt_name_section
+46	wac_name
+dsc@master: opentraveldata %  find ~ -type f -iname "*.txt" -exec grep -iwH "Science" {} \;                                  ~/Data/opentraveldata 0 19:05:25
+/home/dsc/Data/shell/Finn.txt:Science of Phrenology” at such and such a place, on the blank day of
+
+
+^C
+dsc@master: opentraveldata 130 %  find ~ -type f -iname "*.txt" -exec grep -iwH "Science" {}                                 ~/Data/opentraveldata 0 19:07:35
+find: missing argument to `-exec'
+Try 'find --help' for more information.
+dsc@master: opentraveldata 1 %  find ~ -type f -iname "*.txt" -exec grep -iwH "Science" {} \;                                ~/Data/opentraveldata 0 19:07:52
+/home/dsc/Data/shell/Finn.txt:Science of Phrenology” at such and such a place, on the blank day of
+/home/dsc/anaconda3/pkgs/scipy-1.0.0-py36hbf646e7_0/lib/python3.6/site-packages/scipy/THANKS.txt:SciPy is an open source library of routines for science and engineering
+/home/dsc/anaconda3/pkgs/scipy-1.0.0-py36hbf646e7_0/lib/python3.6/site-packages/scipy/spatial/qhull/COPYING.txt:       The National Science and Technology Research Center for
+^C
+dsc@master: opentraveldata 130 %  find ~ -type f -iname "*.txt" -exec grep -iwH "Science" {} \;                              ~/Data/opentraveldata 0 19:08:02
+/home/dsc/Data/shell/Finn.txt:Science of Phrenology” at such and such a place, on the blank day of
+/home/dsc/anaconda3/pkgs/scipy-1.0.0-py36hbf646e7_0/lib/python3.6/site-packages/scipy/THANKS.txt:SciPy is an open source library of routines for science and engineering
+/home/dsc/anaconda3/pkgs/scipy-1.0.0-py36hbf646e7_0/lib/python3.6/site-packages/scipy/spatial/qhull/COPYING.txt:       The National Science and Technology Research Center for
+/home/dsc/anaconda3/lib/python3.6/site-packages/scipy/THANKS.txt:SciPy is an open source library of routines for science and engineering
+/home/dsc/anaconda3/lib/python3.6/site-packages/scipy/spatial/qhull/COPYING.txt:       The National Science and Technology Research Center for
+dsc@master: opentraveldata %                                                                                                 ~/Data/opentraveldata 0 19:08:15
+
+
+
+
+
+
+
+
+
+
+
+
+
+
