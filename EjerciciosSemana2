@@ -5069,3 +5069,932 @@ dsc@master: shell %                                                             
 
 
 
+dsc@master: ~ % ls                                                                                                                               ~ 0 13:03:00
+20lines2.txt  40lines.txt  cd                     d      derby.log  Documents/  masterdatascience/  Music/  Pictures/  R/      Templates/     Videos/
+20lines.txt   anaconda3/   colum_name_number.sh*  Data/  Desktop/   Downloads/  metastore_db/       num     Public/    Repos/  text_file.txt
+dsc@master: ~ % zip text_file.txt 20lines2.txt 40lines.txt                                                                                       ~ 0 13:03:02
+	zip warning: missing end signature--probably not a zip file (did you
+	zip warning: remember to use binary mode when you transferred it?)
+	zip warning: (if you are trying to read a damaged archive try -F)
+
+zip error: Zip file structure invalid (text_file.txt)
+dsc@master: ~ 3 % zip text_zip 20lines2.txt 40lines.txt                                                                                          ~ 0 13:03:56
+  adding: 20lines2.txt (deflated 33%)
+  adding: 40lines.txt (deflated 36%)
+dsc@master: ~ % ls                                                                                                                               ~ 0 13:04:14
+20lines2.txt  40lines.txt  cd                     d      derby.log  Documents/  masterdatascience/  Music/  Pictures/  R/      Templates/     text_zip.zip
+20lines.txt   anaconda3/   colum_name_number.sh*  Data/  Desktop/   Downloads/  metastore_db/       num     Public/    Repos/  text_file.txt  Videos/
+dsc@master: ~ % unzip -l text_zip.zip                                                                                                            ~ 0 13:04:57
+Archive:  text_zip.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+       58  2018-12-04 18:57   20lines2.txt
+       83  2018-12-04 19:03   40lines.txt
+---------                     -------
+      141                     2 files
+dsc@master: ~ % zipinfo text_zip.zip                                                                                                             ~ 0 13:05:12
+Archive:  text_zip.zip
+Zip file size: 416 bytes, number of entries: 2
+-rw-r--r--  3.0 unx       58 tx defN 18-Dec-04 18:57 20lines2.txt
+-rw-r--r--  3.0 unx       83 tx defN 18-Dec-04 19:03 40lines.txt
+2 files, 141 bytes uncompressed, 92 bytes compressed:  34.8%
+dsc@master: ~ % zless text_zip.zip                                                                                                               ~ 0 13:05:27
+dsc@master: ~ % zcat text_zip.zip | less                                                                                                         ~ 0 13:05:54
+gzip: text_zip.zip has more than one entry--rest ignored
+dsc@master: ~ %                                                                                                                                  ~ 0 13:06:07
+dsc@master: ~ % zgrep -n -H "line" text_zip.zip                                                                                                  ~ 0 13:06:07
+dsc@master: ~ 1 % zgrep -n -H "20" text_zip.zip                                                                                                  ~ 0 13:06:31
+text_zip.zip:11:20
+dsc@master: ~ % cd Data/us_dot/otp                                                                                                               ~ 0 13:06:42
+dsc@master: otp % ls                                                                                                             ~/Data/us_dot/otp 0 13:09:17
+3_largest_file.txt                       On_Time_On_Time_Performance_2015_3.zip*  On_Time_On_Time_Performance_2015_6.zip*  three_largest_file.txt
+On_Time_On_Time_Performance_2015_1.zip*  On_Time_On_Time_Performance_2015_4.zip*  On_Time_On_Time_Performance_2015_7.zip*
+On_Time_On_Time_Performance_2015_2.zip*  On_Time_On_Time_Performance_2015_5.zip*  On_Time_On_Time_Performance_2015_8.zip*
+dsc@master: otp % unzip On_Time_On_Time_Performance_2015_1.zip | less                                                            ~/Data/us_dot/otp 0 13:09:18
+dsc@master: otp % unzip On_Time_On_Time_Performance_2015_1.zip                                                                   ~/Data/us_dot/otp 0 13:09:41
+Archive:  On_Time_On_Time_Performance_2015_1.zip
+replace On_Time_On_Time_Performance_2015_1.csv? [y]es, [n]o, [A]ll, [N]one, [r]ename: n
+replace readme.html? [y]es, [n]o, [A]ll, [N]one, [r]ename: n
+dsc@master: otp % zcat On_Time_On_Time_Performance_2015_1.zip | head                                                             ~/Data/us_dot/otp 0 13:10:00
+"Year","Quarter","Month","DayofMonth","DayOfWeek","FlightDate","UniqueCarrier","AirlineID","Carrier","TailNum","FlightNum","OriginAirportID","OriginAirportSeqID","OriginCityMarketID","Origin","OriginCityName","OriginState","OriginStateFips","OriginStateName","OriginWac","DestAirportID","DestAirportSeqID","DestCityMarketID","Dest","DestCityName","DestState","DestStateFips","DestStateName","DestWac","CRSDepTime","DepTime","DepDelay","DepDelayMinutes","DepDel15","DepartureDelayGroups","DepTimeBlk","TaxiOut","WheelsOff","WheelsOn","TaxiIn","CRSArrTime","ArrTime","ArrDelay","ArrDelayMinutes","ArrDel15","ArrivalDelayGroups","ArrTimeBlk","Cancelled","CancellationCode","Diverted","CRSElapsedTime","ActualElapsedTime","AirTime","Flights","Distance","DistanceGroup","CarrierDelay","WeatherDelay","NASDelay","SecurityDelay","LateAircraftDelay","FirstDepTime","TotalAddGTime","LongestAddGTime","DivAirportLandings","DivReachedDest","DivActualElapsedTime","DivArrDelay","DivDistance","Div1Airport","Div1AirportID","Div1AirportSeqID","Div1WheelsOn","Div1TotalGTime","Div1LongestGTime","Div1WheelsOff","Div1TailNum","Div2Airport","Div2AirportID","Div2AirportSeqID","Div2WheelsOn","Div2TotalGTime","Div2LongestGTime","Div2WheelsOff","Div2TailNum","Div3Airport","Div3AirportID","Div3AirportSeqID","Div3WheelsOn","Div3TotalGTime","Div3LongestGTime","Div3WheelsOff","Div3TailNum","Div4Airport","Div4AirportID","Div4AirportSeqID","Div4WheelsOn","Div4TotalGTime","Div4LongestGTime","Div4WheelsOff","Div4TailNum","Div5Airport","Div5AirportID","Div5AirportSeqID","Div5WheelsOn","Div5TotalGTime","Div5LongestGTime","Div5WheelsOff","Div5TailNum",
+2015,1,1,1,4,2015-01-01,"AA",19805,"AA","N787AA","1",12478,1247802,31703,"JFK","New York, NY","NY","36","New York",22,12892,1289203,32575,"LAX","Los Angeles, CA","CA","06","California",91,"0900","0855",-5.00,0.00,0.00,-1,"0900-0959",17.00,"0912","1230",7.00,"1230","1237",7.00,7.00,0.00,0,"1200-1259",0.00,"",0.00,390.00,402.00,378.00,1.00,2475.00,10,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,2,5,2015-01-02,"AA",19805,"AA","N795AA","1",12478,1247802,31703,"JFK","New York, NY","NY","36","New York",22,12892,1289203,32575,"LAX","Los Angeles, CA","CA","06","California",91,"0900","0850",-10.00,0.00,0.00,-1,"0900-0959",15.00,"0905","1202",9.00,"1230","1211",-19.00,0.00,0.00,-2,"1200-1259",0.00,"",0.00,390.00,381.00,357.00,1.00,2475.00,10,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,3,6,2015-01-03,"AA",19805,"AA","N788AA","1",12478,1247802,31703,"JFK","New York, NY","NY","36","New York",22,12892,1289203,32575,"LAX","Los Angeles, CA","CA","06","California",91,"0900","0853",-7.00,0.00,0.00,-1,"0900-0959",15.00,"0908","1138",13.00,"1230","1151",-39.00,0.00,0.00,-2,"1200-1259",0.00,"",0.00,390.00,358.00,330.00,1.00,2475.00,10,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,4,7,2015-01-04,"AA",19805,"AA","N791AA","1",12478,1247802,31703,"JFK","New York, NY","NY","36","New York",22,12892,1289203,32575,"LAX","Los Angeles, CA","CA","06","California",91,"0900","0853",-7.00,0.00,0.00,-1,"0900-0959",14.00,"0907","1159",19.00,"1230","1218",-12.00,0.00,0.00,-1,"1200-1259",0.00,"",0.00,390.00,385.00,352.00,1.00,2475.00,10,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,5,1,2015-01-05,"AA",19805,"AA","N783AA","1",12478,1247802,31703,"JFK","New York, NY","NY","36","New York",22,12892,1289203,32575,"LAX","Los Angeles, CA","CA","06","California",91,"0900","0853",-7.00,0.00,0.00,-1,"0900-0959",27.00,"0920","1158",24.00,"1230","1222",-8.00,0.00,0.00,-1,"1200-1259",0.00,"",0.00,390.00,389.00,338.00,1.00,2475.00,10,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,6,2,2015-01-06,"AA",19805,"AA","N799AA","1",12478,1247802,31703,"JFK","New York, NY","NY","36","New York",22,12892,1289203,32575,"LAX","Los Angeles, CA","CA","06","California",91,"0900","0856",-4.00,0.00,0.00,-1,"0900-0959",85.00,"1021","1256",4.00,"1235","1300",25.00,25.00,1.00,1,"1200-1259",0.00,"",0.00,395.00,424.00,335.00,1.00,2475.00,10,0.00,0.00,25.00,0.00,0.00,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,7,3,2015-01-07,"AA",19805,"AA","N784AA","1",12478,1247802,31703,"JFK","New York, NY","NY","36","New York",22,12892,1289203,32575,"LAX","Los Angeles, CA","CA","06","California",91,"0900","0859",-1.00,0.00,0.00,-1,"0900-0959",29.00,"0928","1209",12.00,"1235","1221",-14.00,0.00,0.00,-1,"1200-1259",0.00,"",0.00,395.00,382.00,341.00,1.00,2475.00,10,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,8,4,2015-01-08,"AA",19805,"AA","N787AA","1",12478,1247802,31703,"JFK","New York, NY","NY","36","New York",22,12892,1289203,32575,"LAX","Los Angeles, CA","CA","06","California",91,"0900","0856",-4.00,0.00,0.00,-1,"0900-0959",26.00,"0922","1155",3.00,"1235","1158",-37.00,0.00,0.00,-2,"1200-1259",0.00,"",0.00,395.00,362.00,333.00,1.00,2475.00,10,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,9,5,2015-01-09,"AA",19805,"AA","N795AA","1",12478,1247802,31703,"JFK","New York, NY","NY","36","New York",22,12892,1289203,32575,"LAX","Los Angeles, CA","CA","06","California",91,"0900","0901",1.00,1.00,0.00,0,"0900-0959",43.00,"0944","1237",4.00,"1235","1241",6.00,6.00,0.00,0,"1200-1259",0.00,"",0.00,395.00,400.00,353.00,1.00,2475.00,10,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+dsc@master: otp % zcat On_Time_On_Time_Performance_2015_1.zip | tail                                                             ~/Data/us_dot/otp 0 13:10:42
+gzip: On_Time_On_Time_Performance_2015_1.zip has more than one entry--rest ignored
+2015,1,1,23,5,2015-01-23,"NK",20416,"NK","N502NK","188",13796,1379603,32457,"OAK","Oakland, CA","CA","06","California",91,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0600","0555",-5.00,0.00,0.00,-1,"0600-0659",10.00,"0605","0711",9.00,"0723","0720",-3.00,0.00,0.00,-1,"0700-0759",0.00,"",0.00,83.00,85.00,66.00,1.00,407.00,2,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,24,6,2015-01-24,"NK",20416,"NK","N524NK","188",13796,1379603,32457,"OAK","Oakland, CA","CA","06","California",91,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0600","0552",-8.00,0.00,0.00,-1,"0600-0659",9.00,"0601","0708",7.00,"0723","0715",-8.00,0.00,0.00,-1,"0700-0759",0.00,"",0.00,83.00,83.00,67.00,1.00,407.00,2,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,25,7,2015-01-25,"NK",20416,"NK","N502NK","188",13796,1379603,32457,"OAK","Oakland, CA","CA","06","California",91,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0600","0554",-6.00,0.00,0.00,-1,"0600-0659",10.00,"0604","0712",9.00,"0723","0721",-2.00,0.00,0.00,-1,"0700-0759",0.00,"",0.00,83.00,87.00,68.00,1.00,407.00,2,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,26,1,2015-01-26,"NK",20416,"NK","N524NK","188",13796,1379603,32457,"OAK","Oakland, CA","CA","06","California",91,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0600","0551",-9.00,0.00,0.00,-1,"0600-0659",6.00,"0557","0708",6.00,"0723","0714",-9.00,0.00,0.00,-1,"0700-0759",0.00,"",0.00,83.00,83.00,71.00,1.00,407.00,2,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,27,2,2015-01-27,"NK",20416,"NK","N502NK","188",13796,1379603,32457,"OAK","Oakland, CA","CA","06","California",91,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0600","0549",-11.00,0.00,0.00,-1,"0600-0659",11.00,"0600","0705",6.00,"0723","0711",-12.00,0.00,0.00,-1,"0700-0759",0.00,"",0.00,83.00,82.00,65.00,1.00,407.00,2,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,28,3,2015-01-28,"NK",20416,"NK","N524NK","188",13796,1379603,32457,"OAK","Oakland, CA","CA","06","California",91,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0600","0603",3.00,3.00,0.00,0,"0600-0659",12.00,"0615","0719",6.00,"0723","0725",2.00,2.00,0.00,0,"0700-0759",0.00,"",0.00,83.00,82.00,64.00,1.00,407.00,2,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,29,4,2015-01-29,"NK",20416,"NK","N502NK","188",13796,1379603,32457,"OAK","Oakland, CA","CA","06","California",91,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0600","0556",-4.00,0.00,0.00,-1,"0600-0659",10.00,"0606","0710",8.00,"0723","0718",-5.00,0.00,0.00,-1,"0700-0759",0.00,"",0.00,83.00,82.00,64.00,1.00,407.00,2,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,30,5,2015-01-30,"NK",20416,"NK","N519NK","188",13796,1379603,32457,"OAK","Oakland, CA","CA","06","California",91,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0600","0556",-4.00,0.00,0.00,-1,"0600-0659",16.00,"0612","0718",7.00,"0723","0725",2.00,2.00,0.00,0,"0700-0759",0.00,"",0.00,83.00,89.00,66.00,1.00,407.00,2,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,31,6,2015-01-31,"NK",20416,"NK","N502NK","188",13796,1379603,32457,"OAK","Oakland, CA","CA","06","California",91,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0600","0601",1.00,1.00,0.00,0,"0600-0659",18.00,"0619","0728",8.00,"0723","0736",13.00,13.00,0.00,0,"0700-0759",0.00,"",0.00,83.00,95.00,69.00,1.00,407.00,2,,,,,,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+2015,1,1,1,4,2015-01-01,"NK",20416,"NK","N502NK","193",12266,1226603,31453,"IAH","Houston, TX","TX","48","Texas",74,12889,1288903,32211,"LAS","Las Vegas, NV","NV","32","Nevada",85,"0700","0743",43.00,43.00,1.00,2,"0700-0759",14.00,"0757","0844",5.00,"0820","0849",29.00,29.00,1.00,1,"0800-0859",0.00,"",0.00,200.00,186.00,167.00,1.00,1222.00,5,0.00,0.00,29.00,0.00,0.00,"",,,0,,,,,"",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","","",,,"",,,"","",
+dsc@master: otp % ls                                                                                                             ~/Data/us_dot/otp 0 13:10:58
+3_largest_file.txt                       On_Time_On_Time_Performance_2015_3.zip*  On_Time_On_Time_Performance_2015_7.zip*
+On_Time_On_Time_Performance_2015_1.csv   On_Time_On_Time_Performance_2015_4.zip*  On_Time_On_Time_Performance_2015_8.zip*
+On_Time_On_Time_Performance_2015_1.zip*  On_Time_On_Time_Performance_2015_5.zip*  readme.html
+On_Time_On_Time_Performance_2015_2.zip*  On_Time_On_Time_Performance_2015_6.zip*  three_largest_file.txt
+dsc@master: otp % cd                                                                                                             ~/Data/us_dot/otp 0 13:11:08
+dsc@master: ~ % ls                                                                                                                               ~ 0 13:11:20
+20lines2.txt  40lines.txt  cd                     d      derby.log  Documents/  masterdatascience/  Music/  Pictures/  R/      Templates/     text_zip.zip
+20lines.txt   anaconda3/   colum_name_number.sh*  Data/  Desktop/   Downloads/  metastore_db/       num     Public/    Repos/  text_file.txt  Videos/
+dsc@master: ~ % cd Data/opentraveldata                                                                                                           ~ 0 13:11:21
+dsc@master: opentraveldata % ls                                                                                              ~/Data/opentraveldata 0 13:11:32
+optd_aircraft.csv*  optd_airlines.csv*  optd_por_public.csv*  ref_airline_nb_of_flights.csv*
+dsc@master: opentraveldata % bzip2 optd_por_public.csv                                                                       ~/Data/opentraveldata 0 13:11:33
+dsc@master: opentraveldata % ls                                                                                              ~/Data/opentraveldata 0 13:12:16
+optd_aircraft.csv*  optd_airlines.csv*  optd_por_public.csv.bz2*  ref_airline_nb_of_flights.csv*
+dsc@master: opentraveldata % bzip2 -d optd_por_public.csv.bz2                                                                ~/Data/opentraveldata 0 13:12:18
+dsc@master: opentraveldata % ls                                                                                              ~/Data/opentraveldata 0 13:12:39
+optd_aircraft.csv*  optd_airlines.csv*  optd_por_public.csv*  ref_airline_nb_of_flights.csv*
+dsc@master: opentraveldata % bzip2 optd_por_public.csv comp_public.csv                                                       ~/Data/opentraveldata 0 13:12:40
+bzip2: Can't open input file comp_public.csv: No such file or directory.
+dsc@master: opentraveldata 1 % bzip2 comp optd_por_public.csv                                                                ~/Data/opentraveldata 0 13:13:04
+bzip2: Can't open input file comp: No such file or directory.
+bzip2: Can't open input file optd_por_public.csv: No such file or directory.
+dsc@master: opentraveldata 1 % ls                                                                                            ~/Data/opentraveldata 0 13:13:22
+optd_aircraft.csv*  optd_airlines.csv*  optd_por_public.csv.bz2*  ref_airline_nb_of_flights.csv*
+dsc@master: opentraveldata % bzcat optd_por_public.csv.bz2 | grep -E "^MAD" | head                                           ~/Data/opentraveldata 0 13:13:26
+MAD^LEMD^^Y^6299345^^Adolfo Suárez Madrid–Barajas Airport^Adolfo Suarez Madrid-Barajas Airport^40.49181^-3.56948^S^AIRP^0.424188277261^^^^ES^^Spain^Europe^29^Madrid^Madrid^M^Provincia de Madrid^Provincia de Madrid^28079^^0^609^609^Europe/Madrid^1.0^2.0^1.0^2014-11-02^MAD^Madrid^MAD|3117735|Madrid|Madrid^^^A^http://en.wikipedia.org/wiki/Adolfo_Su%C3%A1rez_Madrid%E2%80%93Barajas_Airport^es|Aeropuerto de Madrid-Barajas|s=de|Flughafen Madrid|=en|Adolfo Suárez Madrid–Barajas Airport|p=wuu|马德里-巴拉哈斯机场|=th|ท่าอากาศยานนานาชาติมาดริดบาราคัส|=ta|மத்ரித்-பராஹாஸ் விமான நிலையம்|=fi|Madrid-Barajasin lentoasema|=ru|Аэропорт Мадрид-Барахас|=pt|Aeroporto de Madrid-Barajas|=ja|マドリード・バラハス国際空港|=arz|مطار مدريد-باراخاس|=mr|बराहास आंतरराष्ट्रीय विमानतळ|=mk|Аеродром Мадрид-Барахас|=hu|Madrid-Barajasi repülőtér Ez a lap egy ellenőrzött változataEllenőrzött laprészletek megjelenítése/elrejtése|=la|Aeroportus Matriti-Barajas|=he|נמל התעופה מדריד-בראחס|=it|Aeroporto di Madrid-Barajas|=id|Bandar Udara Internasional Barajas Madrid|=hr|Zračna luka Madrid-Barajas|=ko|마드리드 바라하스 국제공항|=gl|Aeroporto de Madrid-Barajas|=fr|Aéroport international de Madrid-Barajas|=fa|فرودگاه مادرید-باراخاس|=eu|Madril-Barajas aireportua|=eo|Flughaveno Madrido-Baraĥo|=et|Madridi Barajase lennujaam|=de|Flughafen Madrid-Barajas|=da|Madrid-Barajas Lufthavn|=cs|Letiště Madrid-Barajas|=bg|Летище Мадрид - Барахас|=ca|Aeroport de Madrid-Barajas|=be|Аэрапорт Мадрыд-Барахас|=ar|مطار مدريد باراخاس الدولي|=ms|Lapangan Terbang Barajas|=nl|Luchthaven Madrid-Barajas|=pl|Port lotniczy Madryt-Barajas|=no|Barajas lufthavn|=sk|Letisko Madrid-Barajas|=sv|Madrid-Barajas flygplats|=tr|Madrid Barajas Uluslararası Havalimanı|=vi|Sân bay quốc tế Madrid Barajas|=en|Madrid–Barajas Airport|s=es|Aeropuerto Adolfo Suárez Madrid-Barajas|^482^Spain
+MAD^^^Y^3117735^^Madrid^Madrid^40.4165^-3.70256^P^PPLC^0.518652922146^^^^ES^^Spain^Europe^29^Madrid^Madrid^M^Provincia de Madrid^Provincia de Madrid^28079^^3255944^^665^Europe/Madrid^1.0^2.0^1.0^2015-06-03^MAD^Madrid^MAD|3117735|Madrid|Madrid^MAD,TOJ,XOC,XTI^^C^http://en.wikipedia.org/wiki/Madrid^es|Madrid|ps=eu|Madril|=eo|Madrido|=de|Madrid|=en|Madrid|=an|Madrit|=ar|مدريد|=ast|Madrid|=be|Горад Мадрыд|=bg|Мадрид|=bs|Madrid|=ca|Madrid|=cs|Madrid|=cy|Madrid|=da|Madrid|=el|Μαδρίτη|=et|Madrid|=fa|مادرید|=fi|Madrid|=fr|Madrid|=gd|Madrid|=gl|Madrid|=he|מדריד|=hi|मद्रिद|=hr|Madrid|=hu|Madrid|=ia|Madrid|=id|Madrid|=io|Madrid|=is|Madrid|=it|Madrid|=ja|マドリード|=ko|마드리드|=la|Matritum|=li|Madrid|=lt|Madridas|=lv|Madride|=mk|Мадрид|=nds|Madrid|=nl|Madrid|=nn|Madrid|=no|Madrid|=pl|Madryt|=pt|Madrid|=ro|Madrid|=ru|Мадрид|=scn|Madrid|=sk|Madrid|=sl|Madrid|=sq|Madrid|=sr|Мадрид|=sv|Madrid|=th|มาดริด|=tl|Madrid|=tr|Madrid|=zh|马德里|=|Magerit|=af|Madrid|=ug|مادرىد|=vo|Madrid|=zh|馬德里|=ja|マドリード市|=ka|მადრიდი|=lad|Madrid|=lb|Madrid|=oc|Madrid|=sa|मद्रिद्|=sq|Madridi|=tl|Lungsod ng Madrid|=ty|Madrid|=vec|Madrid|=am|ማድሪድ|=arc|ܡܕܪܝܕ|=br|Madrid|=co|Madridi|=frp|Madrid|=ga|Maidrid|=hy|Մադրիդ|=qu|Madrid|=sc|Madrid|=tg|Мадрид|=uk|Мадрид|=ur|میدرد|=vi|Madrid|=is|Madríd|=post|28706|=post|28754|=post|28011|=post|28017|=post|28021|=post|28023|=post|28024|=post|28025|=post|28026|=post|28030|=post|28031|=post|28032|=post|28038|=post|28039|=post|28041|=post|28047|=post|28048|=post|28049|=post|28051|=post|28052|=post|28070|=post|28071|=post|28080|=post|28082|=post|28083|=post|28085|=post|28086|=post|28016|=post|28008|=es|Sanchinarro|=post|28002|=post|28019|=post|28013|=post|28012|=post|28036|=post|28045|=post|28022|=post|28005|=post|28007|=post|28035|=post|28033|=post|28018|=post|28014|=post|28053|=post|28020|=post|28001|=post|28037|=post|28010|=post|28004|=post|28015|=post|28042|=post|28028|=post|28046|=post|28029|=post|28040|=post|28003|=post|28044|=post|28034|=post|28027|=post|28009|=post|28043|=post|28087|=post|28006|=es|Los Madriles|c=es|La Villa y Corte de Madrid|h=arz|مدريد|=cv|Мадрид|=mrj|Мадрид|=mhr|Мадрид|=myv|Мадрид ош|=ba|Мадрид|=rue|Мадрід|=bn|মাদ্রিদ|=koi|Мадрид|=tet|Madríd|=bo|མ་ད་རིད།|=ab|Мaдрид|=mn|Мадрид|=haw|Makelika|=ky|Мадрид|=ta|மத்ரித்|=mr|माद्रिद|=kk|Мадрид|=xmf|მადრიდი|=lez|Мадрид|=mzn|مادرید|=pnb|میڈرڈ|=os|Мадрид|=kbd|Мадрид|=ml|മാഡ്രിഡ്|=kv|Мадрид|=ckb|مەدرید|=or|ମାଡ୍ରିଦ|=ext|Mairil|=ku|Madrîd|=yi|מאדריד|=my|မဒရစ်မြို့|=sah|Мадрид|=kn|ಮಡ್ರಿಡ್|=udm|Мадрид|=szl|Madryt|=sgs|Madrids|=ce|Мадрид|=csb|Madrit|=new|माद्री|=pa|ਮਾਦਰਿਦ|=yue|馬德里|^482^Spain
+dsc@master: opentraveldata % bunzip2 optd_por_public.csv.bz2                                                                 ~/Data/opentraveldata 0 13:15:35
+dsc@master: opentraveldata % ls                                                                                              ~/Data/opentraveldata 0 13:17:53
+optd_aircraft.csv*  optd_airlines.csv*  optd_por_public.csv*  ref_airline_nb_of_flights.csv*
+dsc@master: opentraveldata % cd                                                                                              ~/Data/opentraveldata 0 13:17:54
+dsc@master: ~ % cd Data/us_dot/otp                                                                                                               ~ 0 13:19:22
+dsc@master: otp % ls                                                                                                             ~/Data/us_dot/otp 0 13:19:30
+3_largest_file.txt                       On_Time_On_Time_Performance_2015_3.zip*  On_Time_On_Time_Performance_2015_7.zip*
+On_Time_On_Time_Performance_2015_1.csv   On_Time_On_Time_Performance_2015_4.zip*  On_Time_On_Time_Performance_2015_8.zip*
+On_Time_On_Time_Performance_2015_1.zip*  On_Time_On_Time_Performance_2015_5.zip*  readme.html
+On_Time_On_Time_Performance_2015_2.zip*  On_Time_On_Time_Performance_2015_6.zip*  three_largest_file.txt
+dsc@master: otp % zcat On_Time_On_Time_Performance_2015_1.zip | head -1                                                          ~/Data/us_dot/otp 0 13:19:31
+"Year","Quarter","Month","DayofMonth","DayOfWeek","FlightDate","UniqueCarrier","AirlineID","Carrier","TailNum","FlightNum","OriginAirportID","OriginAirportSeqID","OriginCityMarketID","Origin","OriginCityName","OriginState","OriginStateFips","OriginStateName","OriginWac","DestAirportID","DestAirportSeqID","DestCityMarketID","Dest","DestCityName","DestState","DestStateFips","DestStateName","DestWac","CRSDepTime","DepTime","DepDelay","DepDelayMinutes","DepDel15","DepartureDelayGroups","DepTimeBlk","TaxiOut","WheelsOff","WheelsOn","TaxiIn","CRSArrTime","ArrTime","ArrDelay","ArrDelayMinutes","ArrDel15","ArrivalDelayGroups","ArrTimeBlk","Cancelled","CancellationCode","Diverted","CRSElapsedTime","ActualElapsedTime","AirTime","Flights","Distance","DistanceGroup","CarrierDelay","WeatherDelay","NASDelay","SecurityDelay","LateAircraftDelay","FirstDepTime","TotalAddGTime","LongestAddGTime","DivAirportLandings","DivReachedDest","DivActualElapsedTime","DivArrDelay","DivDistance","Div1Airport","Div1AirportID","Div1AirportSeqID","Div1WheelsOn","Div1TotalGTime","Div1LongestGTime","Div1WheelsOff","Div1TailNum","Div2Airport","Div2AirportID","Div2AirportSeqID","Div2WheelsOn","Div2TotalGTime","Div2LongestGTime","Div2WheelsOff","Div2TailNum","Div3Airport","Div3AirportID","Div3AirportSeqID","Div3WheelsOn","Div3TotalGTime","Div3LongestGTime","Div3WheelsOff","Div3TailNum","Div4Airport","Div4AirportID","Div4AirportSeqID","Div4WheelsOn","Div4TotalGTime","Div4LongestGTime","Div4WheelsOff","Div4TailNum","Div5Airport","Div5AirportID","Div5AirportSeqID","Div5WheelsOn","Div5TotalGTime","Div5LongestGTime","Div5WheelsOff","Div5TailNum",
+dsc@master: otp % zcat On_Time_On_Time_Performance_2015_1.zip | head -1 | grep -E "carrier"                                      ~/Data/us_dot/otp 0 13:21:09
+dsc@master: otp 1 % zcat On_Time_On_Time_Performance_2015_1.zip | head -1 | grep -E "Day"                                        ~/Data/us_dot/otp 0 13:21:57
+"Year","Quarter","Month","DayofMonth","DayOfWeek","FlightDate","UniqueCarrier","AirlineID","Carrier","TailNum","FlightNum","OriginAirportID","OriginAirportSeqID","OriginCityMarketID","Origin","OriginCityName","OriginState","OriginStateFips","OriginStateName","OriginWac","DestAirportID","DestAirportSeqID","DestCityMarketID","Dest","DestCityName","DestState","DestStateFips","DestStateName","DestWac","CRSDepTime","DepTime","DepDelay","DepDelayMinutes","DepDel15","DepartureDelayGroups","DepTimeBlk","TaxiOut","WheelsOff","WheelsOn","TaxiIn","CRSArrTime","ArrTime","ArrDelay","ArrDelayMinutes","ArrDel15","ArrivalDelayGroups","ArrTimeBlk","Cancelled","CancellationCode","Diverted","CRSElapsedTime","ActualElapsedTime","AirTime","Flights","Distance","DistanceGroup","CarrierDelay","WeatherDelay","NASDelay","SecurityDelay","LateAircraftDelay","FirstDepTime","TotalAddGTime","LongestAddGTime","DivAirportLandings","DivReachedDest","DivActualElapsedTime","DivArrDelay","DivDistance","Div1Airport","Div1AirportID","Div1AirportSeqID","Div1WheelsOn","Div1TotalGTime","Div1LongestGTime","Div1WheelsOff","Div1TailNum","Div2Airport","Div2AirportID","Div2AirportSeqID","Div2WheelsOn","Div2TotalGTime","Div2LongestGTime","Div2WheelsOff","Div2TailNum","Div3Airport","Div3AirportID","Div3AirportSeqID","Div3WheelsOn","Div3TotalGTime","Div3LongestGTime","Div3WheelsOff","Div3TailNum","Div4Airport","Div4AirportID","Div4AirportSeqID","Div4WheelsOn","Div4TotalGTime","Div4LongestGTime","Div4WheelsOff","Div4TailNum","Div5Airport","Div5AirportID","Div5AirportSeqID","Div5WheelsOn","Div5TotalGTime","Div5LongestGTime","Div5WheelsOff","Div5TailNum",
+dsc@master: otp % zcat On_Time_On_Time_Performance_2015_1.zip | head -1 | tr "," "\n"                                            ~/Data/us_dot/otp 0 13:22:16
+"Year"
+"Quarter"
+"Month"
+"DayofMonth"
+"DayOfWeek"
+"FlightDate"
+"UniqueCarrier"
+"AirlineID"
+"Carrier"
+"TailNum"
+"FlightNum"
+"OriginAirportID"
+"OriginAirportSeqID"
+"OriginCityMarketID"
+"Origin"
+"OriginCityName"
+"OriginState"
+"OriginStateFips"
+"OriginStateName"
+"OriginWac"
+"DestAirportID"
+"DestAirportSeqID"
+"DestCityMarketID"
+"Dest"
+"DestCityName"
+"DestState"
+"DestStateFips"
+"DestStateName"
+"DestWac"
+"CRSDepTime"
+"DepTime"
+"DepDelay"
+"DepDelayMinutes"
+"DepDel15"
+"DepartureDelayGroups"
+"DepTimeBlk"
+"TaxiOut"
+"WheelsOff"
+"WheelsOn"
+"TaxiIn"
+"CRSArrTime"
+"ArrTime"
+"ArrDelay"
+"ArrDelayMinutes"
+"ArrDel15"
+"ArrivalDelayGroups"
+"ArrTimeBlk"
+"Cancelled"
+"CancellationCode"
+"Diverted"
+"CRSElapsedTime"
+"ActualElapsedTime"
+"AirTime"
+"Flights"
+"Distance"
+"DistanceGroup"
+"CarrierDelay"
+"WeatherDelay"
+"NASDelay"
+"SecurityDelay"
+"LateAircraftDelay"
+"FirstDepTime"
+"TotalAddGTime"
+"LongestAddGTime"
+"DivAirportLandings"
+"DivReachedDest"
+"DivActualElapsedTime"
+"DivArrDelay"
+"DivDistance"
+"Div1Airport"
+"Div1AirportID"
+"Div1AirportSeqID"
+"Div1WheelsOn"
+"Div1TotalGTime"
+"Div1LongestGTime"
+"Div1WheelsOff"
+"Div1TailNum"
+"Div2Airport"
+"Div2AirportID"
+"Div2AirportSeqID"
+"Div2WheelsOn"
+"Div2TotalGTime"
+"Div2LongestGTime"
+"Div2WheelsOff"
+"Div2TailNum"
+"Div3Airport"
+"Div3AirportID"
+"Div3AirportSeqID"
+"Div3WheelsOn"
+"Div3TotalGTime"
+"Div3LongestGTime"
+"Div3WheelsOff"
+"Div3TailNum"
+"Div4Airport"
+"Div4AirportID"
+"Div4AirportSeqID"
+"Div4WheelsOn"
+"Div4TotalGTime"
+"Div4LongestGTime"
+"Div4WheelsOff"
+"Div4TailNum"
+"Div5Airport"
+"Div5AirportID"
+"Div5AirportSeqID"
+"Div5WheelsOn"
+"Div5TotalGTime"
+"Div5LongestGTime"
+"Div5WheelsOff"
+"Div5TailNum"
+
+dsc@master: otp % zcat On_Time_On_Time_Performance_2015_1.zip | head -1 | tr "," "\n" | wc -l                                    ~/Data/us_dot/otp 0 13:23:18
+110
+dsc@master: otp % zcat On_Time_On_Time_Performance_2015_1.zip | head -1 | tr "," "\n"                                            ~/Data/us_dot/otp 0 13:23:35
+"Year"
+"Quarter"
+"Month"
+"DayofMonth"
+"DayOfWeek"
+"FlightDate"
+"UniqueCarrier"
+"AirlineID"
+"Carrier"
+"TailNum"
+"FlightNum"
+"OriginAirportID"
+"OriginAirportSeqID"
+"OriginCityMarketID"
+"Origin"
+"OriginCityName"
+"OriginState"
+"OriginStateFips"
+"OriginStateName"
+"OriginWac"
+"DestAirportID"
+"DestAirportSeqID"
+"DestCityMarketID"
+"Dest"
+"DestCityName"
+"DestState"
+"DestStateFips"
+"DestStateName"
+"DestWac"
+"CRSDepTime"
+"DepTime"
+"DepDelay"
+"DepDelayMinutes"
+"DepDel15"
+"DepartureDelayGroups"
+"DepTimeBlk"
+"TaxiOut"
+"WheelsOff"
+"WheelsOn"
+"TaxiIn"
+"CRSArrTime"
+"ArrTime"
+"ArrDelay"
+"ArrDelayMinutes"
+"ArrDel15"
+"ArrivalDelayGroups"
+"ArrTimeBlk"
+"Cancelled"
+"CancellationCode"
+"Diverted"
+"CRSElapsedTime"
+"ActualElapsedTime"
+"AirTime"
+"Flights"
+"Distance"
+"DistanceGroup"
+"CarrierDelay"
+"WeatherDelay"
+"NASDelay"
+"SecurityDelay"
+"LateAircraftDelay"
+"FirstDepTime"
+"TotalAddGTime"
+"LongestAddGTime"
+"DivAirportLandings"
+"DivReachedDest"
+"DivActualElapsedTime"
+"DivArrDelay"
+"DivDistance"
+"Div1Airport"
+"Div1AirportID"
+"Div1AirportSeqID"
+"Div1WheelsOn"
+"Div1TotalGTime"
+"Div1LongestGTime"
+"Div1WheelsOff"
+"Div1TailNum"
+"Div2Airport"
+"Div2AirportID"
+"Div2AirportSeqID"
+"Div2WheelsOn"
+"Div2TotalGTime"
+"Div2LongestGTime"
+"Div2WheelsOff"
+"Div2TailNum"
+"Div3Airport"
+"Div3AirportID"
+"Div3AirportSeqID"
+"Div3WheelsOn"
+"Div3TotalGTime"
+"Div3LongestGTime"
+"Div3WheelsOff"
+"Div3TailNum"
+"Div4Airport"
+"Div4AirportID"
+"Div4AirportSeqID"
+"Div4WheelsOn"
+"Div4TotalGTime"
+"Div4LongestGTime"
+"Div4WheelsOff"
+"Div4TailNum"
+"Div5Airport"
+"Div5AirportID"
+"Div5AirportSeqID"
+"Div5WheelsOn"
+"Div5TotalGTime"
+"Div5LongestGTime"
+"Div5WheelsOff"
+"Div5TailNum"
+
+dsc@master: otp % paste <(seq 110) <(zcat On_Time_On_Time_Performance_2015_1.zip | head -1 | tr "," "\n")                        ~/Data/us_dot/otp 0 13:23:55
+1	"Year"
+2	"Quarter"
+3	"Month"
+4	"DayofMonth"
+5	"DayOfWeek"
+6	"FlightDate"
+7	"UniqueCarrier"
+8	"AirlineID"
+9	"Carrier"
+10	"TailNum"
+11	"FlightNum"
+12	"OriginAirportID"
+13	"OriginAirportSeqID"
+14	"OriginCityMarketID"
+15	"Origin"
+16	"OriginCityName"
+17	"OriginState"
+18	"OriginStateFips"
+19	"OriginStateName"
+20	"OriginWac"
+21	"DestAirportID"
+22	"DestAirportSeqID"
+23	"DestCityMarketID"
+24	"Dest"
+25	"DestCityName"
+26	"DestState"
+27	"DestStateFips"
+28	"DestStateName"
+29	"DestWac"
+30	"CRSDepTime"
+31	"DepTime"
+32	"DepDelay"
+33	"DepDelayMinutes"
+34	"DepDel15"
+35	"DepartureDelayGroups"
+36	"DepTimeBlk"
+37	"TaxiOut"
+38	"WheelsOff"
+39	"WheelsOn"
+40	"TaxiIn"
+41	"CRSArrTime"
+42	"ArrTime"
+43	"ArrDelay"
+44	"ArrDelayMinutes"
+45	"ArrDel15"
+46	"ArrivalDelayGroups"
+47	"ArrTimeBlk"
+48	"Cancelled"
+49	"CancellationCode"
+50	"Diverted"
+51	"CRSElapsedTime"
+52	"ActualElapsedTime"
+53	"AirTime"
+54	"Flights"
+55	"Distance"
+56	"DistanceGroup"
+57	"CarrierDelay"
+58	"WeatherDelay"
+59	"NASDelay"
+60	"SecurityDelay"
+61	"LateAircraftDelay"
+62	"FirstDepTime"
+63	"TotalAddGTime"
+64	"LongestAddGTime"
+65	"DivAirportLandings"
+66	"DivReachedDest"
+67	"DivActualElapsedTime"
+68	"DivArrDelay"
+69	"DivDistance"
+70	"Div1Airport"
+71	"Div1AirportID"
+72	"Div1AirportSeqID"
+73	"Div1WheelsOn"
+74	"Div1TotalGTime"
+75	"Div1LongestGTime"
+76	"Div1WheelsOff"
+77	"Div1TailNum"
+78	"Div2Airport"
+79	"Div2AirportID"
+80	"Div2AirportSeqID"
+81	"Div2WheelsOn"
+82	"Div2TotalGTime"
+83	"Div2LongestGTime"
+84	"Div2WheelsOff"
+85	"Div2TailNum"
+86	"Div3Airport"
+87	"Div3AirportID"
+88	"Div3AirportSeqID"
+89	"Div3WheelsOn"
+90	"Div3TotalGTime"
+91	"Div3LongestGTime"
+92	"Div3WheelsOff"
+93	"Div3TailNum"
+94	"Div4Airport"
+95	"Div4AirportID"
+96	"Div4AirportSeqID"
+97	"Div4WheelsOn"
+98	"Div4TotalGTime"
+99	"Div4LongestGTime"
+100	"Div4WheelsOff"
+101	"Div4TailNum"
+102	"Div5Airport"
+103	"Div5AirportID"
+104	"Div5AirportSeqID"
+105	"Div5WheelsOn"
+106	"Div5TotalGTime"
+107	"Div5LongestGTime"
+108	"Div5WheelsOff"
+109	"Div5TailNum"
+110	
+dsc@master: otp % paste <(seq 109) <(zcat On_Time_On_Time_Performance_2015_1.zip | head -1 | tr "," "\n")                        ~/Data/us_dot/otp 0 13:24:11
+1	"Year"
+2	"Quarter"
+3	"Month"
+4	"DayofMonth"
+5	"DayOfWeek"
+6	"FlightDate"
+7	"UniqueCarrier"
+8	"AirlineID"
+9	"Carrier"
+10	"TailNum"
+11	"FlightNum"
+12	"OriginAirportID"
+13	"OriginAirportSeqID"
+14	"OriginCityMarketID"
+15	"Origin"
+16	"OriginCityName"
+17	"OriginState"
+18	"OriginStateFips"
+19	"OriginStateName"
+20	"OriginWac"
+21	"DestAirportID"
+22	"DestAirportSeqID"
+23	"DestCityMarketID"
+24	"Dest"
+25	"DestCityName"
+26	"DestState"
+27	"DestStateFips"
+28	"DestStateName"
+29	"DestWac"
+30	"CRSDepTime"
+31	"DepTime"
+32	"DepDelay"
+33	"DepDelayMinutes"
+34	"DepDel15"
+35	"DepartureDelayGroups"
+36	"DepTimeBlk"
+37	"TaxiOut"
+38	"WheelsOff"
+39	"WheelsOn"
+40	"TaxiIn"
+41	"CRSArrTime"
+42	"ArrTime"
+43	"ArrDelay"
+44	"ArrDelayMinutes"
+45	"ArrDel15"
+46	"ArrivalDelayGroups"
+47	"ArrTimeBlk"
+48	"Cancelled"
+49	"CancellationCode"
+50	"Diverted"
+51	"CRSElapsedTime"
+52	"ActualElapsedTime"
+53	"AirTime"
+54	"Flights"
+55	"Distance"
+56	"DistanceGroup"
+57	"CarrierDelay"
+58	"WeatherDelay"
+59	"NASDelay"
+60	"SecurityDelay"
+61	"LateAircraftDelay"
+62	"FirstDepTime"
+63	"TotalAddGTime"
+64	"LongestAddGTime"
+65	"DivAirportLandings"
+66	"DivReachedDest"
+67	"DivActualElapsedTime"
+68	"DivArrDelay"
+69	"DivDistance"
+70	"Div1Airport"
+71	"Div1AirportID"
+72	"Div1AirportSeqID"
+73	"Div1WheelsOn"
+74	"Div1TotalGTime"
+75	"Div1LongestGTime"
+76	"Div1WheelsOff"
+77	"Div1TailNum"
+78	"Div2Airport"
+79	"Div2AirportID"
+80	"Div2AirportSeqID"
+81	"Div2WheelsOn"
+82	"Div2TotalGTime"
+83	"Div2LongestGTime"
+84	"Div2WheelsOff"
+85	"Div2TailNum"
+86	"Div3Airport"
+87	"Div3AirportID"
+88	"Div3AirportSeqID"
+89	"Div3WheelsOn"
+90	"Div3TotalGTime"
+91	"Div3LongestGTime"
+92	"Div3WheelsOff"
+93	"Div3TailNum"
+94	"Div4Airport"
+95	"Div4AirportID"
+96	"Div4AirportSeqID"
+97	"Div4WheelsOn"
+98	"Div4TotalGTime"
+99	"Div4LongestGTime"
+100	"Div4WheelsOff"
+101	"Div4TailNum"
+102	"Div5Airport"
+103	"Div5AirportID"
+104	"Div5AirportSeqID"
+105	"Div5WheelsOn"
+106	"Div5TotalGTime"
+107	"Div5LongestGTime"
+108	"Div5WheelsOff"
+109	"Div5TailNum"
+	
+dsc@master: otp % paste <(seq 109) <(zcat On_Time_On_Time_Performance_2015_1.zip | head -1 | tr "," "\n") | grep -i "carrier"    ~/Data/us_dot/otp 0 13:24:22
+7	"UniqueCarrier"
+9	"Carrier"
+57	"CarrierDelay"
+dsc@master: otp % zcat On_Time_On_Time_Performance_2015_1.zip | head -1 | grep -i "carrier"                                      ~/Data/us_dot/otp 0 13:25:13
+"Year","Quarter","Month","DayofMonth","DayOfWeek","FlightDate","UniqueCarrier","AirlineID","Carrier","TailNum","FlightNum","OriginAirportID","OriginAirportSeqID","OriginCityMarketID","Origin","OriginCityName","OriginState","OriginStateFips","OriginStateName","OriginWac","DestAirportID","DestAirportSeqID","DestCityMarketID","Dest","DestCityName","DestState","DestStateFips","DestStateName","DestWac","CRSDepTime","DepTime","DepDelay","DepDelayMinutes","DepDel15","DepartureDelayGroups","DepTimeBlk","TaxiOut","WheelsOff","WheelsOn","TaxiIn","CRSArrTime","ArrTime","ArrDelay","ArrDelayMinutes","ArrDel15","ArrivalDelayGroups","ArrTimeBlk","Cancelled","CancellationCode","Diverted","CRSElapsedTime","ActualElapsedTime","AirTime","Flights","Distance","DistanceGroup","CarrierDelay","WeatherDelay","NASDelay","SecurityDelay","LateAircraftDelay","FirstDepTime","TotalAddGTime","LongestAddGTime","DivAirportLandings","DivReachedDest","DivActualElapsedTime","DivArrDelay","DivDistance","Div1Airport","Div1AirportID","Div1AirportSeqID","Div1WheelsOn","Div1TotalGTime","Div1LongestGTime","Div1WheelsOff","Div1TailNum","Div2Airport","Div2AirportID","Div2AirportSeqID","Div2WheelsOn","Div2TotalGTime","Div2LongestGTime","Div2WheelsOff","Div2TailNum","Div3Airport","Div3AirportID","Div3AirportSeqID","Div3WheelsOn","Div3TotalGTime","Div3LongestGTime","Div3WheelsOff","Div3TailNum","Div4Airport","Div4AirportID","Div4AirportSeqID","Div4WheelsOn","Div4TotalGTime","Div4LongestGTime","Div4WheelsOff","Div4TailNum","Div5Airport","Div5AirportID","Div5AirportSeqID","Div5WheelsOn","Div5TotalGTime","Div5LongestGTime","Div5WheelsOff","Div5TailNum",
+dsc@master: otp % zipinfo On_Time_On_Time_Performance_2015_1.zip                                                                 ~/Data/us_dot/otp 0 13:26:02
+Archive:  On_Time_On_Time_Performance_2015_1.zip
+Zip file size: 23061340 bytes, number of entries: 2
+-rw-r--r--  3.0 unx 211633432 tx defN 15-Apr-16 20:02 On_Time_On_Time_Performance_2015_1.csv
+-rw-r--r--  3.0 unx    12054 tx defN 15-Apr-16 20:02 readme.html
+2 files, 211645486 bytes uncompressed, 23060964 bytes compressed:  89.1%
+dsc@master: otp % paste <(seq 110) <(zcat ./On_Time_On_Time_Performance_2015_1.zip | head -n 1 | tr "," "\n") <(zcat ./On_Time_On_Time_Performance_2015_1.zip | head -n 2 | tail -1 | tr "," "\n")
+1	"Year"	2015
+2	"Quarter"	1
+3	"Month"	1
+4	"DayofMonth"	1
+5	"DayOfWeek"	4
+6	"FlightDate"	2015-01-01
+7	"UniqueCarrier"	"AA"
+8	"AirlineID"	19805
+9	"Carrier"	"AA"
+10	"TailNum"	"N787AA"
+11	"FlightNum"	"1"
+12	"OriginAirportID"	12478
+13	"OriginAirportSeqID"	1247802
+14	"OriginCityMarketID"	31703
+15	"Origin"	"JFK"
+16	"OriginCityName"	"New York
+17	"OriginState"	 NY"
+18	"OriginStateFips"	"NY"
+19	"OriginStateName"	"36"
+20	"OriginWac"	"New York"
+21	"DestAirportID"	22
+22	"DestAirportSeqID"	12892
+23	"DestCityMarketID"	1289203
+24	"Dest"	32575
+25	"DestCityName"	"LAX"
+26	"DestState"	"Los Angeles
+27	"DestStateFips"	 CA"
+28	"DestStateName"	"CA"
+29	"DestWac"	"06"
+30	"CRSDepTime"	"California"
+31	"DepTime"	91
+32	"DepDelay"	"0900"
+33	"DepDelayMinutes"	"0855"
+34	"DepDel15"	-5.00
+35	"DepartureDelayGroups"	0.00
+36	"DepTimeBlk"	0.00
+37	"TaxiOut"	-1
+38	"WheelsOff"	"0900-0959"
+39	"WheelsOn"	17.00
+40	"TaxiIn"	"0912"
+41	"CRSArrTime"	"1230"
+42	"ArrTime"	7.00
+43	"ArrDelay"	"1230"
+44	"ArrDelayMinutes"	"1237"
+45	"ArrDel15"	7.00
+46	"ArrivalDelayGroups"	7.00
+47	"ArrTimeBlk"	0.00
+48	"Cancelled"	0
+49	"CancellationCode"	"1200-1259"
+50	"Diverted"	0.00
+51	"CRSElapsedTime"	""
+52	"ActualElapsedTime"	0.00
+53	"AirTime"	390.00
+54	"Flights"	402.00
+55	"Distance"	378.00
+56	"DistanceGroup"	1.00
+57	"CarrierDelay"	2475.00
+58	"WeatherDelay"	10
+59	"NASDelay"	
+60	"SecurityDelay"	
+61	"LateAircraftDelay"	
+62	"FirstDepTime"	
+63	"TotalAddGTime"	
+64	"LongestAddGTime"	""
+65	"DivAirportLandings"	
+66	"DivReachedDest"	
+67	"DivActualElapsedTime"	0
+68	"DivArrDelay"	
+69	"DivDistance"	
+70	"Div1Airport"	
+71	"Div1AirportID"	
+72	"Div1AirportSeqID"	""
+73	"Div1WheelsOn"	
+74	"Div1TotalGTime"	
+75	"Div1LongestGTime"	""
+76	"Div1WheelsOff"	
+77	"Div1TailNum"	
+78	"Div2Airport"	""
+79	"Div2AirportID"	""
+80	"Div2AirportSeqID"	""
+81	"Div2WheelsOn"	
+82	"Div2TotalGTime"	
+83	"Div2LongestGTime"	""
+84	"Div2WheelsOff"	
+85	"Div2TailNum"	
+86	"Div3Airport"	""
+87	"Div3AirportID"	""
+88	"Div3AirportSeqID"	""
+89	"Div3WheelsOn"	
+90	"Div3TotalGTime"	
+91	"Div3LongestGTime"	""
+92	"Div3WheelsOff"	
+93	"Div3TailNum"	
+94	"Div4Airport"	""
+95	"Div4AirportID"	""
+96	"Div4AirportSeqID"	""
+97	"Div4WheelsOn"	
+98	"Div4TotalGTime"	
+99	"Div4LongestGTime"	""
+100	"Div4WheelsOff"	
+101	"Div4TailNum"	
+102	"Div5Airport"	""
+103	"Div5AirportID"	""
+104	"Div5AirportSeqID"	""
+105	"Div5WheelsOn"	
+106	"Div5TotalGTime"	
+107	"Div5LongestGTime"	""
+108	"Div5WheelsOff"	
+109	"Div5TailNum"	
+110		""
+		""
+		
+dsc@master: otp % paste <(seq 110) <(zcat ./On_Time_On_Time_Performance_2015_1.zip | head -2 | tr "," "\n")                      ~/Data/us_dot/otp 0 13:28:01
+1	"Year"
+2	"Quarter"
+3	"Month"
+4	"DayofMonth"
+5	"DayOfWeek"
+6	"FlightDate"
+7	"UniqueCarrier"
+8	"AirlineID"
+9	"Carrier"
+10	"TailNum"
+11	"FlightNum"
+12	"OriginAirportID"
+13	"OriginAirportSeqID"
+14	"OriginCityMarketID"
+15	"Origin"
+16	"OriginCityName"
+17	"OriginState"
+18	"OriginStateFips"
+19	"OriginStateName"
+20	"OriginWac"
+21	"DestAirportID"
+22	"DestAirportSeqID"
+23	"DestCityMarketID"
+24	"Dest"
+25	"DestCityName"
+26	"DestState"
+27	"DestStateFips"
+28	"DestStateName"
+29	"DestWac"
+30	"CRSDepTime"
+31	"DepTime"
+32	"DepDelay"
+33	"DepDelayMinutes"
+34	"DepDel15"
+35	"DepartureDelayGroups"
+36	"DepTimeBlk"
+37	"TaxiOut"
+38	"WheelsOff"
+39	"WheelsOn"
+40	"TaxiIn"
+41	"CRSArrTime"
+42	"ArrTime"
+43	"ArrDelay"
+44	"ArrDelayMinutes"
+45	"ArrDel15"
+46	"ArrivalDelayGroups"
+47	"ArrTimeBlk"
+48	"Cancelled"
+49	"CancellationCode"
+50	"Diverted"
+51	"CRSElapsedTime"
+52	"ActualElapsedTime"
+53	"AirTime"
+54	"Flights"
+55	"Distance"
+56	"DistanceGroup"
+57	"CarrierDelay"
+58	"WeatherDelay"
+59	"NASDelay"
+60	"SecurityDelay"
+61	"LateAircraftDelay"
+62	"FirstDepTime"
+63	"TotalAddGTime"
+64	"LongestAddGTime"
+65	"DivAirportLandings"
+66	"DivReachedDest"
+67	"DivActualElapsedTime"
+68	"DivArrDelay"
+69	"DivDistance"
+70	"Div1Airport"
+71	"Div1AirportID"
+72	"Div1AirportSeqID"
+73	"Div1WheelsOn"
+74	"Div1TotalGTime"
+75	"Div1LongestGTime"
+76	"Div1WheelsOff"
+77	"Div1TailNum"
+78	"Div2Airport"
+79	"Div2AirportID"
+80	"Div2AirportSeqID"
+81	"Div2WheelsOn"
+82	"Div2TotalGTime"
+83	"Div2LongestGTime"
+84	"Div2WheelsOff"
+85	"Div2TailNum"
+86	"Div3Airport"
+87	"Div3AirportID"
+88	"Div3AirportSeqID"
+89	"Div3WheelsOn"
+90	"Div3TotalGTime"
+91	"Div3LongestGTime"
+92	"Div3WheelsOff"
+93	"Div3TailNum"
+94	"Div4Airport"
+95	"Div4AirportID"
+96	"Div4AirportSeqID"
+97	"Div4WheelsOn"
+98	"Div4TotalGTime"
+99	"Div4LongestGTime"
+100	"Div4WheelsOff"
+101	"Div4TailNum"
+102	"Div5Airport"
+103	"Div5AirportID"
+104	"Div5AirportSeqID"
+105	"Div5WheelsOn"
+106	"Div5TotalGTime"
+107	"Div5LongestGTime"
+108	"Div5WheelsOff"
+109	"Div5TailNum"
+110	
+	2015
+	1
+	1
+	1
+	4
+	2015-01-01
+	"AA"
+	19805
+	"AA"
+	"N787AA"
+	"1"
+	12478
+	1247802
+	31703
+	"JFK"
+	"New York
+	 NY"
+	"NY"
+	"36"
+	"New York"
+	22
+	12892
+	1289203
+	32575
+	"LAX"
+	"Los Angeles
+	 CA"
+	"CA"
+	"06"
+	"California"
+	91
+	"0900"
+	"0855"
+	-5.00
+	0.00
+	0.00
+	-1
+	"0900-0959"
+	17.00
+	"0912"
+	"1230"
+	7.00
+	"1230"
+	"1237"
+	7.00
+	7.00
+	0.00
+	0
+	"1200-1259"
+	0.00
+	""
+	0.00
+	390.00
+	402.00
+	378.00
+	1.00
+	2475.00
+	10
+	
+	
+	
+	
+	
+	""
+	
+	
+	0
+	
+	
+	
+	
+	""
+	
+	
+	""
+	
+	
+	""
+	""
+	""
+	
+	
+	""
+	
+	
+	""
+	""
+	""
+	
+	
+	""
+	
+	
+	""
+	""
+	""
+	
+	
+	""
+	
+	
+	""
+	""
+	""
+	
+	
+	""
+	
+	
+	""
+	""
+	
+dsc@master: otp %                                                                                                                ~/Data/us_dot/otp 0 13:29:42
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
