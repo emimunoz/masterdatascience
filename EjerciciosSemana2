@@ -4847,3 +4847,225 @@ dsc@master: opentraveldata %                                                    
 
 
 
+⌂123% dsc@master: ~ % echo Sunday | sed ssdaysnights                                                                                             ~ 0 11:45:36
+Sunnight
+⌂60% dsc@master: ~ % echo Sunday | sed sadayanighta                                                                                              ~ 0 11:46:35
+sed: -e expression #1, char 7: unknown option to `s'
+dsc@master: ~ 1 % echo Sunday | sed "sadayanighta"                                                                                               ~ 0 11:46:55
+sed: -e expression #1, char 7: unknown option to `s'
+dsc@master: ~ 1 % echo Sunday | sed s/day/night/                                                                                                 ~ 0 11:47:12
+Sunnight
+dsc@master: ~ % echo Sunday | sed sqdayqnightq                                                                                                   ~ 0 11:47:49
+Sunnight
+dsc@master: ~ % echo day.day | sed ssdaysnights                                                                                                  ~ 0 11:48:16
+night.day
+dsc@master: ~ % echo day.day | sed ssdaysnightsg                                                                                                 ~ 0 11:50:16
+night.night
+dsc@master: ~ % cd Data/shell                                                                                                                    ~ 0 11:50:28
+dsc@master: shell % ls                                                                                                                ~/Data/shell 0 11:50:58
+colum_name_number.sh*  postgres/                This file is created by KSCHOOL onmié nov 28 17:15:51 CET 2018
+Finn.txt*              Text_example_double.txt  This file is created by KSCHOOL onmié nov 28 17:16:14 CET 2018
+first_dir/             Text_example.txt*        timestamp_header.txt
+numbers                Text_example.txt.2*
+dsc@master: shell % sed ssthissTHATsgI Text_example.txt                                                                               ~/Data/shell 0 11:51:00
+sed: -e expression #1, char 8: unknown option to `s'
+dsc@master: shell 1 % sed s.this.THAT.gI Text_example.txt                                                                             ~/Data/shell 0 11:51:21
+THAT LINE IS THE 1ST UPPER CASE LINE IN THAT FILE.
+THAT line is the 1st lower case line in THAT file.
+THAT Line Has All Its First Character Of The Word With Upper Case.
+
+
+Two lines above THAT are empty.
+And THAT is the last line.
+THAT LINE IS THE 1ST UPPER CASE LINE IN THAT FILE.
+THAT line is the 1st lower case line in THAT file.
+THAT Line Has All Its First Character Of The Word With Upper Case.
+
+
+Two lines above THAT are empty.
+And THAT is the last line.
+dsc@master: shell % diff Text_example_double.txt Text_example.txt                                                                     ~/Data/shell 0 11:51:38
+15,21d14
+< THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+< this line is the 1st lower case line in this file.
+< This Line Has All Its First Character Of The Word With Upper Case.
+< 
+< 
+< Two lines above this are empty.
+< And this is the last line.
+dsc@master: shell 1 % diff Text_example.txt Text_example.txt                                                                          ~/Data/shell 0 11:55:28
+dsc@master: shell % seq 3 | sed '2p'                                                                                                  ~/Data/shell 0 11:55:46
+1
+2
+2
+3
+dsc@master: shell % seq 3 | sed -n '2p'                                                                                               ~/Data/shell 0 11:57:07
+2
+dsc@master: shell % seq 3 | sed 2                                                                                                     ~/Data/shell 0 11:57:20
+sed: -e expression #1, char 1: missing command
+dsc@master: shell 1 % seq 5 | sed -n '2,4p'                                                                                           ~/Data/shell 0 11:57:44
+2
+3
+4
+dsc@master: shell % seq 5 | sed -n '2;4p'                                                                                             ~/Data/shell 0 11:58:59
+sed: -e expression #1, char 2: unknown command: `;'
+dsc@master: shell 1 % seq 5 | sed -n '2p;4p'                                                                                          ~/Data/shell 0 11:59:11
+2
+4
+dsc@master: shell % seq 5 | sed -n '2,4d'                                                                                             ~/Data/shell 0 11:59:19
+dsc@master: shell % seq 10 15 | sed '3d'                                                                                              ~/Data/shell 0 11:59:44
+10
+11
+13
+14
+15
+dsc@master: shell % seq 10 15 | sed '/14/d'                                                                                           ~/Data/shell 0 12:00:56
+10
+11
+12
+13
+15
+dsc@master: shell % sed sslines\ns Text_example.txt                                                                                   ~/Data/shell 0 12:01:44
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+this n is the 1st lower case line in this file.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+Two ns above this are empty.
+And this is the last n.
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+this n is the 1st lower case line in this file.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+Two ns above this are empty.
+And this is the last n.
+dsc@master: shell % sed sslines\\ns Text_example.txt                                                                                  ~/Data/shell 0 12:03:31
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+this 
+ is the 1st lower case line in this file.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+Two 
+s above this are empty.
+And this is the last 
+.
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+this 
+ is the 1st lower case line in this file.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+Two 
+s above this are empty.
+And this is the last 
+.
+dsc@master: shell % sed 'lined' Text_example.txt                                                                                      ~/Data/shell 0 12:04:08
+sed: -e expression #1, char 2: extra characters after command
+dsc@master: shell 1 % sed '/line/d' Text_example.txt                                                                                  ~/Data/shell 0 12:06:50
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+dsc@master: shell % sed '/line/dl' Text_example.txt                                                                                   ~/Data/shell 0 12:08:28
+sed: -e expression #1, char 8: extra characters after command
+dsc@master: shell 1 % sed '/line/dI' Text_example.txt                                                                                 ~/Data/shell 0 12:08:56
+sed: -e expression #1, char 8: extra characters after command
+dsc@master: shell 1 % sed -nl '/line/d' Text_example.txt                                                                              ~/Data/shell 0 12:09:07
+sed: can't find label for jump to `ext_example.txt'
+dsc@master: shell 4 % sed -nI '/line/d' Text_example.txt                                                                              ~/Data/shell 0 12:09:30
+sed: invalid option -- 'I'
+Usage: sed [OPTION]... {script-only-if-no-other-script} [input-file]...
+
+  -n, --quiet, --silent
+                 suppress automatic printing of pattern space
+  -e script, --expression=script
+                 add the script to the commands to be executed
+  -f script-file, --file=script-file
+                 add the contents of script-file to the commands to be executed
+  --follow-symlinks
+                 follow symlinks when processing in place
+  -i[SUFFIX], --in-place[=SUFFIX]
+                 edit files in place (makes backup if SUFFIX supplied)
+  -l N, --line-length=N
+                 specify the desired line-wrap length for the `l' command
+  --posix
+                 disable all GNU extensions.
+  -E, -r, --regexp-extended
+                 use extended regular expressions in the script
+                 (for portability use POSIX -E).
+  -s, --separate
+                 consider files as separate rather than as a single,
+                 continuous long stream.
+      --sandbox
+                 operate in sandbox mode.
+  -u, --unbuffered
+                 load minimal amounts of data from the input files and flush
+                 the output buffers more often
+  -z, --null-data
+                 separate lines by NUL characters
+      --help     display this help and exit
+      --version  output version information and exit
+
+If no -e, --expression, -f, or --file option is given, then the first
+non-option argument is taken as the sed script to interpret.  All
+remaining arguments are names of input files; if no input files are
+specified, then the standard input is read.
+
+GNU sed home page: <http://www.gnu.org/software/sed/>.
+General help using GNU software: <http://www.gnu.org/gethelp/>.
+dsc@master: shell 1 % sed '/line/!' Text_example.txt                                                                                  ~/Data/shell 0 12:09:37
+sed: -e expression #1, char 7: missing command
+dsc@master: shell 1 % sed '/line/p!' Text_example.txt                                                                                 ~/Data/shell 0 12:10:23
+sed: -e expression #1, char 8: extra characters after command
+dsc@master: shell 1 % sed '/line/!p' Text_example.txt                                                                                 ~/Data/shell 0 12:11:29
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+this line is the 1st lower case line in this file.
+This Line Has All Its First Character Of The Word With Upper Case.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+
+
+Two lines above this are empty.
+And this is the last line.
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+this line is the 1st lower case line in this file.
+This Line Has All Its First Character Of The Word With Upper Case.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+
+
+Two lines above this are empty.
+And this is the last line.
+dsc@master: shell % sed -n '/line/!p' Text_example.txt                                                                                ~/Data/shell 0 12:11:57
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
+This Line Has All Its First Character Of The Word With Upper Case.
+
+
+dsc@master: shell %                                                                                                                   ~/Data/shell 0 12:12:11
+
+
+
+
+
+
+
+
+
+
+
+
+
