@@ -1,0 +1,180 @@
+dsc@master: ~ % psql                                                                                                                             ~ 0 20:36:32
+psql (9.6.9)
+Type "help" for help.
+
+dsc=# CREATE TABLE Facebook ( name VARCHAR, age INT, city VARCHAR, email VARCHAR);
+ERROR:  relation "facebook" already exists
+dsc=# SELECT * FROM facebook
+dsc-# ;
+ nombre | edad | residencia |          email           
+--------+------+------------+--------------------------
+ Javi   |   30 | Albacete   | javi@gmail.com
+ Sara   |   45 | Albacete   | sara@gmail.com
+ María  |   28 | Albacete   | maria@gmail.com
+ Paco   |   22 | Albacete   | paco@gmail.com
+ Manu   |   35 | Albacete   | manu@gmail.com
+ Igor   |   39 | Madrid     | igor@hajduknumberone.com
+ Israel |   37 | Getafe     | isra@centerofworld.com
+ Dani   |   32 | Berlin     | danni@whoknowswhere.com
+ Isa    |   35 | Madrid     | isa@gopiano.com
+(9 rows)
+
+dsc=# SELECT * FROM Facebook WHERE age < 28 OR age > 40;
+ERROR:  column "age" does not exist
+LINE 1: SELECT * FROM Facebook WHERE age < 28 OR age > 40;
+                                     ^
+dsc=# SELECT * FROM Facebook WHERE edad < 28 OR edad > 40;
+ nombre | edad | residencia |     email      
+--------+------+------------+----------------
+ Sara   |   45 | Albacete   | sara@gmail.com
+ Paco   |   22 | Albacete   | paco@gmail.com
+(2 rows)
+
+dsc=# SELECT * FROM Facebook WHERE city != "Madrid";
+ERROR:  column "city" does not exist
+LINE 1: SELECT * FROM Facebook WHERE city != "Madrid";
+                                     ^
+dsc=# SELECT * FROM Facebook WHERE residencia != "Madrid";
+ERROR:  column "Madrid" does not exist
+LINE 1: SELECT * FROM Facebook WHERE residencia != "Madrid";
+                                                   ^
+dsc=# SELECT * FROM Facebook WHERE residencia != 'Madrid';
+ nombre | edad | residencia |          email          
+--------+------+------------+-------------------------
+ Javi   |   30 | Albacete   | javi@gmail.com
+ Sara   |   45 | Albacete   | sara@gmail.com
+ María  |   28 | Albacete   | maria@gmail.com
+ Paco   |   22 | Albacete   | paco@gmail.com
+ Manu   |   35 | Albacete   | manu@gmail.com
+ Israel |   37 | Getafe     | isra@centerofworld.com
+ Dani   |   32 | Berlin     | danni@whoknowswhere.com
+(7 rows)
+
+dsc=# ALTER TABLE Facebook ADD COLUMN telefono INT;
+ALTER TABLE
+dsc=# ALTER TABLE Facebook ADD COLUMN username VARCHAR;
+ALTER TABLE
+dsc=# SELECT * FROM facebook;
+ nombre | edad | residencia |          email           | telefono | username 
+--------+------+------------+--------------------------+----------+----------
+ Javi   |   30 | Albacete   | javi@gmail.com           |          | 
+ Sara   |   45 | Albacete   | sara@gmail.com           |          | 
+ María  |   28 | Albacete   | maria@gmail.com          |          | 
+ Paco   |   22 | Albacete   | paco@gmail.com           |          | 
+ Manu   |   35 | Albacete   | manu@gmail.com           |          | 
+ Igor   |   39 | Madrid     | igor@hajduknumberone.com |          | 
+ Israel |   37 | Getafe     | isra@centerofworld.com   |          | 
+ Dani   |   32 | Berlin     | danni@whoknowswhere.com  |          | 
+ Isa    |   35 | Madrid     | isa@gopiano.com          |          | 
+(9 rows)
+
+dsc=# INSERT INTO facebook(telefono,username) VALUES (665876534,'Jav93'); 
+ERROR:  null value in column "email" violates not-null constraint
+DETAIL:  Failing row contains (null, null, null, null, 665876534, Jav93).
+dsc=# SELECT * FROM facebook AS t WHERE t.residencia = 'Albacete';
+ nombre | edad | residencia |      email      | telefono | username 
+--------+------+------------+-----------------+----------+----------
+ Javi   |   30 | Albacete   | javi@gmail.com  |          | 
+ Sara   |   45 | Albacete   | sara@gmail.com  |          | 
+ María  |   28 | Albacete   | maria@gmail.com |          | 
+ Paco   |   22 | Albacete   | paco@gmail.com  |          | 
+ Manu   |   35 | Albacete   | manu@gmail.com  |          | 
+(5 rows)
+
+dsc=# SELECT DISTINCT residencia FROM facebook;
+ residencia 
+------------
+ Getafe
+ Albacete
+ Madrid
+ Berlin
+(4 rows)
+
+dsc=# SELECT residencia FROM facebookç,
+dsc-# SELECT residencia FROM facebook;
+ERROR:  syntax error at or near "SELECT"
+LINE 2: SELECT residencia FROM facebook;
+        ^
+dsc=# SELECT residencia FROM facebook;
+ residencia 
+------------
+ Albacete
+ Albacete
+ Albacete
+ Albacete
+ Albacete
+ Madrid
+ Getafe
+ Berlin
+ Madrid
+(9 rows)
+
+dsc=# SELECT * FROM facebook ORDER BY residencia;
+ nombre | edad | residencia |          email           | telefono | username 
+--------+------+------------+--------------------------+----------+----------
+ Javi   |   30 | Albacete   | javi@gmail.com           |          | 
+ Sara   |   45 | Albacete   | sara@gmail.com           |          | 
+ María  |   28 | Albacete   | maria@gmail.com          |          | 
+ Paco   |   22 | Albacete   | paco@gmail.com           |          | 
+ Manu   |   35 | Albacete   | manu@gmail.com           |          | 
+ Dani   |   32 | Berlin     | danni@whoknowswhere.com  |          | 
+ Israel |   37 | Getafe     | isra@centerofworld.com   |          | 
+ Igor   |   39 | Madrid     | igor@hajduknumberone.com |          | 
+ Isa    |   35 | Madrid     | isa@gopiano.com          |          | 
+(9 rows)
+
+dsc=# SELECT * FROM facebook ORDER BY residencia DESC;
+ nombre | edad | residencia |          email           | telefono | username 
+--------+------+------------+--------------------------+----------+----------
+ Igor   |   39 | Madrid     | igor@hajduknumberone.com |          | 
+ Isa    |   35 | Madrid     | isa@gopiano.com          |          | 
+ Israel |   37 | Getafe     | isra@centerofworld.com   |          | 
+ Dani   |   32 | Berlin     | danni@whoknowswhere.com  |          | 
+ Javi   |   30 | Albacete   | javi@gmail.com           |          | 
+ Manu   |   35 | Albacete   | manu@gmail.com           |          | 
+ Sara   |   45 | Albacete   | sara@gmail.com           |          | 
+ María  |   28 | Albacete   | maria@gmail.com          |          | 
+ Paco   |   22 | Albacete   | paco@gmail.com           |          | 
+(9 rows)
+
+dsc=# SELECT residencia, COUNT(*), AVG(edad) FROM facebook GROUP BY residencia;
+ residencia | count |         avg         
+------------+-------+---------------------
+ Getafe     |     1 | 37.0000000000000000
+ Albacete   |     5 | 32.0000000000000000
+ Madrid     |     2 | 37.0000000000000000
+ Berlin     |     1 | 32.0000000000000000
+(4 rows)
+
+dsc=# SELECT residencia,edad, COUNT(*), AVG(edad) FROM facebook GROUP BY residencia;
+ERROR:  column "facebook.edad" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: SELECT residencia,edad, COUNT(*), AVG(edad) FROM facebook GR...
+                          ^
+dsc=# SELECT residencia, edad, COUNT(*), AVG(edad) FROM facebook GROUP BY residencia;
+ERROR:  column "facebook.edad" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: SELECT residencia, edad, COUNT(*), AVG(edad) FROM facebook G...
+                           ^
+dsc=# SELECT residencia, edad, COUNT(*), AVG(edad) FROM facebook GROUP BY residencia, edad;
+ residencia | edad | count |         avg         
+------------+------+-------+---------------------
+ Albacete   |   22 |     1 | 22.0000000000000000
+ Albacete   |   28 |     1 | 28.0000000000000000
+ Madrid     |   39 |     1 | 39.0000000000000000
+ Albacete   |   45 |     1 | 45.0000000000000000
+ Albacete   |   35 |     1 | 35.0000000000000000
+ Berlin     |   32 |     1 | 32.0000000000000000
+ Albacete   |   30 |     1 | 30.0000000000000000
+ Madrid     |   35 |     1 | 35.0000000000000000
+ Getafe     |   37 |     1 | 37.0000000000000000
+(9 rows)
+
+dsc=# create database optd;
+CREATE DATABASE
+dsc=# \cd ~/Data/opentraveldata/
+\cd: could not change directory to "~/Data/opentraveldata/": No such file or directory
+dsc=# q
+dsc-# ^C
+dsc=# ^C
+dsc=# ;
+dsc=# ^C
+dsc=# 
