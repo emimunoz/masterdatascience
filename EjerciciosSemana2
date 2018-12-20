@@ -5998,3 +5998,951 @@ dsc@master: otp %                                                               
 
 
 
+dsc@master: ~ % cd Data/opentraveldata                             ~ 0 16:49:54
+dsc@master: opentraveldata % csvlook optd_aircraft.csv | less
+dsc@master: opentraveldata % csvlook -d '^' optd_aircraft.csv | less                                                         ~/Data/opentraveldata 0 16:51:11
+dsc@master: opentraveldata % csvlook -ld '^' optd_aircraft.csv | less                                                        ~/Data/opentraveldata 0 16:52:28
+dsc@master: opentraveldata % csvlook -ld '^' optd_aircraft.csv | less -S                                                     ~/Data/opentraveldata 0 16:52:49
+dsc@master: opentraveldata %                                                                                                 ~/Data/opentraveldata 0 16:54:37
+dsc@master: opentraveldata % csvstat -d '^' optd_aircraft.csv| less                                                          ~/Data/opentraveldata 0 16:54:38
+dsc@master: opentraveldata % csvstat -d '^' -c 2,5,6 optd_aircraft.csv| less                                                 ~/Data/opentraveldata 0 16:55:09
+dsc@master: opentraveldata % csvcut -n optd_aircraft.csv                                                                     ~/Data/opentraveldata 0 16:56:32
+  1: iata_code^manufacturer^model^iata_group^iata_category^icao_code^nb_engines^aircraft_type
+dsc@master: opentraveldata % csvcut -d '^' -n optd_aircraft.csv                                                              ~/Data/opentraveldata 0 16:58:00
+  1: iata_code
+  2: manufacturer
+  3: model
+  4: iata_group
+  5: iata_category
+  6: icao_code
+  7: nb_engines
+  8: aircraft_type
+dsc@master: opentraveldata % csvcut -d '^' -c 2 optd_aircraft.csv                                                            ~/Data/opentraveldata 0 16:58:20
+manufacturer
+Fokker
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Boeing
+Antonov
+Antonow / Antonov
+Antonow / Antonov
+Antonow / Antonov
+Antonow / Antonov
+Antonov
+Antonow / Antonov
+Antonow / Antonov
+Antonov
+Antonov
+Antonov
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Airbus
+Rockwell
+Rockwell
+Rockwell
+Agusta / AgustaWestland
+Ayres
+Dassault
+Antonov
+Antonow / Antonov
+Antonow / Antonov
+Antonow / Antonov
+Antonow / Antonov
+BAe
+Eurocopter
+BAe
+BAe
+BAe
+BAe
+ATR
+ATR
+ATR
+ATR
+ATR
+BAe
+ATR
+ATR
+AgustaWestland
+BAC
+BAC
+BAC
+BAC
+BAC
+Boeing
+Beechcraft
+Beechcraft
+Beechcraft
+Beechcraft
+Beechcraft
+Beechcraft
+Beechcraft
+Beechcraft
+Beechcraft
+Beechcraft
+Bell Helicopter
+Britten Norman
+Britten Norman
+""
+Surface Equipment
+Comac
+Canadair
+Canadair
+Bombardier
+GAF
+Cessna
+Cessna
+Cessna
+Cessna
+Cessna
+Cessna
+Cessna
+Bombardier
+Canadair
+Cessna
+Cessna
+Cessna
+Cessna
+Cessna
+Cessna
+Cessna
+Cessna
+Canadair
+Canadair
+Canadair
+Canadair
+Canadair
+Canadair
+Canadair
+Canadair
+Sud-Est
+Bombardier
+CASA
+Bombardier
+Airtech
+Convair
+Convair
+Convair
+Convair
+Convair
+Convair
+Convair
+Convair
+Convair
+Curtiss
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+Dassault
+Dornier
+Dassault
+Dornier
+Douglas
+Diamond Aircraft
+De Havilland Canada-Bombardier
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Dassault
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Douglas
+Dassault
+Dassault
+Dassault
+Dassault
+Dassault
+Dassault
+Dassault
+De Havilland Canada-Bombardier
+De Havilland Canada-Bombardier
+De Havilland Canada-Bombardier
+De Havilland Canada-Bombardier
+De Havilland Canada
+De Havilland Canada-Bombardier
+De Havilland Canada
+De Havilland Canada
+De Havilland
+De Havilland-Bombardier
+De Havilland
+De Havilland Canada
+De Havilland Canada
+De Havilland Canada
+De Havilland Canada
+De Havilland Canada
+De Havilland Canada
+Embraer
+Embraer
+Embraer
+Embraer
+Eclipse
+Eurocopter
+Embraer
+Embraer
+Embraer
+Embraer
+Embraer
+Embraer
+Embraer
+Embraer
+Embraer
+Fokker
+Fokker
+Fokker
+Fokker
+Fokker
+Fokker
+Fokker
+Fokker
+Fokker
+Fairchild-Hiller
+Dornier
+Dornier
+Dornier
+GippsAero
+Gulfstream
+Gulfstream
+Gulfstream
+Grumman
+Gulfstream
+Gulfstream
+Gulfstream
+Hawker-Beechcraft
+Hawker-Beechcraft
+Hawker-Beechcraft
+Hawker-Siddeley
+Hawker-Beechcraft
+Hawker-Beechcraft
+Helio
+""
+BAe
+Ilyushin
+Ilyushin
+Ilyushin
+Ilyushin
+Ilyushin
+Ilyushin
+Ilyushin
+Ilyushin
+Ilyushin
+Ilyushin
+Ilyushin
+BAe
+BAe
+BAe
+BAe
+Junkers
+Lockheed
+Lockheed
+Lockheed
+Lockheed
+Lockheed
+Aircraft Industries (LET)
+LET
+Surface Equipment
+""
+Surface Equipment
+Lockheed
+Lockheed
+Lockheed
+Lockheed
+Learjet
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+McDonnell Douglas
+Xian
+MBB
+MD Helicopters
+Mil
+Mitsubishi
+Nord / SNCAN
+Aerospatiale / SNIAS
+Eurocopter
+Eurocopter
+Piaggio Aero
+Piper
+Piper
+Piper
+Piper
+Pilatus
+Pilatus
+Partenavia
+Hawker-Beechcraft
+""
+Saab
+Sikorsky
+Sikorsky
+Sikorsky
+Saab
+Saab
+Saab
+Shorts
+Shorts
+Shorts
+Shorts
+Aerospatiale / SNIAS
+Sukhoi
+Sukhoi
+Sukhoi
+Fairchild-Swearingen
+Fairchild-Swearingen
+Shaanxi
+Tupolev
+Tupolev
+Tupolev
+DAHER-SOCATA
+Surface Equipment
+Tupolev
+Tupolev
+Vickers
+Vickers
+IAI
+Yakovlev / Jakovlev
+Yakovlev / Jakovlev
+HAMC / Harbin
+Xian
+NAMC
+dsc@master: opentraveldata % csvcut -d '^' -c manufacturer optd_aircraft.csv | head                                          ~/Data/opentraveldata 0 16:58:42
+manufacturer
+Fokker
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+dsc@master: opentraveldata % csvcut -d '^' -c manufacturer optd_aircraft.csv | tail -n +2 | head                             ~/Data/opentraveldata 0 16:59:52
+Fokker
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+Airbus
+dsc@master: opentraveldata % csvcut -d '^' -c manufacturer optd_aircraft.csv  | head                                         ~/Data/opentraveldata 0 17:00:07
+manufacturer
+Fokker
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+BAe
+dsc@master: opentraveldata % csvcut -d '^' -c manufacturer optd_aircraft.csv | csvlook  | head                               ~/Data/opentraveldata 0 17:00:57
+| manufacturer                   |
+| ------------------------------ |
+| Fokker                         |
+| BAe                            |
+| BAe                            |
+| BAe                            |
+| BAe                            |
+| BAe                            |
+| BAe                            |
+| BAe                            |
+dsc@master: opentraveldata % less optd_aircraft.csv                                                                          ~/Data/opentraveldata 0 17:01:07
+dsc@master: opentraveldata % grep 380 optd_aircraft.csv                                                                      ~/Data/opentraveldata 0 19:34:29
+380^Airbus^A380^^^^^
+388^Airbus^A380^380^4J^A388^4^J
+38F^Airbus^A380F^38F^4J^A388^4^J
+dsc@master: opentraveldata % grep "^380" optd_aircraft.csv                                                                   ~/Data/opentraveldata 0 19:34:39
+380^Airbus^A380^^^^^
+dsc@master: opentraveldata % csvgrep -d '^' -m 380 optd_aircraft.csv                                                         ~/Data/opentraveldata 0 19:34:50
+usage: csvgrep [-h] [-d DELIMITER] [-t] [-q QUOTECHAR] [-u {0,1,2,3}] [-b]
+               [-p ESCAPECHAR] [-z FIELD_SIZE_LIMIT] [-e ENCODING] [-S] [-H]
+               [-K SKIP_LINES] [-v] [-l] [--zero] [-V] [-n] [-c COLUMNS]
+               [-m PATTERN] [-r REGEX] [-f MATCHFILE] [-i] [-a]
+               [FILE]
+csvgrep: error: You must specify at least one column to search using the -c option.
+dsc@master: opentraveldata 2 % csvgrep -d '^' -c iata_code -m 380 optd_aircraft.csv                                          ~/Data/opentraveldata 0 19:35:46
+iata_code,manufacturer,model,iata_group,iata_category,icao_code,nb_engines,aircraft_type
+380,Airbus,A380,,,,,
+dsc@master: opentraveldata % csvgrep -d '^' -c iata_code -m 380 optd_aircraft.csv | csvlook | less -S                        ~/Data/opentraveldata 0 19:36:25
+dsc@master: opentraveldata % csvgrep -d '^' -c iata_code -m 380 optd_aircraft.csv | csvlook                                  ~/Data/opentraveldata 0 19:37:15
+| iata_code | manufacturer | model | iata_group | iata_category | icao_code | nb_engines | aircraft_type |
+| --------- | ------------ | ----- | ---------- | ------------- | --------- | ---------- | ------------- |
+|       380 | Airbus       | A380  |            |               |           |            |               |
+dsc@master: opentraveldata % csvgrep -d "^" -a -c 1,2 -r "^A" optd_aircraft.csv | csvlook | less -S                          ~/Data/opentraveldata 0 19:37:20
+dsc@master: opentraveldata % csvgrep -d "^" -a -c 1,2 -r "^A" optd_aircraft.csv | csvlook | less -S                          ~/Data/opentraveldata 0 19:39:23
+dsc@master: opentraveldata % csvgrep -d "^" -c 1,2 -r "^A" optd_aircraft.csv | csvlook | less -S                             ~/Data/opentraveldata 0 19:40:42
+dsc@master: opentraveldata % sort -t "^" -k 7rn,7 optd_aircraft.csv | head -3                                                ~/Data/opentraveldata 0 19:41:02
+A5F^Antonov^An-225^A5F^6J^A225^6^J
+141^BAe^146-100^146^4J^B461^4^J
+142^BAe^BAE Systems 146-200 Passenger^146^4J^B462^4^J
+dsc@master: opentraveldata % sort -t "^" -k 7rn,7 optd_aircraft.csv | head -3 | csvlook                                      ~/Data/opentraveldata 0 19:44:01
+| A5F^Antonov^An-225^A5F^6J^A225^6^J                    |
+| ----------------------------------------------------- |
+| 141^BAe^146-100^146^4J^B461^4^J                       |
+| 142^BAe^BAE Systems 146-200 Passenger^146^4J^B462^4^J |
+dsc@master: opentraveldata % sort -d "^" -k 7rn,7 optd_aircraft.csv | head -3 | csvlook                                      ~/Data/opentraveldata 0 19:44:16
+sort: cannot read: '^': No such file or directory
+
+dsc@master: opentraveldata 1 % csvsort -n -d "^" optd_aircraft.csv                                                           ~/Data/opentraveldata 0 19:45:19
+  1: iata_code
+  2: manufacturer
+  3: model
+  4: iata_group
+  5: iata_category
+  6: icao_code
+  7: nb_engines
+  8: aircraft_type
+dsc@master: opentraveldata % csvsort -c nb_engines -r optd_aircraft.csv| csvcut -c manufacturer,model | head                 ~/Data/opentraveldata 0 19:45:43
+Column 'nb_engines' is invalid. It is neither an integer nor a column name. Column names are: u'iata_code^manufacturer^model^iata_group^iata_category^icao_code^nb_engines^aircraft_type',
+
+dsc@master: opentraveldata % csvsort -d "^" -c nb_engines -r optd_aircraft.csv| csvcut -c manufacturer,model | head          ~/Data/opentraveldata 0 19:48:02
+manufacturer,model
+BAe,146
+BAe,146 Freighter (-100/200/300QT & QC)
+Airbus,A319
+Airbus,A310
+Airbus,A310F
+Airbus,A319 (Sharklets)
+Airbus,A318 (sharklets)
+Airbus,A319 (sharklets)
+Airbus,A330
+dsc@master: opentraveldata % csvsort -d "^" -c nb_engines -r optd_aircraft.csv| csvcut -c manufacturer,model,nb_engines | head | csvlook
+| manufacturer | model                               | nb_engines |
+| ------------ | ----------------------------------- | ---------- |
+| BAe          | 146                                 |            |
+| BAe          | 146 Freighter (-100/200/300QT & QC) |            |
+| Airbus       | A319                                |            |
+| Airbus       | A310                                |            |
+| Airbus       | A310F                               |            |
+| Airbus       | A319 (Sharklets)                    |            |
+| Airbus       | A318 (sharklets)                    |            |
+| Airbus       | A319 (sharklets)                    |            |
+| Airbus       | A330                                |            |
+dsc@master: opentraveldata % csvformat -d "^" -D "~" ./optd_aircraft.csv > ./optd_aircraft_new_del.csv                       ~/Data/opentraveldata 0 19:49:46
+dsc@master: opentraveldata % cat ./optd_aircraft.csv | tr "^" "~" | wc                                                       ~/Data/opentraveldata 0 19:53:34
+    458    1068   18612
+dsc@master: opentraveldata % cat ./optd_aircraft_new_del.csv | wc                                                            ~/Data/opentraveldata 0 19:54:06
+    458    1068   18612
+dsc@master: opentraveldata % ls                                                                                              ~/Data/opentraveldata 0 19:54:33
+optd_aircraft.csv*  optd_aircraft_new_del.csv  optd_airlines.csv*  optd_por_public.csv*  ref_airline_nb_of_flights.csv*
+dsc@master: opentraveldata % rm optd_aircraft_new_del.csv                                                                    ~/Data/opentraveldata 0 19:54:41
+dsc@master: opentraveldata % ls                                                                                              ~/Data/opentraveldata 0 19:54:54
+optd_aircraft.csv*  optd_airlines.csv*  optd_por_public.csv*  ref_airline_nb_of_flights.csv*
+dsc@master: opentraveldata % csvstat -d "^" -c manufacturer -n                                                               ~/Data/opentraveldata 0 19:54:56
+^C              
+dsc@master: opentraveldata 1 % csvstat -d "^" -c manufacturer -n optd_aircraft.csv                                           ~/Data/opentraveldata 0 19:58:07
+  1: iata_code
+  2: manufacturer
+  3: model
+  4: iata_group
+  5: iata_category
+  6: icao_code
+  7: nb_engines
+  8: aircraft_type
+dsc@master: opentraveldata % csvstat -d "^" -c manufacturer optd_aircraft.csv                                                ~/Data/opentraveldata 0 19:58:14
+  2. "manufacturer"
+
+	Type of data:          Text
+	Contains null values:  True (excluded from calculations)
+	Unique values:         76
+	Longest value:         30 characters
+	Most common values:    Boeing (93x)
+	                       Airbus (44x)
+	                       Douglas (28x)
+	                       McDonnell Douglas (22x)
+	                       BAe (19x)
+
+Row count: 457
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | sort | uniq -c                               ~/Data/opentraveldata 0 20:10:28
+      4 ""
+      2 Aerospatiale / SNIAS
+      1 Agusta / AgustaWestland
+      1 AgustaWestland
+     44 Airbus
+      1 Aircraft Industries (LET)
+      1 Airtech
+      6 Antonov
+     10 Antonow / Antonov
+      7 ATR
+      1 Ayres
+      5 BAC
+     19 BAe
+     10 Beechcraft
+      1 Bell Helicopter
+     93 Boeing
+      4 Bombardier
+      2 Britten Norman
+     11 Canadair
+      1 CASA
+     15 Cessna
+      1 Comac
+      9 Convair
+      1 Curtiss
+      1 DAHER-SOCATA
+     11 Dassault
+      2 De Havilland
+      1 De Havilland-Bombardier
+      9 De Havilland Canada
+      6 De Havilland Canada-Bombardier
+      1 Diamond Aircraft
+      5 Dornier
+     28 Douglas
+      1 Eclipse
+     13 Embraer
+      4 Eurocopter
+      1 Fairchild-Hiller
+      2 Fairchild-Swearingen
+     10 Fokker
+      1 GAF
+      1 GippsAero
+      1 Grumman
+      6 Gulfstream
+      1 HAMC / Harbin
+      6 Hawker-Beechcraft
+      1 Hawker-Siddeley
+      1 Helio
+      1 IAI
+     11 Ilyushin
+      1 Junkers
+      1 Learjet
+      1 LET
+      9 Lockheed
+      1 manufacturer
+      1 MBB
+     22 McDonnell Douglas
+      1 MD Helicopters
+      1 Mil
+      1 Mitsubishi
+      1 NAMC
+      1 Nord / SNCAN
+      1 Partenavia
+      1 Piaggio Aero
+      2 Pilatus
+      4 Piper
+      3 Rockwell
+      4 Saab
+      1 Shaanxi
+      4 Shorts
+      3 Sikorsky
+      1 Sud-Est
+      3 Sukhoi
+      4 Surface Equipment
+      5 Tupolev
+      2 Vickers
+      2 Xian
+      2 Yakovlev / Jakovlev
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | sort | uniq | wc                             ~/Data/opentraveldata 0 20:12:44
+     77     104     828
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | sort | uniq -c  | wc                         ~/Data/opentraveldata 0 20:13:32
+     77     181    1444
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | sort | uniq -c  | wc -l                      ~/Data/opentraveldata 0 20:13:43
+77
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | tail -n +2 | sort | uniq -c  | wc -l         ~/Data/opentraveldata 0 20:14:05
+76
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | tail -n +2 | sort | uniq  | wc -l            ~/Data/opentraveldata 0 20:14:21
+76
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | tail -n +2 | sort | uniq  | wc -l            ~/Data/opentraveldata 0 20:14:31
+
+76
+dsc@master: opentraveldata %                                                                                                 ~/Data/opentraveldata 0 20:15:52
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | tail -n +2 | sort | uniq | sort | head       ~/Data/opentraveldata 0 20:15:52
+""
+Aerospatiale / SNIAS
+Agusta / AgustaWestland
+AgustaWestland
+Airbus
+Aircraft Industries (LET)
+Airtech
+Antonov
+Antonow / Antonov
+ATR
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | tail -n +2 | sort | uniq -c | sort | head    ~/Data/opentraveldata 0 20:16:18
+     10 Antonow / Antonov
+     10 Beechcraft
+     10 Fokker
+     11 Canadair
+     11 Dassault
+     11 Ilyushin
+     13 Embraer
+     15 Cessna
+     19 BAe
+      1 Agusta / AgustaWestland
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | tail -n +2 | sort | uniq -c | sort -r | head ~/Data/opentraveldata 0 20:16:29
+      9 Lockheed
+      9 De Havilland Canada
+      9 Convair
+     93 Boeing
+      7 ATR
+      6 Hawker-Beechcraft
+      6 Gulfstream
+      6 De Havilland Canada-Bombardier
+      6 Antonov
+      5 Tupolev
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | sort | uniq -c | sort -r | head              ~/Data/opentraveldata 0 20:16:41
+      9 Lockheed
+      9 De Havilland Canada
+      9 Convair
+     93 Boeing
+      7 ATR
+      6 Hawker-Beechcraft
+      6 Gulfstream
+      6 De Havilland Canada-Bombardier
+      6 Antonov
+      5 Tupolev
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | csvsort | uniq -c | sort -rn | head          ~/Data/opentraveldata 0 20:16:59
+     93 Boeing
+     44 Airbus
+     28 Douglas
+     22 McDonnell Douglas
+     19 BAe
+     15 Cessna
+     13 Embraer
+     11 Ilyushin
+     11 Dassault
+     11 Canadair
+dsc@master: opentraveldata % tail -n +2 optd_aircraft.csv| cut -n -d "^" -f 2 | sort | uniq -c | sort -nr | head -5          ~/Data/opentraveldata 0 20:17:44
+     93 Boeing
+     44 Airbus
+     28 Douglas
+     22 McDonnell Douglas
+     19 BAe
+dsc@master: opentraveldata % tail -n +2 optd_aircraft.csv| cut -n -d "^" -f 2 | csvsort | uniq -c | sort -nr | head -5       ~/Data/opentraveldata 0 20:27:45
+     93 Boeing
+     44 Airbus
+     28 Douglas
+     22 McDonnell Douglas
+     19 BAe
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | csvsort | tail -n +2 | uniq -c | sort -rn | head -5
+     93 Boeing
+     44 Airbus
+     28 Douglas
+     22 McDonnell Douglas
+     19 BAe
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | sort | tail -n +2 | uniq -c | sort -rn | head -5 
+     93 Boeing
+     44 Airbus
+     28 Douglas
+     22 McDonnell Douglas
+     19 BAe
+dsc@master: opentraveldata % csvcut -d "^" -c manufacturer  optd_aircraft.csv | csvsort | uniq -c | sort -rn | head -5       ~/Data/opentraveldata 0 20:28:39
+     93 Boeing
+     44 Airbus
+     28 Douglas
+     22 McDonnell Douglas
+     19 BAe
+dsc@master: opentraveldata % csvgrep -d "^" -c manufacturer -m "^Airbus" optd_aircraft.csv                                   ~/Data/opentraveldata 0 20:29:55
+iata_code,manufacturer,model,iata_group,iata_category,icao_code,nb_engines,aircraft_type
+dsc@master: opentraveldata % csvgrep -d "^" -c manufacturer -m "Airbus" optd_aircraft.csv                                    ~/Data/opentraveldata 0 20:32:53
+iata_code,manufacturer,model,iata_group,iata_category,icao_code,nb_engines,aircraft_type
+19D,Airbus,A319,,,,,
+310,Airbus,A310,,,,,
+312,Airbus,A310-200,310,2J,A310,2,J
+313,Airbus,A310-300,310,2J,A310,2,J
+318,Airbus,A318,32S,2J,A318,2,J
+319,Airbus,A319,32S,2J,A319,2,J
+31F,Airbus,A310F,,,,,
+31W,Airbus,A319 (Sharklets),,,,,
+31X,Airbus,A310-200F,31F,2J,A310,2,J
+31Y,Airbus,A310-300F,31F,2J,A310,2,J
+320,Airbus,A320-100/200,32S,2J,A320,2,J
+321,Airbus,A321-100/200,32S,2J,A321,2,J
+32A,Airbus,A320 (sharklets),32S,2J,A320,2,J
+32B,Airbus,A321 (sharklets),32S,2J,A321,2,J
+32C,Airbus,A318 (sharklets),,,,,
+32D,Airbus,A319 (sharklets),,,,,
+32F,Airbus,A320 Freighter,32F,2J,A320,2,J
+32X,Airbus,A321 Freighter,32X,2J,A321,2,J
+330,Airbus,A330,,,,,
+332,Airbus,A330-200,330,2J,A332,2,J
+333,Airbus,A330-300,330,2J,A333,2,J
+33F,Airbus,A330 Freighter,,,,,
+33X,Airbus,A330-200 Freighter,33F,2J,A332,2,J
+340,Airbus,A340,,,,,
+342,Airbus,A340-200,340,4J,A342,4,J
+343,Airbus,A340-300,340,4J,A343,4,J
+345,Airbus,A340-500,340,4J,A345,4,J
+346,Airbus,A340-600,340,4J,A346,4,J
+350,Airbus,A350,,,,,
+351,Airbus,A350-1000,350,2J,ZZZZ,2,J
+358,Airbus,A350-800,350,2J,ZZZZ,2,J
+359,Airbus,A350-900,350,2J,ZZZZ,2,J
+380,Airbus,A380,,,,,
+388,Airbus,A380,380,4J,A388,4,J
+38F,Airbus,A380F,38F,4J,A388,4,J
+AB2,Airbus,A300B2,,,,,
+AB3,Airbus,A300,,,,,
+AB4,Airbus,A300B2/B4/C4,AB3,2J,A30B,2,J
+AB6,Airbus,A300-600,AB3,2J,A306,2,J
+ABB,Airbus,A300-600ST Beluga,ABF,2J,A3ST,2,J
+ABF,Airbus,A300F,,,,,
+ABM,Airbus,A300-600 Mixed Configuration,,,,,
+ABX,Airbus,A300C4/F4 Freighter,ABF,2J,A30B,2,J
+ABY,Airbus,A300-600F,ABF,2J,A306,2,J
+dsc@master: opentraveldata % csvgrep -d "^" -c manufacturer -m "Airbus" optd_aircraft.csv | csvlook                          ~/Data/opentraveldata 0 20:33:18
+| iata_code | manufacturer | model                        | iata_group | iata_category | icao_code | nb_engines | aircraft_type |
+| --------- | ------------ | ---------------------------- | ---------- | ------------- | --------- | ---------- | ------------- |
+| 19D       | Airbus       | A319                         |            |               |           |            |               |
+| 310       | Airbus       | A310                         |            |               |           |            |               |
+| 312       | Airbus       | A310-200                     | 310        | 2J            | A310      |          2 | J             |
+| 313       | Airbus       | A310-300                     | 310        | 2J            | A310      |          2 | J             |
+| 318       | Airbus       | A318                         | 32S        | 2J            | A318      |          2 | J             |
+| 319       | Airbus       | A319                         | 32S        | 2J            | A319      |          2 | J             |
+| 31F       | Airbus       | A310F                        |            |               |           |            |               |
+| 31W       | Airbus       | A319 (Sharklets)             |            |               |           |            |               |
+| 31X       | Airbus       | A310-200F                    | 31F        | 2J            | A310      |          2 | J             |
+| 31Y       | Airbus       | A310-300F                    | 31F        | 2J            | A310      |          2 | J             |
+| 320       | Airbus       | A320-100/200                 | 32S        | 2J            | A320      |          2 | J             |
+| 321       | Airbus       | A321-100/200                 | 32S        | 2J            | A321      |          2 | J             |
+| 32A       | Airbus       | A320 (sharklets)             | 32S        | 2J            | A320      |          2 | J             |
+| 32B       | Airbus       | A321 (sharklets)             | 32S        | 2J            | A321      |          2 | J             |
+| 32C       | Airbus       | A318 (sharklets)             |            |               |           |            |               |
+| 32D       | Airbus       | A319 (sharklets)             |            |               |           |            |               |
+| 32F       | Airbus       | A320 Freighter               | 32F        | 2J            | A320      |          2 | J             |
+| 32X       | Airbus       | A321 Freighter               | 32X        | 2J            | A321      |          2 | J             |
+| 330       | Airbus       | A330                         |            |               |           |            |               |
+| 332       | Airbus       | A330-200                     | 330        | 2J            | A332      |          2 | J             |
+| 333       | Airbus       | A330-300                     | 330        | 2J            | A333      |          2 | J             |
+| 33F       | Airbus       | A330 Freighter               |            |               |           |            |               |
+| 33X       | Airbus       | A330-200 Freighter           | 33F        | 2J            | A332      |          2 | J             |
+| 340       | Airbus       | A340                         |            |               |           |            |               |
+| 342       | Airbus       | A340-200                     | 340        | 4J            | A342      |          4 | J             |
+| 343       | Airbus       | A340-300                     | 340        | 4J            | A343      |          4 | J             |
+| 345       | Airbus       | A340-500                     | 340        | 4J            | A345      |          4 | J             |
+| 346       | Airbus       | A340-600                     | 340        | 4J            | A346      |          4 | J             |
+| 350       | Airbus       | A350                         |            |               |           |            |               |
+| 351       | Airbus       | A350-1000                    | 350        | 2J            | ZZZZ      |          2 | J             |
+| 358       | Airbus       | A350-800                     | 350        | 2J            | ZZZZ      |          2 | J             |
+| 359       | Airbus       | A350-900                     | 350        | 2J            | ZZZZ      |          2 | J             |
+| 380       | Airbus       | A380                         |            |               |           |            |               |
+| 388       | Airbus       | A380                         | 380        | 4J            | A388      |          4 | J             |
+| 38F       | Airbus       | A380F                        | 38F        | 4J            | A388      |          4 | J             |
+| AB2       | Airbus       | A300B2                       |            |               |           |            |               |
+| AB3       | Airbus       | A300                         |            |               |           |            |               |
+| AB4       | Airbus       | A300B2/B4/C4                 | AB3        | 2J            | A30B      |          2 | J             |
+| AB6       | Airbus       | A300-600                     | AB3        | 2J            | A306      |          2 | J             |
+| ABB       | Airbus       | A300-600ST Beluga            | ABF        | 2J            | A3ST      |          2 | J             |
+| ABF       | Airbus       | A300F                        |            |               |           |            |               |
+| ABM       | Airbus       | A300-600 Mixed Configuration |            |               |           |            |               |
+| ABX       | Airbus       | A300C4/F4 Freighter          | ABF        | 2J            | A30B      |          2 | J             |
+| ABY       | Airbus       | A300-600F                    | ABF        | 2J            | A306      |          2 | J             |
+dsc@master: opentraveldata % csvgrep -d "^" -c manufacturer -m "Airbus" optd_aircraft.csv | csvformat -D "|"                 ~/Data/opentraveldata 0 20:33:32
+iata_code|manufacturer|model|iata_group|iata_category|icao_code|nb_engines|aircraft_type
+19D|Airbus|A319|||||
+310|Airbus|A310|||||
+312|Airbus|A310-200|310|2J|A310|2|J
+313|Airbus|A310-300|310|2J|A310|2|J
+318|Airbus|A318|32S|2J|A318|2|J
+319|Airbus|A319|32S|2J|A319|2|J
+31F|Airbus|A310F|||||
+31W|Airbus|A319 (Sharklets)|||||
+31X|Airbus|A310-200F|31F|2J|A310|2|J
+31Y|Airbus|A310-300F|31F|2J|A310|2|J
+320|Airbus|A320-100/200|32S|2J|A320|2|J
+321|Airbus|A321-100/200|32S|2J|A321|2|J
+32A|Airbus|A320 (sharklets)|32S|2J|A320|2|J
+32B|Airbus|A321 (sharklets)|32S|2J|A321|2|J
+32C|Airbus|A318 (sharklets)|||||
+32D|Airbus|A319 (sharklets)|||||
+32F|Airbus|A320 Freighter|32F|2J|A320|2|J
+32X|Airbus|A321 Freighter|32X|2J|A321|2|J
+330|Airbus|A330|||||
+332|Airbus|A330-200|330|2J|A332|2|J
+333|Airbus|A330-300|330|2J|A333|2|J
+33F|Airbus|A330 Freighter|||||
+33X|Airbus|A330-200 Freighter|33F|2J|A332|2|J
+340|Airbus|A340|||||
+342|Airbus|A340-200|340|4J|A342|4|J
+343|Airbus|A340-300|340|4J|A343|4|J
+345|Airbus|A340-500|340|4J|A345|4|J
+346|Airbus|A340-600|340|4J|A346|4|J
+350|Airbus|A350|||||
+351|Airbus|A350-1000|350|2J|ZZZZ|2|J
+358|Airbus|A350-800|350|2J|ZZZZ|2|J
+359|Airbus|A350-900|350|2J|ZZZZ|2|J
+380|Airbus|A380|||||
+388|Airbus|A380|380|4J|A388|4|J
+38F|Airbus|A380F|38F|4J|A388|4|J
+AB2|Airbus|A300B2|||||
+AB3|Airbus|A300|||||
+AB4|Airbus|A300B2/B4/C4|AB3|2J|A30B|2|J
+AB6|Airbus|A300-600|AB3|2J|A306|2|J
+ABB|Airbus|A300-600ST Beluga|ABF|2J|A3ST|2|J
+ABF|Airbus|A300F|||||
+ABM|Airbus|A300-600 Mixed Configuration|||||
+ABX|Airbus|A300C4/F4 Freighter|ABF|2J|A30B|2|J
+ABY|Airbus|A300-600F|ABF|2J|A306|2|J
+dsc@master: opentraveldata %                                                                                                 ~/Data/opentraveldata 0 20:34:19
