@@ -1,0 +1,31 @@
+Implement a function that takes as input three variables, and returns the largest of the three. Do this without using the Python max() function! Make one version without any local variable and another with one local variable. (hint: it might be easier to use edit)
+
+a=1
+b=8
+c=5
+
+def maximo(a,b,c):
+  if (a>b and a>c):
+    return "A es el mayor"
+  elif (b>a and b>c):
+    return "B es el  mayor"
+  else:
+    return "C es el mayor"
+  
+print(maximo(a,b,c))  
+
+
+Write a function “centenario” that will take Name, and year of birth as inputs, check if year of birth is int and cast it to int if not, and print name together with the text explaining when the person is to have 100 years (hint: use isinstance)
+
+Name = "Emi"
+Year = 1989
+
+def centenario(n,y):
+  if isinstance(y,int) == False:
+    return "No has metido un año correcto"
+  else:
+    years100 = y + 100
+    return ("{} cumple 100 años en {}".format(n,years100))
+
+print(centenario(Name, Year))
+
