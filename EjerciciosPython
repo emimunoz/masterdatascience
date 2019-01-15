@@ -15,6 +15,8 @@ def maximo(a,b,c):
 print(maximo(a,b,c))  
 
 
+
+
 Write a function “centenario” that will take Name, and year of birth as inputs, check if year of birth is int and cast it to int if not, and print name together with the text explaining when the person is to have 100 years (hint: use isinstance)
 
 Name = "Emi"
@@ -29,3 +31,37 @@ def centenario(n,y):
 
 print(centenario(Name, Year))
 
+
+
+
+Write a function to calculate the number of words, number of lines, and length of a string the same way the wc command does in the command line
+
+def contador(f):
+  longitud = len(frase.split())
+  palabras = len(frase)
+  lineas = frase.count("/n")
+  return longitud, palabras, lineas
+
+
+
+
+Write a Python program to remove the nth index character from a string. If the input string is empty print warning.
+
+frase = "frase de prueba"
+borrar = 4
+
+frase_lista = list(frase)
+
+if frase_lista[borrar] == " ":
+    print("Es un espacio en blanco!")
+
+frase_lista.remove(frase_lista[borrar])
+print(''.join(frase_lista))
+
+
+
+
+
+
+  
+  
