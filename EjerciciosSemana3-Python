@@ -85,3 +85,42 @@ result = map(lambda x: x ** 2, seq)
 
 
 
+
+Prepare a list with 10 names. Make a code that will put all vowels to capitals and every other character to lower letters.
+
+names = ["Paco","Emi","Sara","Marta","Azahara","Fran","Pedro"]
+new_names = []
+for name in names:
+    new_name = ""
+    for letter in name:
+        if letter in "aeiouAEIOU":
+            new_name = new_name + letter.upper()
+        else:
+            new_name = new_name + letter.lower()
+    new_names.append(new_name)
+print(new_names)
+
+
+
+
+
+
+
+
+Prepare a list with 10 names. Make a code that will put all vowels to capitals and every other character to lower letters.
+
+names = ["Paco","Emi","Sara","Marta","Azahara","Fran","Pedro"]
+pattern = "ra"
+
+def patron(lista,letras):
+    incluidos = []
+    for nombre in lista:
+        if letras in nombre:
+            incluidos.append(nombre)
+    return incluidos
+
+print(patron(names,pattern))
+
+
+
+
