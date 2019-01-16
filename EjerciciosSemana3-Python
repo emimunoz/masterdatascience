@@ -124,3 +124,39 @@ print(patron(names,pattern))
 
 
 
+Reverse word order from the input string
+
+frase = "Frase de prueba"
+def reverse(frase):
+    frase_rev = frase.split()
+    frase_rev.reverse()
+    return " ".join(frase_rev)
+
+print(reverse(frase))
+
+
+
+
+
+Create a function that accepts string as search string and returns number of lines with that string in a command history (hint : use a in b)
+
+def cuenta(frase, pattern):
+    cuenta_total = 0
+    for i in frase:
+        if pattern in i:
+            cuenta_total += 1
+        return cuenta_total
+        
+
+
+
+
+
+Write a Python function that takes a list of words and returns the length of the longest one.
+
+def palabra_larga(lista):
+    len_palabras = []
+    for palabra in lista:
+        len_palabras.append((len(palabra),palabra))
+    len_palabras.sort()
+    return len_palabras[-1][1]
