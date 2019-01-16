@@ -63,5 +63,25 @@ print(''.join(frase_lista))
 
 
 
+Write a function that will take text file and pattern as input parameters, and return the number of occurances of case insensitive pattern inside a text (similar to: grep -i –o pattern file | wc -l)  
   
-  
+frase = "frase de pruebase se se"
+pattern = "se"
+
+def pattern_detector(frase, pattern):
+    reps = frase.count(pattern)
+    return reps
+print(pattern_detector(frase,pattern))
+
+
+
+
+For a sequence [1, 2, 3, 4, 5, 6, 7, 8 ] get the squared values using the lambda function.
+
+seq = [1,2,3,4,5,6,7,8]
+
+result = map(lambda x: x ** 2, seq)
+
+
+
+
