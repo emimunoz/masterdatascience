@@ -1,0 +1,33 @@
+Create a sample of points that follow the equation  𝑌=𝐴𝑋+𝐵 where A = 2.5 and B = 20.
+Now, plot it as either a cloud of points or a line.
+
+X = np.random.rand(20)
+Y = 2.5 * X + 20
+
+plt.plot(X, Y)
+plt.scatter(X, Y)
+plt.show()
+
+
+
+
+
+
+
+Represent the logistic, or sigmoid, function between -20 and 20. Remember its formula is:
+𝑆(𝑥)=11+𝑒−𝑥=𝑒𝑥𝑒𝑥+1
+
+X = np.linspace(-20,20,100)
+Y = 1 / (1 + np.exp (-X))
+
+plt.plot(X,Y)
+plt.show()
+
+
+
+
+
+
+
+
+
