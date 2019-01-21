@@ -28,6 +28,30 @@ plt.show()
 
 
 
+In a chicken and rabbit farm, there are 35 heads and 94 legs. How many chickens and how many rabbits do we have?
+
+from numpy import linalg as la
+
+ecs = np.array([1,1,4,2]).reshape(2,2)
+heads_legs = np.array([35, 94])
+X = la.inv(ecs).dot(heads_legs)
+
+
+
+
+
+Write a function that takes a Series and returns the top 10% registers. In this case, earners. Test it with this Series:
+
+
+salaries = pd.Series([150000, 90000, 120000,30000,10000,5000,40000, 50000, 80000, 35000, 27000,14000, 28000, 22000,25000])
+
+def  top10(series):
+    n = series.size
+    ordered = series.sort_values(ascending = False)
+    max10 = int(0.1*n)
+    return ordered[:max10 + 1]
+top10(salaries)    
+
 
 
 
