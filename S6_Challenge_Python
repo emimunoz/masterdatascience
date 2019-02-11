@@ -1,0 +1,37 @@
+# Count the number of lines in Python for each file
+
+
+import bz2
+filename='./bookings_sample.csv.bz2'
+fileBZ2=bz2.BZ2File(filename)
+k=0
+for line in fileBZ2:
+    k+=1
+print ("%s has %i lines"%(filename, k))
+
+-----------------------------------------------------------------------------
+
+# Top 10 arrival airports in the world in 2013 (using the bookings file)
+
+# Arrival airport is the column arr_port. It is the IATA code for the airport
+# To get the total number of passengers for an airport, you can sum the column pax, grouping by arr_port. Note that there is negative pax. That corresponds to cancelations. So to get the total number of passengers that have actually booked, you should sum including the negatives (that will remove the canceled bookings).
+# Print the top 10 arrival airports in the standard output, including the number of passengers.
+
+
+bc = pd.read_csv('bookings_sample.csv.bz2',sep='^', usecols=['year','pax','arr_port'], chunksize=1000 )
+
+sum_all_chunks=pd.DataFrame()
+
+for i, chunk in enumerate(bc):
+    b=chunk.dropna()
+    b=b[    b['year']==2013   ]
+    del b['year']
+    arr_ports=b.groupby('arr_port')
+    chunk_airports=arr_ports.sum()
+    sum_all_chunks=sum_all_chunks.append(chunk_airports)
+
+top_airports=sum_all_chunks.reset_index().groupby('arr_port').sum().sort_values('pax', ascending=False).head(10)
+top_airports
+
+
+--------------------------------------------------------------------------------
