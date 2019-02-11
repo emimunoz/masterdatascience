@@ -35,3 +35,84 @@ top_airports
 
 
 --------------------------------------------------------------------------------
+
+
+# Plot the monthly number of searches for flights arriving at Málaga, Madrid or Barcelona
+
+# For the arriving airport, you can use the Destination column in the searches file. 
+# Plot a curve for Málaga, another one for Madrid, and another one for Barcelona, in the same figure.
+
+
+
+sc=pd.read_csv('./searches.csv.bz2', sep='^', usecols=['Date', 'Destination'], chunksize=300000)
+
+sum_all_chunks=pd.DataFrame()
+
+for i, chunk in enumerate(sc):   
+    print(i)
+    s=chunk.dropna()
+    s=s[ s['Destination'].isin(['MAD', 'AGP', 'BCN'])    ]
+    s['Year-Month']=s['Date'].str[0:7]
+    del s['Date']
+    s['Searches']=1
+    s_grouped=s.groupby(['Destination', 'Year-Month'])
+    s_grouped=s_grouped.count().reset_index()
+    sum_all_chunks=sum_all_chunks.append(s_grouped)
+
+final=sum_all_chunks.groupby(['Destination', 'Year-Month']).sum().reset_index()
+A=final.pivot("Year-Month", "Destination","Searches")
+A.plot()
+
+
+
+---------------------------------------------------------------------------------------
+
+
+# Match searches with bookings
+
+# For every search in the searches file, find out whether the search ended up in a booking or not (using the info in the bookings file). For instance, search and booking origin and destination should match. 
+# For the bookings file, origin and destination are the columns dep_port and arr_port, respectively. 
+# Generate a CSV file with the search data, and an additional field, containing 1 if the search ended up in a booking, and 0 otherwise.
+
+
+b = pd.read_csv('bookings_no_dup.csv.bz2',sep='^', usecols=['dep_port', 'arr_port', 'cre_date           '])
+s=pd.read_csv('./searches_no_dup.csv.bz2', sep='^',usecols=['Destination', 'Origin', 'Date'])
+
+s.reset_index(inplace=True)
+s.dropna(inplace=True)
+
+b.columns=b.columns.map(lambda x:x.strip())
+b['dep_port']=b['dep_port'].map(   lambda x:x.strip()   )
+b['arr_port']=b['arr_port'].map(   lambda x:x.strip()   )
+b['cre_date']=b['cre_date'].str[0:10]
+b['Booked']=1
+b_gr=b.groupby(['dep_port', 'arr_port', 'cre_date']).sum().reset_index()
+s_b=s.merge(b_gr, how='left', left_on=['Destination', 'Origin', 'Date'], right_on=['arr_port', 'dep_port','cre_date'])
+s_b.drop(['arr_port', 'dep_port','cre_date'], axis=1, inplace=True)
+s_b['Booked']=s_b['Booked'].map(lambda x: 1 if x>0 else 0)
+
+
+
+-----------------------------------------------------------------------------------------
+
+
+# Write a Web Service
+
+# Wrap the output of the second exercise in a web service that returns the data in JSON format (instead of printing to the standard output).
+# The web service should accept a parameter n>0. For the top 10 airports, n is 10. For the X top airports, n is X 
+
+
+from flask import Flask
+import pandas as pd
+
+top_airports=pd.read_csv("top_airports.csv", sep='^')
+top_airports.head(3)
+top_airports.head(3).to_json()
+app2 = Flask("Top Airports")
+@app2.route('/top/<int:n>',methods=['GET'])
+
+def get_top(n):
+    d = top.head(n)
+    return d.to_json()
+    
+app2.run()    
