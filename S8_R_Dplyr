@@ -1,0 +1,242 @@
+#EJERCICIO: 
+# Repite lo mismo empleando la función: else if()
+# Usa la ayuda para consultar los parámetros de dicha función.
+
+if (numero_aleatorio >= 10) {
+  print( paste(numero_aleatorio, "es mayor o igual que 10") )
+} else if (numero_aleatorio > 5) {
+  print( paste(numero_aleatorio, "es mayor o igual que 5") )
+} else {
+  print( paste(numero_aleatorio, "es menor que 5") )
+}
+
+ 
+
+# Año bisiesto: Haz una función que compruebe si un año es o no es bisiesto
+# https://es.wikipedia.org/wiki/A%C3%B1o_bisiesto#Algoritmo_computacional
+# Un año es bisiesto si es divisible entre cuatro y (no es divisible entre 100 ó es divisible entre 400).
+
+`%%` #División de enteros
+
+# Función:
+
+ano <-2000 
+bsiesto <-  function(ano){
+if (ano %% 4 == 0 & (ano %% 100 != 0 | ano %% 400 == 0 ))
+  {return ("Es bisiesto")}
+else
+  {return ("No es bisiesto")}
+}
+
+bsiesto(2019)
+
+
+
+
+##########################################################################
+# Exercise: 
+# Mutate the data frame so that it includes a new variable that contains the average speed, 
+#  avg_speed traveled by the plane for each flight (in mph). 
+# Hint: Average speed can be calculated as distance divided by number of hours of travel, and note that AirTime is given in minutes
+##########################################################################
+
+foo <- mutate(flights, avg_speed = Distance / (AirTime / 60))
+select(foo, Distance, AirTime, avg_speed)
+
+
+
+
+
+##########################################################################
+# Exercise: 
+# How many weekend flights to JFK airport flew a distance of more than 1000 miles 
+# but had a total taxiing time below 15 minutes?
+# 1) Select the flights that had JFK as their destination and assign the result to jfk
+jfk <- filter(flights, Dest == 'JFK')
+
+# 2) Combine the Year, Month and DayofMonth variables to create a Date column
+jfk <-  mutate(jfk, Date = as.Date(paste(Year,Month,DayofMonth, sep = "-")))
+
+# 3) Result:
+nrow( filter(jfk, DayOfWeek %in% c(6,7), Distance > 1000, TaxiIn + TaxiOut < 15))
+
+# 4) Delete jfk object to free resources 
+rm(jfk)
+
+
+
+
+
+##########################################################################
+# Exercise: 
+# Print the maximum taxiing difference of taxi with summarise()
+
+summarise(taxi, maximo = max(abs(TaxiIn - TaxiOut))) # El abs() es importante para quedarnos con los valores absolutos
+
+rm(taxi)
+
+
+
+
+#########################################################################
+# Exercise: 
+# Print out a summary of aa with the following variables:
+# n_flights: the total number of flights,
+# n_canc: the total number of cancelled flights,
+# p_canc: the percentage of cancelled flights,
+# avg_delay: the average arrival delay of flights whose delay is not NA.
+
+
+summarise(aa, 
+          n_flights = n(), 
+          n_canc = sum(Cancelled),
+          p_canc = 100 * (n_canc / n_flights),
+          avg_delay = mean(ArrDelay, na.rm = TRUE))
+
+
+# Next to these dplyr-specific functions, you can also turn a logical test into an aggregating function with sum() or mean(). 
+# A logical test returns a vector of TRUE’s and FALSE’s. When you apply sum() or mean() to such a vector, R coerces each TRUE to a 1 and each FALSE to a 0. 
+# This allows you to find the total number or proportion of observations that passed the test, respectively
+
+set.seed(1973)
+(foo <- sample(1:10, 5, replace=T))
+foo > 5
+sum(foo > 5) # num. elementos > 5, suma el número de Trues
+mean(foo)
+mean(foo > 5)
+
+##########################################################################
+# Exercise: 
+# Print out a summary of aa with the following variables:
+# n_security: the total number of cancelled flights by security reasons,
+# CancellationCode: reason for cancellation (A = carrier, B = weather, C = NAS, D = security)
+
+
+summarise(
+  aa,
+  n_security = sum(CancellationCode == "D", na.rm = T)
+)
+
+table(aa$CancellationCode) # Otra opción más sencilla 
+
+
+
+
+
+
+##########################################################################
+# Exercises: 
+# 1) In a similar fashion, keep flights that are delayed (ArrDelay > 0 and not NA). 
+# Next, create a by-carrier summary with a single variable: avg, the average delay 
+# of the delayed flights. Again add a new variable rank to the summary according to 
+# avg. Finally, arrange by this rank variable.
+
+flights %>% 
+  filter(!is.na(ArrDelay), ArrDelay > 0) %>% 
+  group_by(UniqueCarrier) %>% 
+  summarise(avg = mean(ArrDelay)) %>% 
+  mutate(rank = rank(avg)) %>% 
+  arrange(rank)
+  
+
+# 2) How many airplanes only flew to one destination from JFK? 
+# The result contains only a single column named nplanes and a single row.
+
+flights %>% 
+  filter(Origin == 'JFK') %>% 
+  group_by(TailNum) %>% 
+  summarise(n_dest = n_distinct(Dest)) %>% 
+  filter(n_dest == 1) %>% 
+  summarise(nplanes = n())
+
+
+
+# 3) Find the most visited destination for each carrier
+# Your solution should contain four columns:
+# UniqueCarrier and Dest, n, how often a carrier visited a particular destination,
+# rank, how each destination ranks per carrier. rank should be 1 for every row, 
+# as you want to find the most visited destination for each carrier.
+
+flights %>% 
+  group_by(UniqueCarrier, Dest) %>% 
+  summarise(n = n()) %>% 
+  mutate(rank = rank(desc(n))) %>% 
+  filter(rank == 1)
+
+
+
+
+
+
+
+
+##########################################################################
+# Exercise: 
+# Use summarise() to create a summary of flight with a single variable, n, 
+# that counts the number of overnight flights. These flights have an arrival 
+# time that is earlier than their departure time. Only include flights that have 
+# no NA values for both DepTime and ArrTime in your count.
+
+summary(flights)
+
+flights %>% 
+ filter(!is.na(DepTime) & !is.na(ArrTime)) %>% 
+  mutate(overnight = (ArrTime < DepTime)) %>% 
+  filter(overnight == TRUE) %>% 
+  summarise(n = n())
+
+
+
+
+##########################################################################
+# Exercises: 
+# 1) In a similar fashion, keep flights that are delayed (ArrDelay > 0 and not NA). 
+# Next, create a by-carrier summary with a single variable: avg, the average delay 
+# of the delayed flights. Again add a new variable rank to the summary according to 
+# avg. Finally, arrange by this rank variable.
+
+flights %>% 
+  filter(!is.na(ArrDelay), ArrDelay > 0) %>% 
+  group_by(UniqueCarrier) %>% 
+  summarise(avg = mean(ArrDelay)) %>% 
+  mutate(rank = rank(avg)) %>% 
+  arrange(rank)
+  
+
+# 2) How many airplanes only flew to one destination from JFK? 
+# The result contains only a single column named nplanes and a single row.
+
+flights %>% 
+  filter(Origin == 'JFK') %>% 
+  group_by(TailNum) %>% 
+  summarise(n_dest = n_distinct(Dest)) %>% 
+  filter(n_dest == 1) %>% 
+  summarise(nplanes = n())
+
+
+
+# 3) Find the most visited destination for each carrier
+# Your solution should contain four columns:
+# UniqueCarrier and Dest, n, how often a carrier visited a particular destination,
+# rank, how each destination ranks per carrier. rank should be 1 for every row, 
+# as you want to find the most visited destination for each carrier.
+
+flights %>% 
+  group_by(UniqueCarrier, Dest) %>% 
+  summarise(n = n()) %>% 
+  mutate(rank = rank(desc(n))) %>% 
+  filter(rank == 1)
+
+
+
+
+
+
+##########################################################################
+# Exercises:
+# Join flights2 with airports dataset
+
+flights2 %>% 
+  left_join(airports, by = c("Dest" = "iata"))
+
+
