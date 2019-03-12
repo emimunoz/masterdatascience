@@ -1,0 +1,173 @@
+# Instalación y preparación de Keras y Caret:
+install.packages("keras")
+install.packages("caret")
+
+library(keras)
+library(caret)
+install_keras() # Necesario para terminar de instalar Keras
+
+
+# 3 REDES NEURONALES:
+# Fully Connected (layer_dense)
+# CNN (layer_conv)
+# RNN (layer_lstm)
+
+# MNIST dataset para trabajar con reconocimiento de imágenes, en concreto reconociendo números
+# Después de aplicar una capa convolucional es recomendable aplicar maxpooling
+# Maxpooling <- escoge el valor máximo de cada una de las matrices en que hemos ido separando la matriz inicial que era la imagen
+# Se usa el valor máximo porque si se detecta un valor que destaca en la matriz, 
+# si se pone en lugar del máximo la media, podría bajar mucho la importancia de un valor que tendría que destacar porque se ha detectado 
+
+
+
+# RNN, Red Neuronal Recurrente (la más famosa es LSTM) --------------------------
+
+mnist <- dataset_mnist()
+str(mnist) # vemos que ya tenemos un grupo de train y otro para test
+
+# Para visualizar los números del DS representados como una matriz:
+as.matrix(mnist$train$x[1,,])
+
+# Para visualizarlos como una imagen:
+image(as.matrix(mnist$train$x[1,,])) # Saldrá un 5
+image(as.matrix(mnist$train$x[2,,])) # Saldrá un 0
+
+# Tenemos 2 matrices de 28*28 y no podemos tener 28 filas. Vamos a quedarnos con una única matriz 1*728 con flatten
+x_train <- mnist$train$x # X variables de entrada (que son matrices de 28x28)
+y_train <- mnist$train$y # Y variables de salida (el valor que realmente es el número que tenemos que predecir)
+x_test <- mnist$test$x
+y_test <- mnist$test$y
+
+dim(x_train) 
+# Hacemos flattern para quedarnos con una matriz de 1x784
+dim(x_train) <- c(60000, 784)
+dim(x_test) <- c(10000, 784)
+
+# NORMALIZACIÓN
+# Como para trabajar con redes neuronales es mejor trabajar con inputs que vayan entre 0 y 1, por lo que tendremos que modificar los valores
+# con un rango menor, dividiendo entre 255 (que es el valor de mayor intensidad)
+# Normalizamos el input (de 0-255) a (0-1)
+x_train <- x_train/255
+x_test <- x_test/255
+
+# Capas fully connected para predecir las categorías. Hay 10 categorías a predecir (números del 0 al 9), por lo que a la salida habrá 10 neuronas.
+
+# one-hot encoding o dummy variable. Para cuando podemos tener varias categorías que pueden tener el mismo valor (?)
+y_train <- to_categorical(y_train, 10)
+y_test <- to_categorical(y_test, 10)
+
+# Modelo fully connected, secuencial porque vamos a aplicar las capas de manera secuencial
+modelo <- keras_model_sequential() # Si queremos hacer un nuevo modelo será necesario ejecutar esto otra vez para crearlo de cero
+modelo %>% 
+  layer_dense(unit=200, activation="relu", input_shape = c(784)) %>% # unit200 porque se ha probado ya. ReLU dobla el espacio, es la más básica.
+  layer_dropout(rate = .4) %>% # Para que la red aprenda mejor. Evita e overfitting. Aleatoriamente coge una neurona y la borra. El rate dice la probabilidad de borrar una neurona. Así nos aseguramos que todas las neuronas aprendan por igual y que no caiga toda la "responsabilidad" en una única neurona
+  layer_dense(unit=100, activation = "relu") %>%  # Es necesario para este tipo de problema poner una capa más. Reducimos el número de neuronas a 100 porque debemos acabar en 10.
+  layer_dropout(rate = .3) %>%
+  layer_dense(unit=10, activation = "softmax") # Capa de salida. En la capa de salida si es de tipo categórica se suele usar "softmax" para que nos dé un rango
+  
+summary(modelo)
+
+# Función de coste, Crossentropy la más típica en este caso
+modelo %>% 
+  compile(
+    loss = "categorical_crossentropy",
+    optimizer = optimizer_rmsprop(), # Famosos: optimizer_adam, optimizer_sgd, optimizer_rmsprop
+    metric = c("accuracy")) # Para ver si está entrenando correctamente o no
+
+summary(modelo)
+
+# Para entrenar el modelo
+# epochs = 50 interacciones
+# batch_size <- en cada epoch vamos a meter 128 dígitos. Preferible en múltiplos de 2. Cada vez que lo ejecutemos tomará 128 dígitos aleatorios, por lo que nunca dará el mismo resultado
+# Validation_split <- qué porcentaje del total de datos de entrenamiento usará para validar los resultados obtenidos al final de cada epoch
+resultado <- fit(modelo, x_train, y_train, epochs = 50, batch_size = 128, validation_split = 0.2)
+
+resultado # El valor más alto es 'acc: 0.9861' y el último valor que nos devuelve es 'val_acc: 0.9791'. Valor que corresponde al modelo en general.
+
+plot(resultado) # A partir de 15 epochs vemos que empezamos a overfitear
+
+# Evaluamos el modelo con los datos de validación. 
+modelo %>%  evaluate(x_test, y_test) # Si diera un valor muy bajo en 'acc' es que estamos overfiteando. Tendríamos entonces que subir el rate de la capa Dropout
+
+predicciones <- modelo %>% predict_classes(x_test)
+
+# Ejercicio: Averiguar en qué valores ha fallado:
+
+idxErrores <- predicciones != mnist$test$y # Valores True False
+idxErrores <- which(predicciones != mnist$test$y) # Posiciones ya en las que fallan
+image(as.matrix(mnist$test$x[9,,])) # Para ver el dibujo del número
+mnist$test$y[9] # El dataset es un 5
+predicciones[9] # Pero predice un 6
+
+image(as.matrix(mnist$test$x[248,,])) 
+mnist$test$y[248] 
+predicciones[248] 
+
+# Otra posible manera
+
+install.packages("testthat")
+library(testthat)
+compare(y_test, predicciones)
+
+# Matriz de confusión
+table(mnist$test$y, predicciones)
+
+# Guardar modelo
+# Necesario instalar por Terminal
+modelo <- save_model_hdf5("modelo_base.h5")
+
+
+
+# CNN - CONVOLUTIONAL NEURAL NETWORK ----------------------------
+
+mnist <- dataset_mnist()
+
+# Separación en train y test
+x_train <- mnist$train$x 
+y_train <- mnist$train$y 
+x_test <- mnist$test$x
+y_test <- mnist$test$y
+
+# Redimensionamiento, sustituye al flattern
+x_train <- x_train %>% array_reshape(c(60000, 28, 28, 1))
+x_test <- x_test %>% array_reshape(c(10000, 28, 28, 1))
+
+# Normalizado de los datos
+x_train <- x_train/255
+x_test <- x_test/255
+
+# Dummy-variables
+y_train <- to_categorical(y_train, 10)
+y_test <- to_categorical(y_test, 10)
+
+# 2 dimensiones porque nos desplazamos en 2 dimensiones escaneando la imagen con la matriz, si tuviera color sería 3d
+# filters: un filtro detecta un patrón. Para tener varias convoluciones por capa, 32 convoluciones de 3x3. Patrones posibles en una matriz de 3x3 = líneas verticales, horizontales, diagonales, esquinas, etc...
+# en una CNN no podemos hacer otra vez flattern, por lo que el input_shape será distinto. Como sólo hay blanco y negro, ponemos 1, si fuera con color sería 3.
+layer_conv_2d(kernel_size = c(3,3), activation = "relu", filters = 32, 
+              input_shape = c(28,28,1)) # Usamos 28 porque la matriz era de 28x28 
+
+# Modelo
+modelo_cnn <- keras_model_sequential()
+modelo_cnn %>% 
+  layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = "relu",input_shape = c(28,28,1)) %>% # Aumentando strides podría ir más rápido
+  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = "relu",input_shape = c(28,28,1)) %>% 
+  layer_max_pooling_2d(pool_size = c(3,3)) %>% 
+  layer_dropout(rate=.25) %>% 
+  layer_flatten() %>% 
+  layer_dense(activation = "relu", unit = 128) %>% 
+  layer_dropout(rate = .5) %>% 
+  layer_dense(unit=10, activation = "softmax")
+
+summary(modelo_cnn)
+
+# Función de coste
+modelo_cnn %>% 
+  compile(
+    loss = "categorical_crossentropy",
+    optimizer = optimizer_adam(), 
+    metric = c("accuracy"))   
+
+resultado_cnn <- fit(modelo_cnn, x_train, y_train, epochs = 5, batch_size = 128, validation_split = 0.2)
+
+resultado_cnn
+
