@@ -1,0 +1,1047 @@
+## Observación con ggplot
+## Edición de fechas con Lubridate
+## Series temporales no estacionales
+## Series temporales estacionales
+## Ajustes de temporalidad, tendencia y autocorrelación
+## Forecasting 
+## Transformación de los datos, VSN
+##
+##
+
+
+
+
+
+
+
+#################################################################
+# RWANDA ggplot2
+#################################################################
+
+# Loading data from the WDB web using an API
+install.packages('WDI')
+library(WDI)
+
+# Hacer una query en la base de datos 
+WDIsearch(string = "life.*expectancy", field = "name", cache = NULL)
+
+# Con el código ya nos bajamos el dataset indicando que queremos los datos de 1900 a 2012
+df.le = WDI(country = "all", indicator = c("SP.DYN.LE00.IN"), start = 1900, 
+            end = 2012)
+
+head(df.le)
+is.data.frame(df.le)
+
+# Para comprobar qué países y años tenemos en el dataset
+levels(factor(df.le$country))
+levels(factor(df.le$year))
+
+# Para ggplot es recomendable tener los datos organizados en formato tidy para que pueda representarlos correctamente
+require(ggplot2)
+g = ggplot() + geom_boxplot(data = df.le, aes(x = year, y = SP.DYN.LE00.IN, 
+                                              group = year))
+g = g + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+g
+
+# Los boxplots se van haciendo más pequeños con los años
+# Los outliers podrían ser a causa de guerras
+
+? geom_boxplot
+
+# Qué países tienen una esperanza de vida menor de 40 años
+subset(df.le, year > 1988 & SP.DYN.LE00.IN < 40)
+
+# Añadimos al plot una línea roja en Rwanda
+g = g + geom_line(data = subset(df.le, country == "Rwanda"), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "red")
+g
+
+# Ahora lo mismo con Sierra Leona
+g = g + geom_line(data = subset(df.le, country == "Sierra Leone"), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "orange")
+g
+
+# Queremos saber la causa 
+# H01: Genocide > 1994 x
+# H02: AIDS epidemy also in Kenya, South Africa, Uganda, etc
+g = g + geom_line(data = subset(df.le, country =="Kenya"), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "green")
+g
+
+g = g + geom_line(data = subset(df.le, country =="South Africa"), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "green")
+g
+
+g = g + geom_line(data = subset(df.le, country =="Uganda"), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "green")
+g
+
+# Vemos que estos países tuvieron una epidemia de sida
+
+#H03: Civil War
+g = g + geom_line(data = subset(df.le, country =="Bangladesh"), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "blue")
+g
+
+g = g + geom_line(data = subset(df.le, country =="Iraq"), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "red")
+g
+
+g = g + geom_line(data = subset(df.le, country =="Iran, Islamic Rep."), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "red",lty=2)
+g
+
+g = g + geom_line(data = subset(df.le, country =="Afghanistan"), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "violet")
+g
+
+g = g + geom_line(data = subset(df.le, country =="Cambodia"), aes(x = year, y = SP.DYN.LE00.IN), 
+                  col = "pink") # Una matanza que hubo en Camboya
+g
+
+
+#---------------------------------------------------------------------------------------------------------------
+
+library(tidyverse)
+library(dslabs)
+library(lubridate)
+
+############## polls_us_election_2016: Clinton vs Trump
+
+data("polls_us_election_2016")
+polls_us_election_2016$startdate %>% head
+
+class(polls_us_election_2016$startdate)
+
+as.numeric(polls_us_election_2016$startdate) %>% head # Nos indica el número de días que han pasado desde el día 0 de R -> 1/01/1970
+
+# Si comprobamos con la fecha 0 de R a convertirlo a numérico comprobamos que nos da un 0 porque es el origen
+as.Date("1970-01-01") %>% as.numeric 
+
+View(head(polls_us_election_2016))
+
+# No es una serie temporal al 100% porque no tenemos datos en un rango de fechas adecuado, para que
+# sea una serie temporal tiene que haber un espacio de tiempo entre datos similar.
+polls_us_election_2016 %>% filter(pollster == "Ipsos" & state =="U.S.") %>%
+  ggplot(aes(startdate, rawpoll_trump)) +
+  geom_line()
+
+############## The lubridate package {#lubridate}
+
+set.seed(2002)
+dates <- sample(polls_us_election_2016$startdate, 10) %>% sort
+dates
+
+# Crear un dataframe con los datos de cada fecha repartidos en columnas
+data_frame(date = dates, 
+           month = month(dates),
+           day = day(dates),
+           year = year(dates))
+
+# Poner una etiqueta a los meses con su nombre
+month(dates, label = TRUE)
+
+# Con la función ymd() nos convierte todas las fechas de X en formato fecha correctamente
+x <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
+       "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07")
+ymd(x)
+
+x <- "09/01/02"
+ymd(x)
+
+# Cambiando el formato de la función nos organiza correctamente cada fecha
+mdy(x)
+ydm(x)
+myd(x)
+dmy(x)
+dym(x)
+
+# Creando fechas
+make_date(2019, 8, 3)
+make_date(1980:1989)
+
+polls_us_election_2016 %>% 
+  mutate(week = round_date(startdate, "week")) %>% # Nos redondea las mediciones para tenerlas por semana
+  group_by(week) %>%
+  summarize(margin = mean(rawpoll_clinton - rawpoll_trump)) %>%
+  qplot(week, margin, data = .) 
+# Los datos que sean positivos dan como ganadora a Clinton, si salen por debajo de cero es Trump
+
+
+#---------------------------------------------------------------------------------------------------------------
+
+########### Exercise #########################
+library(tidyverse)
+library(purrr)
+library(pdftools)
+
+# Estadísticas de mortalidad de Puerto Rico
+fn <- system.file("extdata", "RD-Mortality-Report_2015-18-180531.pdf", package="dslabs")
+tab <- map_df(str_split(pdf_text(fn), "\n"), function(s){
+  s <- str_trim(s)
+  header_index <- str_which(s, "2015")[1]
+  tmp <- str_split(s[header_index], "\\s+", simplify = TRUE)
+  month <- tmp[1]
+  header <- tmp[-1]
+  tail_index  <- str_which(s, "Total")
+  n <- str_count(s, "\\d+")
+  out <- c(1:header_index, which(n==1), which(n>=28), tail_index:length(s))
+  s[-out] %>%
+    str_remove_all("[^\\d\\s]") %>%
+    str_trim() %>%
+    str_split_fixed("\\s+", n = 6) %>%
+    .[,1:5] %>%
+    as_data_frame() %>% 
+    setNames(c("day", header)) %>%
+    mutate(month = month,
+           day = as.numeric(day)) %>%
+    gather(year, deaths, -c(day, month)) %>%
+    mutate(deaths = as.numeric(deaths))
+})
+
+
+#   Haz un gráfico del número de muertes por fecha. 
+#1. Convierte la variable meses de caracteres a números usando `recode` para redefinir la variable `tab`.
+str(tab)
+unique(tab$month)
+month.numeric <- recode_factor(tab$month, "JAN"=1, "FEB"=2, "MAR"=3, "APR"=4, "MAY"=5, "JUN"=6 ,"JUL"=7, "AGO"=8, "SEP"=9, "OCT"=10, "NOV"=11, "DEC"=12)
+tab <- mutate(tab, month_numeric = month.numeric)
+
+#2. Crea una nueva columna "date" con la fecha de cada entrada. Hint: use the `make_date` function.
+tab <- mutate(tab, date = make_date(year = tab$year, month=tab$month_numeric, day=tab$day)) 
+head(tab)
+
+#3. Deaths vs date.
+tab %>% ggplot(aes(date, deaths)) + geom_line()                          
+
+#4. Probablemente las observaciones después de mayo de 2018 no se tomaron. Rehaz el plot sin esas observaciones
+tab %>% filter(date <= "2018-05-01") %>%  ggplot(aes(date, deaths)) + geom_line()     
+
+tab$date -as.Date("2015-01-01")
+
+#---------------------------------------------------------------------------------------------------------------
+
+
+
+###############################################################################
+# Dataset1: Edad de los reyes de UK desde William 
+###############################################################################
+kings <- scan("http://robjhyndman.com/tsdldata/misc/kings.dat",skip=3)
+kingstimeseries <- ts(kings)
+head(kings)
+kingstimeseries
+ts.plot(kingstimeseries)
+
+###############################################################################
+# Dataset2: Número de nacimientos por mes en NY 
+###############################################################################
+births <- scan("http://robjhyndman.com/tsdldata/data/nybirths.dat")
+birthstimeseries <- ts(births, frequency=12, start=c(1946,1)) # Para crear una serie temporal que comienza el 1 de enero de 1946 y frecuencia 12 porque son mes a mes
+birthstimeseries
+ts.plot(birthstimeseries)
+
+###############################################################################
+# Dataset3: tienda de souvenirs
+###############################################################################
+souvenir <- scan("http://robjhyndman.com/tsdldata/data/fancy.dat")
+souvenirtimeseries <- ts(souvenir, frequency=12, start=c(1987,1))
+souvenirtimeseries
+ts.plot(souvenirtimeseries)
+
+################################################################################
+# Dataset4: Elecciones Hillary y Trump pero transformado a timeseries
+################################################################################
+data("polls_us_election_2016")
+is.ts(polls_us_election_2016)
+
+# Vamos a separar los datos de encuestas de Hillary y Trump para tener las tablas en formato tidy y después unimos ambas tablas
+polls_Clinton_ts <- polls_us_election_2016 %>% 
+  filter(pollster == "Ipsos" & state =="U.S.") %>% 
+  select(startdate,rawpoll_clinton) %>%
+  mutate(rawpoll=rawpoll_clinton) %>% # Creamos la columna rawpoll para convertirlo a un objeto tidy
+  select(startdate,rawpoll)
+
+polls_trump_ts<-polls_us_election_2016 %>% 
+  filter(pollster == "Ipsos" & state =="U.S.") %>% 
+  select(startdate,rawpoll_trump)%>%
+  mutate(rawpoll=rawpoll_trump) %>% 
+  select(startdate,rawpoll)
+
+
+polls_both<-bind_rows(polls_Clinton_ts,polls_trump_ts) %>%
+  mutate(name=c(rep("clinton",length(polls_Clinton_ts$rawpoll)),
+                rep("trump",length(polls_trump_ts$rawpoll))))
+
+ggplot(polls_both,aes(startdate, rawpoll,group=name)) +geom_line()
+ggplot(polls_both,aes(startdate, rawpoll,color=name)) +geom_line()
+
+ggplot(data = polls_both, mapping = aes(startdate, rawpoll)) +
+  geom_line() +
+  facet_wrap(~ name)
+
+
+ymd(polls_both$startdate)-min(ymd(polls_both$startdate))
+# Comprobamos que no es una serie temporal porque no hay una distancia entre fechas regular
+# no es una frecuencia regular, por lo tanto no podemos convertirlo en una serie temporal
+# el objeto ts() precisa de: datos, fecha de inicio y frecuencia. 
+# Engañamos al ts() como si tuviéramos datos reales de cada día.
+# Otra forma más correcta sería organizarlo por semanas.
+
+polls_clinton_ts=ts(polls_both$rawpoll[which(polls_both$name=="clinton")], frequency = 1, start=1)
+ts.plot(polls_clinton_ts)
+
+polls_trump_ts=ts(polls_both$rawpoll[which(polls_both$name=="trump")], start = 1, frequency = 1)
+ts.plot(polls_trump_ts)
+
+
+
+## Lo mismo pero ahora en semanas: -----------------------
+data("polls_us_election_2016")
+is.ts(polls_us_election_2016)
+
+polls_Clinton_ts <- polls_us_election_2016 %>% 
+  filter(pollster == "Ipsos" & state =="U.S.") %>% 
+  select(startdate,rawpoll_clinton) %>%
+  mutate(week = round_date(startdate, "week")) %>% 
+  group_by(week) %>% 
+  summarize(rawpoll = mean(rawpoll_clinton))
+
+polls_trump_ts<-polls_us_election_2016 %>% 
+  filter(pollster == "Ipsos" & state =="U.S.") %>% 
+  select(startdate,rawpoll_trump)%>%
+  mutate(week = round_date(startdate, "week")) %>% 
+  group_by(week) %>% 
+  summarize(rawpoll = mean(rawpoll_trump))
+
+
+polls_both<-bind_rows(polls_Clinton_ts,polls_trump_ts) %>%
+  mutate(name=c(rep("clinton",length(polls_Clinton_ts$rawpoll)),
+                rep("trump",length(polls_trump_ts$rawpoll))))
+
+# Ahora las curvas serán más suaves porque hemos agrupado los datos por semana
+ggplot(polls_both,aes(week, rawpoll,group=name)) +geom_line()
+ggplot(polls_both,aes(week, rawpoll,color=name)) +geom_line()
+
+ggplot(data = polls_both, mapping = aes(week, rawpoll)) +
+  geom_line() +
+  facet_wrap(~ name)
+
+ymd(polls_both$week)-min(ymd(polls_both$week))
+
+polls_clinton_ts=ts(polls_both$rawpoll[which(polls_both$name=="clinton")], frequency = 365.25/7, start=2015+(365.25-18)/365.25)
+ts.plot(polls_clinton_ts)
+
+polls_trump_ts=ts(polls_both$rawpoll[which(polls_both$name=="trump")], frequency = 365.25/7, start=2015+(365.25-18)/365.25)
+ts.plot(polls_trump_ts)
+
+#---------------------------------------------------------------------------------------------------------------
+
+
+# smoothing como herramienta para conocer la tendencia en una serie temporal no estacional
+# Conocer el valor medio por grupo de puntos
+library(TTR)
+kingstimeseriesSMA3 <- SMA(kingstimeseries,n=3) # Hacemos una media por cada 3 puntos
+plot.ts(kingstimeseriesSMA3)
+
+kingstimeseriesSMA5 <- SMA(kingstimeseries,n=5)
+plot.ts(kingstimeseriesSMA5)
+
+kingstimeseriesSMA14 <- SMA(kingstimeseries,n=14)
+plot.ts(kingstimeseriesSMA14)
+
+## smoothing para entender la evolucion de clinton y trump
+clintonSMA7 <- SMA(polls_clinton_ts,n=7)
+plot.ts(clintonSMA7)
+clintonSMA14 <- SMA(polls_clinton_ts,n=14)
+plot.ts(clintonSMA14)
+clintonSMA30 <- SMA(polls_clinton_ts,n=30)
+plot.ts(clintonSMA30)
+clintonSMA60 <- SMA(polls_clinton_ts,n=60)
+plot.ts(clintonSMA60)
+
+trumpSMA7 <- SMA(polls_trump_ts,n=7)
+plot.ts(trumpSMA7)
+trumpSMA14 <- SMA(polls_trump_ts,n=14)
+plot.ts(trumpSMA14)
+trumpSMA30 <- SMA(polls_trump_ts,n=30)
+plot.ts(trumpSMA30)
+trumpSMA60 <- SMA(polls_trump_ts,n=60)
+plot.ts(trumpSMA60)
+
+ts.plot(trumpSMA7,clintonSMA7,gpars = list(col = c("red", "blue")))
+ts.plot(trumpSMA14,clintonSMA14,gpars = list(col = c("red", "blue")))
+ts.plot(trumpSMA30,clintonSMA30,gpars = list(col = c("red", "blue")))
+ts.plot(trumpSMA60,clintonSMA60,gpars = list(col = c("red", "blue")))
+
+#---------------------------------------------------------------------------------------------------------------
+
+# Trendcycle intenta hacer un smoothing para no perder la información de los ciclos que pueden ser espacios de tiempo muy largos
+autoplot(birthstimeseries, series="Data") +
+  autolayer(trendcycle(fit), series="Trend-cycle")
+
+# Con seasonadj eliminamos el factor de estacionalidad
+autoplot(birthstimeseries, series="Data") +
+  autolayer(seasadj(fit), series="Seasonally-adjusted")
+
+
+######## opcion 3: X11
+# La que más se usa en organismos de Europa
+souvenir <- scan("http://robjhyndman.com/tsdldata/data/fancy.dat")
+souvenirtimeserieslog <- ts(log(souvenir), frequency=12, start=c(1987,1)) # Lo hacemos con una logarítmica para visualizar bien la estacionalidad
+#souvenirtimeseries
+ts.plot(souvenirtimeserieslog)
+
+# step1: detrend with smoothing
+souvenirs12 <- SMA(souvenirtimeserieslog,n=12)
+plot.ts(souvenirs12)
+souvenirs12.detrend=souvenirtimeserieslog-souvenirs12
+plot.ts(souvenirs12.detrend)
+
+#Step 3: Estimador preliminar de la componente estacional de los datos
+#Dividimos cada punto por su punto anterior:
+  
+souvenirs12.des=souvenirs12[2:84]/souvenirs12[1:83]
+plot.ts(souvenirs12.des)
+souvenirs12.detrend.des=souvenirs12.detrend[2:84]/souvenirs12.detrend[1:83]
+plot.ts(souvenirs12.detrend.des) # Mostraría los errores
+# Restamos los valores a la media para que tengamos una distribución uniforme y veremos claramente
+# los valores que más destacan sobre la media
+
+#equivalente a: 
+library(seasonal)
+
+# X11
+fit <- seas(souvenirtimeseries, x11="")
+autoplot(fit)
+autoplot(seasadj(fit))
+
+#SEAS: model-based
+fit2 <- seas(souvenirtimeseries)
+autoplot(fit2)
+
+#stl: control sobre tendencia y estacionalidad
+fit3 <- stl(souvenirtimeserieslog,s.window="periodic",t.window=15,robust=T)
+autoplot(fit3)+xlab("Year")
+
+
+#---------------------------------------------------------------------------------------------------------------
+
+# ajuste seasonal
+autoplot(birthstimeseries, series="Data") +
+  autolayer(seasadj(fit), series="Seasonally-adjusted")
+
+#ajuste tendencia
+trModel=lm(birthstimeseries~seq(1,length(birthstimeseries)))
+plot(resid(trModel), type="l")
+
+#autocorrelacion
+acfRes <- acf(AirPassengers) # autocorrelation
+pacfRes <- pacf(AirPassengers)  # partial autocorrelation
+ccfRes <- ccf(mdeaths, fdeaths, ylab = "cross-correlation") # computes cross correlation between 2 timeseries.
+head(ccfRes[[1]])
+
+# Como los datos de los reyes no es estacionaria, en seguida se pierde la autocorrelación entre los datos
+acfkings<- acf(kingstimeseries) # autocorrelation
+pacfRes <- pacf(kingstimeseries) 
+
+acfbirth<- acf(birthstimeseries) # autocorrelation
+pacfbirth <- pacf(birthstimeseries) 
+
+acfsouvenir<- acf(souvenirtimeseries) # autocorrelation
+pacfsouvenir <- pacf(souvenirtimeseries) 
+
+acfsouvenir<- acf(souvenirtimeserieslog) # autocorrelation
+pacfsouvenir <- pacf(souvenirtimeserieslog) 
+
+# En el caso de Trump y Hillary vemos que hay una correlación negativa muy clara
+ccfRes <- ccf(polls_clinton_ts, polls_trump_ts)
+
+
+#---------------------------------------------------------------------------------------------------------------
+
+
+ Dataset1: Edad de los reyes de UK desde William 
+library(fpp2)
+kings <- scan("http://robjhyndman.com/tsdldata/misc/kings.dat",skip=3)
+kingstimeseries <- ts(kings)
+ts.plot(kingstimeseries)
+
+# Dataset2: Número de nacimientos por mes en NY 
+births <- scan("http://robjhyndman.com/tsdldata/data/nybirths.dat")
+birthstimeseries <- ts(births, frequency=12, start=c(1946,1))
+ts.plot(birthstimeseries)
+
+# Dataset3: tienda de souvenirs
+souvenir <- scan("http://robjhyndman.com/tsdldata/data/fancy.dat")
+souvenirtimeseries <- ts(souvenir, frequency=12, start=c(1987,1))
+ts.plot(souvenirtimeseries)
+
+souvenirtimeserieslog <- ts(log(souvenir), frequency=12, start=c(1987,1))
+ts.plot(souvenirtimeserieslog)
+
+###############################################################################
+# Mean prediction
+###############################################################################
+# Al ser una serie estacionaria se predice bien el siguiente valor usando la media
+#de toda la serie
+
+# Media predecida para la esperanza de vida de un rey. 
+# Con una probabilidad del 80% estará entre 33 y 77 años.
+# Entre 21 y 89 años será la edad predecida a un 95%.
+meanf(kingstimeseries,1) 
+meanf(kingstimeseries,5) # Valores predecidos para los próximos 5 reyes
+autoplot(meanf(kingstimeseries,5))
+
+## Naïve method
+#Se predice la siguiente observación con el último valor de la serie. 
+#Funciona bien para $random walk$ time series: series temporales en 
+#los que dónde sucederá el siguiente punto es un proceso aleatorio $y_t-y_{t-1}=\epsilon$
+# Mejor para datos no estacionarios donde el siguiente paso depende del anterior pero
+# puede tomar una dirección inesperada.
+#Se suelen usar en modelos económicos donde pueden suceder cambios de direccion inesperados
+  
+###############################################################################
+# Naive prediction
+###############################################################################
+autoplot(naive(kingstimeseries, 5)) # Después de cada valor predicho, la confianza disminuye al predecir los siguientes, por eso la forma de embudo
+autoplot(naive(souvenirtimeserieslog,5))
+#autoplot(rwf(kingstimeseries, 5))
+
+##############################################################################
+# Seasonal Naive prediction
+###############################################################################
+autoplot(naive(birthstimeseries,10))
+autoplot(snaive(birthstimeseries,10)) # snaive tiene en cuenta la estacionalidad
+
+autoplot(naive(souvenirtimeserieslog,10))
+autoplot(snaive(souvenirtimeserieslog,10))
+
+##############################################################################
+# drift: last value plus change
+###############################################################################
+autoplot(rwf(birthstimeseries,10)) # El random walk tenderá a quedarse en el último valor
+autoplot(rwf(birthstimeseries,drift=T,10)) # Con drift nos quedamos con el último valor y le añado la media de incremento que ha habido en la serie
+rwf(birthstimeseries,drift=T,10)
+
+(births[168]-births[1])/168
+
+############# Ejercicio 1: 
+# Predice los 100 proximos datos para las series goog y auscafe
+# pinta las predicciones usando autoplot
+library(tseries)
+data(goog)
+goog_ts <- ts(goog, frequency=1, start=1, end=1000)
+autoplot(goog)
+
+# Para comprobar si es estacionaria
+adf.test(goog)
+kpss.test(goog)
+
+# Para predecir series temporales que sean de banca o similar el random walk / naive es el método más indicado
+autoplot(rwf(goog_ts,10))
+rwf(goog_ts,10)
+autoplot(naive(goog_ts,10))
+
+# Vamos a separar la serie para quedarnos con el último tramo
+goog_ts2 <- window(goog, start=600, end = 1000)
+autoplot(rwf(goog_ts2,10, drift = T))
+rwf(goog_ts2,10)
+
+##### Ahora con los datos de "auscafe"
+data("auscafe")
+autoplot(auscafe)
+kpss.test(auscafe)
+auscafelog <-  ts(log(auscafe), frequency=12)
+autoplot(auscafelog)
+snaive(auscafelog)
+autoplot(snaive(auscafelog,10))
+# Ahora capta la estacionalidad pero no la tendencia 
+
+library(TTR)
+autoplot(ts(log(auscafe)-SMA(log(auscafe),4)))
+auscafelogSMA = ts(log(auscafe)-SMA(log(auscafe),4),frequency = 12)
+snaive(auscafelogSMA,5)
+autoplot(snaive(auscafelogSMA),5)
+
+
+
+#---------------------------------------------------------------------------------------------------------------
+
+###########################################################
+# DATA TRANSFORMATION
+###########################################################
+# Ajustamos datos de series temporales porque en general, datos mas limpios y claros
+# nos llevan a una mejor y más sencilla predicción. 
+# Hay cuatro tipos de ajustes:
+# ajustes de calendario
+
+dframe <- cbind(Monthly = milk,
+                DailyAverage = milk/monthdays(milk))
+autoplot(dframe, facet=TRUE) +
+  xlab("Years") + ylab("Pounds") +
+  ggtitle("Milk production per cow")
+
+# ajustes de poblacion (per 100.000, per 10^6...)
+
+# ajustes por inflación
+# If zt denotes the price index and yt denotes the 
+# original house price in year t, then xt=yt/zt∗z2000 
+# gives the adjusted house price at year 2000 dollar values. 
+
+# transformaciones matemáticas
+
+# Al final, se trata de quiar todas las fuentes de variacion 
+# conocidas con el fin de tener menos variabilidad que explicar
+
+# DATOS MAS CLAROS = PREDICCIONES MAS PRECISAS
+
+###### NOTA: Predicciones sobre descomposiciones son mejores
+autoplot(elecequip)
+fit <- stl(elecequip, t.window=13, s.window="periodic")
+
+fit %>% seasadj() %>% # eliminamos la componente estacional
+  naive() %>%
+  autoplot() + ylab("New orders index") +
+  ggtitle("ETS forecasts of seasonally adjusted data")
+
+fit %>% forecast(method='naive') %>%
+  autoplot() + ylab("New orders index") + xlab("Year")
+
+elecequip %>% stlf(method='naive') %>% # sería el equivalente al snaive y ya elimina la estacionalidad
+  autoplot() + ylab("New orders index") + xlab("Year")
+
+
+
+################## VSN ###################################
+# use three variance stabilizating methods on souvenir data
+
+autoplot(ts(log(souvenir),start=1,frequency=12))
+autoplot(ts(sqrt(souvenir),start=1,frequency=12))
+autoplot(ts((souvenir)^1/3,start=1,frequency=12))
+
+lambda=BoxCox.lambda(souvenirtimeseries)
+autoplot(BoxCox(elec,lambda))
+
+autoplot(ts(elec,start=1,frequency=12))
+autoplot(ts(log(elec),start=1,frequency=12))
+autoplot(ts(sqrt(elec),start=1,frequency=12))
+autoplot(ts(elec^(1/3),start=1,frequency=12))
+autoplot(BoxCox(elec,lambda = 1/3))
+
+# BoxCox puede encontrar de manera automatica la
+# lambda que mejor estabilice los datos
+lambda=BoxCox.lambda(elec)
+autoplot(BoxCox(elec,lambda))
+
+# la funcion de prediccion snaive busca lambda automáticamente
+fit<-snaive(elec,lambda=1/3)
+autoplot(fit,include=120)
+
+
+# Ejercicio 2: Busca lambda para el data set gas
+lambda=BoxCox.lambda(gas)
+fit<-snaive(gas,lambda=lambda)
+autoplot(fit,include=120)
+
+################## Bias adjustment #########################
+# Si se realiza el ajuste de una serie usando transformaciones de Box-Cox
+# la "back-transformation" de la media es la mediana en la escala original. 
+# Esto puede ser un problema si por ejemplo queremos sumar territorios.
+# En esos casos podemos preferir un ajuste del sesgo
+
+#Forecasts of egg prices using a random walk with drift applied 
+#to the logged data (lambda=0)
+
+#Notice how the skewed forecast distribution pulls up the 
+#point forecast when we use the bias adjustment.
+#Bias adjustment is not done by default in the forecast package. 
+#If you want your forecasts to be means rather than medians, 
+#use the argument biasadj=TRUE when you select your Box-Cox 
+#transformation parameter.
+
+# Diferentes formas de hacer el random walk introduciendo varios valores
+fc <- rwf(eggs, drift=TRUE, lambda=0, h=50, level=80)
+fc2 <- rwf(eggs, drift=TRUE, lambda=0, h=50, level=80,
+           biasadj=TRUE)
+autoplot(eggs) +
+  autolayer(fc, series="Simple back transformation") +
+  autolayer(fc2, series="Bias adjusted", PI=FALSE) +
+  guides(colour=guide_legend(title="Forecast"))
+
+
+
+
+#---------------------------------------------------------------------------------------------------------------
+
+
+################# residuals ##################
+#For stock market prices and indexes, the best forecasting 
+#method is often the naïve method. That is, each forecast 
+#is simply equal to the last observed value, or ^yt=yt−1. 
+#Hence, the residuals are simply equal to the difference 
+#between consecutive observations: et=yt−^yt=yt−yt−1.
+
+autoplot(goog200) +
+  xlab("Day") + ylab("Closing Price (US$)") +
+  ggtitle("Google Stock (daily ending 6 December 2013)")
+
+res <- residuals(naive(goog200))
+
+# Los residuos están centrados a cero, eso es bueno
+# No se ve estacionalidad y todos suelen ser aleatorios
+autoplot(res) + xlab("Day") + ylab("") +
+  ggtitle("Residuals from naïve method")
+
+# Otra forma de representar los residuos
+gghistogram(res) + ggtitle("Histogram of residuals")
+
+# Cómo de relacionadas están las observaciones con la observación anterior
+# Como todos los valores están dentro del rango significativo (azul) no hay una 
+# autocorrelación a largo plazo. De haberlo, tendría que aparecer puntos muy altos
+ggAcf(res) + ggtitle("ACF of residuals")
+
+fits <- fitted(naive(goog200))
+autoplot(goog200, series="Data") +
+  autolayer(fits, series="Fitted") +
+  xlab("Day") + ylab("Closing Price (US$)") +
+  ggtitle("Google Stock (daily ending 6 December 2013)")
+
+# Función para comprobar los residuos
+checkresiduals(naive(goog200))
+
+######### check residuals
+Box.test(res, lag=10, fitdf=0)
+Box.test(res,lag=10, fitdf=0, type="Lj")
+
+ggAcf(res) + ggtitle("ACF of residuals")
+
+######## Ejercicio3:
+# Haz una prediccion basada en naive seasonal 
+# para los datos de consumo de cerveza cuatrimestral en AUS desde 1992
+beer <- window(ausbeer, start=1992)
+fc <- snaive(beer)
+autoplot(fc)
+#Are the residuals white noise?
+checkresiduals(fc)
+# Tenemos residuos que podrían seguir un patrón
+
+
+######## Medidas de forecast accuracy: diferencia entre prediccion 
+# y valor real en el test set, que no ha sido nunca visto por el modelo
+beer2 <- window(ausbeer, start=1992, end=c(2007,4))
+beer3 <- window(ausbeer, start=2008)
+beerfit1 <- meanf(beer2, h=10)
+beerfit2 <- rwf(beer2, h=10)
+beerfit3 <- snaive(beer2, h=10)
+accuracy(beerfit1, beer3)
+accuracy(beerfit2, beer3)
+accuracy(beerfit3, beer3)
+
+
+# non-seasonal
+googfc1 <- meanf(goog200, h=40)
+googfc2 <- rwf(goog200, h=40)
+googfc3 <- rwf(goog200, drift=TRUE, h=40)
+autoplot(subset(goog, end = 240)) +
+  autolayer(googfc1, PI=FALSE, series="Mean") +
+  autolayer(googfc2, PI=FALSE, series="Naïve") +
+  autolayer(googfc3, PI=FALSE, series="Drift") +
+  xlab("Day") + ylab("Closing Price (US$)") +
+  ggtitle("Google stock price (daily ending 6 Dec 13)") +
+  guides(colour=guide_legend(title="Forecast"))
+
+googtest <- window(goog, start=201, end=240)
+accuracy(googfc1, googtest)
+accuracy(googfc2, googtest)
+accuracy(googfc3, googtest)
+
+############# CV time series
+e <- tsCV(goog200, rwf, drift=TRUE, h=1)
+sqrt(mean(e^2, na.rm=TRUE))
+
+sqrt(mean(residuals(rwf(goog200, drift=TRUE))^2, na.rm=TRUE))
+
+e <- tsCV(goog200, forecastfunction=naive, h=8)
+# Compute the MSE values and remove missing values
+mse <- colMeans(e^2, na.rm = T)
+# Plot the MSE values against the forecast horizon
+data.frame(h = 1:8, MSE = mse) %>%
+  ggplot(aes(x = h, y = MSE)) + geom_point()
+
+
+
+
+#---------------------------------------------------------------------------------------------------------------
+
+
+###############################################
+######     Regression
+###############################################
+
+autoplot(uschange[,c("Consumption","Income")]) +
+  ylab("% change") + xlab("Year")
+
+uschange %>%
+  as.data.frame() %>%
+  ggplot(aes(x=Income, y=Consumption)) +
+  ylab("Consumption (quarterly % change)") +
+  xlab("Income (quarterly % change)") +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE)
+
+tslm(Consumption ~ Income, data=uschange) %>% summary
+
+
+install.packages("GGally",dependencies = T)
+library(GGally)
+uschange %>%
+  as.data.frame() %>%
+  GGally::ggpairs()
+
+fit.consMR <- tslm(Consumption ~ Income + Production + Unemployment + Savings,
+  data=uschange)
+summary(fit.consMR)
+
+# check the residuals
+autoplot(uschange[,'Consumption'], series="Data") +
+  autolayer(fitted(fit.consMR), series="Fitted") +
+  xlab("Year") + ylab("") +
+  ggtitle("Percent change in US consumption expenditure") +
+  guides(colour=guide_legend(title=" "))
+
+cbind(Data = uschange[,"Consumption"],
+      Fitted = fitted(fit.consMR)) %>%
+  as.data.frame() %>%
+  ggplot(aes(x=Data, y=Fitted)) +
+  geom_point() +
+  ylab("Fitted (predicted values)") +
+  xlab("Data (actual values)") +
+  ggtitle("Percent change in US consumption expenditure") +
+  geom_abline(intercept=0, slope=1)
+
+checkresiduals(fit.consMR)
+
+#### was the relationship lineal?
+df <- as.data.frame(uschange)
+df[,"Residuals"]  <- as.numeric(residuals(fit.consMR))
+p1 <- ggplot(df, aes(x=Income, y=Residuals)) +
+  geom_point()
+p2 <- ggplot(df, aes(x=Production, y=Residuals)) +
+  geom_point()
+p3 <- ggplot(df, aes(x=Savings, y=Residuals)) +
+  geom_point()
+p4 <- ggplot(df, aes(x=Unemployment, y=Residuals)) +
+  geom_point()
+gridExtra::grid.arrange(p1, p2, p3, p4, nrow=2)
+
+
+cbind(Fitted = fitted(fit.consMR),
+      Residuals=residuals(fit.consMR)) %>%
+  as.data.frame() %>%
+  ggplot(aes(x=Fitted, y=Residuals)) + geom_point()
+
+########### effect of non-stationarity on the fit
+autoplot(ausair)
+aussies <- window(ausair, end=2011)
+fit <- tslm(aussies ~ guinearice)
+summary(fit)
+checkresiduals(fit)
+
+# no tiene muy buena pinta
+# esto significa que aun hay informacion en los residuos que podemos explotar -> ARMA
+
+########### USEFUL PREDICTORS
+
+# linear trend
+# trend +season
+#extragimos ambas componentes usando stl y ahora lo explotamos
+
+beer2 <- window(ausbeer, start=1992)
+autoplot(beer2) + xlab("Year") + ylab("Megalitres")
+
+fit.beer <- tslm(beer2 ~ trend + season)
+summary(fit.beer)
+
+autoplot(beer2, series="Data") +
+  autolayer(fitted(fit.beer), series="Fitted") +
+  xlab("Year") + ylab("Megalitres") +
+  ggtitle("Quarterly Beer Production")
+
+cbind(Data=beer2, Fitted=fitted(fit.beer)) %>%
+  as.data.frame() %>%
+  ggplot(aes(x = Data, y = Fitted,
+             colour = as.factor(cycle(beer2)))) +
+  geom_point() +
+  ylab("Fitted") + xlab("Actual values") +
+  ggtitle("Quarterly beer production") +
+  scale_colour_brewer(palette="Dark2", name="Quarter") +
+  geom_abline(intercept=0, slope=1)
+
+# trend+ fourier
+# A regression model containing Fourier terms is often called 
+#a harmonic regression because the successive Fourier terms 
+#represent harmonics of the first two Fourier terms.
+fourier.beer <- tslm(beer2 ~ trend + fourier(beer2, K=2))
+summary(fourier.beer)
+
+################# selecting predictors
+fit.consBest <- tslm(
+  Consumption ~ Income + Savings + Unemployment,
+  data = uschange)
+h <- 4
+newdata <- data.frame(
+  Income = c(1, 1, 1, 1),
+  Savings = c(0.5, 0.5, 0.5, 0.5),
+  Unemployment = c(0, 0, 0, 0))
+fcast.up <- forecast(fit.consBest, newdata = newdata)
+newdata <- data.frame(
+  Income = rep(-1, h),
+  Savings = rep(-0.5, h),
+  Unemployment = rep(0, h))
+fcast.down <- forecast(fit.consBest, newdata = newdata)
+
+autoplot(uschange[, 1]) +
+  ylab("% change in US consumption") +
+  autolayer(fcast.up, PI = TRUE, series = "increase") +
+  autolayer(fcast.down, PI = TRUE, series = "decrease") +
+  guides(colour = guide_legend(title = "Scenario"))
+
+
+
+
+#---------------------------------------------------------------------------------------------------------------
+
+
+h <- 10
+fit.lin <- tslm(marathon ~ trend)
+fcasts.lin <- forecast(fit.lin, h = h)
+fit.exp <- tslm(marathon ~ trend, lambda = 0)
+fcasts.exp <- forecast(fit.exp, h = h)
+
+t <- time(marathon)
+t.break1 <- 1940
+t.break2 <- 1980
+tb1 <- ts(pmax(0, t - t.break1), start = 1897)
+tb2 <- ts(pmax(0, t - t.break2), start = 1897)
+
+fit.pw <- tslm(marathon ~ t + tb1 + tb2)
+t.new <- t[length(t)] + seq(h)
+tb1.new <- tb1[length(tb1)] + seq(h)
+tb2.new <- tb2[length(tb2)] + seq(h)
+
+newdata <- cbind(t=t.new, tb1=tb1.new, tb2=tb2.new) %>%
+  as.data.frame()
+fcasts.pw <- forecast(fit.pw, newdata = newdata)
+
+fit.spline <- tslm(marathon ~ t + I(t^2) + I(t^3) +
+                     I(tb1^3) + I(tb2^3))
+fcasts.spl <- forecast(fit.spline, newdata = newdata)
+
+autoplot(marathon) +
+  autolayer(fitted(fit.lin), series = "Linear") +
+  autolayer(fitted(fit.exp), series = "Exponential") +
+  autolayer(fitted(fit.pw), series = "Piecewise") +
+  autolayer(fitted(fit.spline), series = "Cubic Spline") +
+  autolayer(fcasts.pw, series="Piecewise") +
+  autolayer(fcasts.lin, series="Linear", PI=FALSE) +
+  autolayer(fcasts.exp, series="Exponential", PI=FALSE) +
+  autolayer(fcasts.spl, series="Cubic Spline", PI=FALSE) +
+  xlab("Year") + ylab("Winning times in minutes") +
+  ggtitle("Boston Marathon") +
+  guides(colour = guide_legend(title = " "))
+
+marathon %>%
+  splinef(lambda=0) %>%
+  autoplot()
+
+marathon %>%
+  splinef(lambda=0) %>%
+  checkresiduals()
+
+
+
+#---------------------------------------------------------------------------------------------------------------
+
+
+#### Seasonal differing
+
+usmelec %>% autoplot()
+usmelec %>% log() %>% autoplot()
+#remove tendency
+usmelec %>% log() %>% diff(lag=12) %>%
+  autoplot()
+#remove seasonality
+usmelec %>% log() %>% diff(lag=12) %>%
+  diff(lag=1) %>% autoplot()
+
+
+########que orden de diferenciacion debemos tomar?
+library(urca)
+
+goog %>% autoplot()
+summary(ur.kpss(goog))
+kpss.test(goog)
+
+# to estimate the number of differences required to make 
+#a given time series stationary. ndiffs estimates the number 
+#of first differences necessary using adf or kpss test
+
+ndiffs(goog)
+
+usmelec %>% log() %>% nsdiffs()
+usmelec %>% log() %>% diff(lag=1) %>% autoplot
+
+# Ejercicio: encuentra la differenciacion mas apropiada 
+# para la serie visitors
+
+ndiffs(visitors)
+visitors %>% autoplot()
+ndiffs(log(visitors))
+
+visitors %>% log() %>% diff(1)%>% autoplot() 
+
+####### Autoregressive models: AR(t)
+
+summary(lm(kings[3:42]~kings[1:40]+kings[2:41]))
+acf(kingstimeseries)
+
+# simulamos datos multivariantes correlacionados
+library(MASS)
+data<-mvrnorm(100,c(0,0,0),as.matrix(cbind(c(1,0.95,0.95),c(0.95,1,0.95),c(0.95,0.5,1))))
+summary(lm(data[1:98,1]~data[2:99,1]+data[3:100,1]))
+
+####### Moving average models: MA(t)
+# Cuando los errores del pasado nos ayudan a predecir mejor, modelo MA
+####### ARIMA(p,q,d) models
+data("uschange")
+fit<-auto.arima(uschange[,"Consumption"])
+
+ggtsdisplay(internet)
+ggtsdisplay(diff(internet))
+
+(fit <- Arima(internet,order=c(3,1,0)))
+
+auto.arima(internet)
+
+auto.arima(internet, stepwise=FALSE,
+           approximation=FALSE)
+
+checkresiduals(fit)
+
+fit %>% forecast %>% autoplot
+
+
+##### Ejemplo: 
+
+eeadj <- seasadj(stl(elecequip, s.window="periodic"))
+autoplot(eeadj) + xlab("Year") +
+  ylab("Seasonally adjusted new orders index")
+
+ggtsdisplay(diff(eeadj))
+
+(fit <- Arima(eeadj, order=c(3,1,1)))
+
+checkresiduals(fit)
+
+fit %>% forecast %>% autoplot
+
