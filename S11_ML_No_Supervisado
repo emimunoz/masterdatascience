@@ -1,0 +1,325 @@
+## Distancias con variables categóricas
+## Distancias con variables númericas
+## Heights
+## SVD vs PCA
+## tSNE
+
+
+# Data generation
+pokemons=c("blastoise","charizard","primarina","delphox","pikachu")
+
+blastoise=c("azul","laguna","marisco","agua","NO","SI","NO")
+charizard=c("naranja","pradera","llama","fuego","NO","SI","SI")
+primarina=c("azul","laguna","solista","agua","NO","SI","NO")
+delphox=c("naranja","pradera","zorro","fuego","NO","SI","NO")
+pikachu=c("amarillo","bosque","ratón","eléctrico","NO","SI","NO")
+
+all.pokemon=data.frame(blastoise,charizard,primarina,delphox,pikachu)
+rownames(all.pokemon)=c("color", "hábitat", "categoría", "tipo", "aletas", "cola", "alas")
+
+# Heatmap
+library(ComplexHeatmap) 
+Heatmap(all.pokemon) 
+# Nos muestra por color las características que tienen en similar cada Pokemon. Por ejemplo, todos tienen cola o ninguno aletas
+
+# Querremos crear una matriz de distancias / tabla de similitudes que nos diga cómo de parecidos son los Pokemon:
+# Con datos categóricos debemos hacer esto.
+
+# Distancia
+sim<-matrix(NA,5,5)
+for (i in 1:5){
+  for (j in 1:5){sim[i,j]<-length(setdiff(all.pokemon[,i],all.pokemon[,j]))} # Cuento cuántas cosas son diferentes para cada uno de los PK
+}
+colnames(sim)=pokemons
+rownames(sim)=pokemons
+
+# Matriz de diferencias:
+sim 
+
+# Matriz de similitudes:
+7-sim # Hay 7 características por PK
+
+#clustering for categorical variables
+library(cluster)
+divisive.clust <- diana(sim, 
+                        diss = TRUE, keep.diss = TRUE) # metemos la matriz de distancias 'sim'
+plot(divisive.clust, main = "Divisive")
+divisive.clust # Para ver cómo dividiría el algoritmo cada uno de los pk
+
+
+# Distancias con variables númericas
+
+library(tissuesGeneExpression)
+library(ComplexHeatmap)
+data(tissuesGeneExpression)
+dim(e) ##e contains the expression data
+table(tissue) ##tissue[i] tells us what tissue is represented by e[,i] Qué tipos de muestras de tejidos y cuándas. En total son las 189 columnas
+
+#Calculemos la distancia entre las muestras 1 y 2 (riñones) de la matriz de expresión 
+#y a la muestra 87 (colon).
+
+x <- e[,1] # Primera muestra de la matriz (una muestra de tejido para 22215 personas)
+y <- e[,2]
+z <- e[,87]
+tissue[1]
+tissue[2]
+tissue[87]
+
+# Diferencia de los 2 vectores, su cuadrado y los suma. Para averiguar las distancias euclídeas entre puntos
+sqrt(sum((x-y)^2)) # Da 85
+sqrt(sum((x-z)^2)) # Da 122
+# Las muestras 1 y 2 son ambas de riñón, y la 87 es de colon, por eso la distancia será mayor porque son muestras más distintas
+
+# Lo mismo que antes pero de otra forma:
+sqrt( crossprod(x-y) )
+sqrt( crossprod(x-z) )
+
+# Para ver la distancia entre las muestras, le hacemos la traspuesta.
+d <- dist(t(e))
+class(d)
+
+# Para ver las distancias entre muestras tendremos que convertir la clase a matriz porque era de clase 'Dist'
+as.matrix(d)[1,2]
+as.matrix(d)[1,87]
+
+# Seleccionamos sólo los primeros 100 genes porque sino petaría
+# Se hace traspuesta 2 veces y escalado para visualizarlo mejor
+Heatmap(t(scale(t(e[1:100,]))),show_row_names = F,show_column_names = F)
+
+# Sin traspuestas
+Heatmap(e[1:100,],show_row_names = F,show_column_names = F)
+
+# La clusterización de las muestras no varía (los árboles que están en filas y columnas), pero sí cambia la visualización
+
+
+## Heights
+
+
+
+library(rafalib)
+library(MASS)
+library(tidyverse)
+library(matlib)
+install.packages("matlib", dependencies = TRUE)
+install.packages("rgl", dependencies = TRUE)
+
+#Generamos los datos de alturas de gemelos
+set.seed(1)
+n <- 100
+y=t(mvrnorm(n,c(0,0), matrix(c(1,0.95,0.95,1),2,2))) # Para generar datos de una normal multivariante. Porque las alturas entre gemelos estarán relacionadas entre ellas con una matriz de covarianza
+head(y) # Estandarizamos los valores para que los cálculos sean más simples. Cómo cambia con respecto a la media
+mypar()
+plot(y[1,], y[2,], xlab="Twin 1 (standardized height)", 
+     ylab="Twin 2 (standardized height)", xlim=c(-3,3), ylim=c(-3,3))
+points(y[1,1:2], y[2,1:2], col=2, pch=16)
+
+#calculamos sus distancias
+d=dist(t(y))
+as.matrix(d)[1,2]
+
+#proponemos una transformacion plausible
+z1 = (y[1,]+y[2,])/2 #the sum 
+z2 = (y[1,]-y[2,])   #the difference
+z = rbind( z1, z2) #matrix now same dimensions as y
+thelim <- c(-3,3)
+mypar(1,2)
+plot(y[1,],y[2,],xlab="Twin 1 (standardized height)",
+     ylab="Twin 2 (standardized height)",
+     xlim=thelim,ylim=thelim)
+points(y[1,1:2],y[2,1:2],col=2,pch=16)
+plot(z[1,],z[2,],xlim=thelim,ylim=thelim,xlab="Average height",ylab="Difference in height")
+points(z[1,1:2],z[2,1:2],col=2,pch=16)
+
+#que resulta ser una rotacion
+A <- 1/sqrt(2)*matrix(c(1,1,1,-1),2,2)
+z <- A%*%y
+d <- dist(t(y))
+d2 <- dist(t(z))
+mypar(1,1)
+plot(as.numeric(d),as.numeric(d2)) #as.numeric turns distances into long vector
+abline(0,1,col=2)
+
+#comprobamos que es lo mismo
+mypar(1,2)
+thelim <- c(-3,3)
+plot(y[1,],y[2,],xlab="Twin 1 (standardized height)",
+     ylab="Twin 2 (standardized height)",
+     xlim=thelim,ylim=thelim)
+points(y[1,1:2],y[2,1:2],col=2,pch=16)
+plot(z[1,],z[2,],xlim=thelim,ylim=thelim,xlab="Average height",ylab="Difference in height")
+points(z[1,1:2],z[2,1:2],col=2,pch=16)
+
+#revisamos como es ahora la distribucion de las distancias
+d3 = dist(z[1,]) ##distance computed using just first dimension
+mypar(1,1)
+plot(as.numeric(d),as.numeric(d3)) 
+abline(0,1)
+
+#################################################################
+
+#generamos un nuevo dataset de alturas de gemelos que sea bimodal:
+#una distribución para adultos y una para niños
+
+set.seed(1988)
+n <- 100
+x <- rbind(mvrnorm(n / 2, c(69, 69), matrix(c(9, 9 * 0.9, 9 * 0.92, 9 * 1), 2, 2)),
+           mvrnorm(n / 2, c(55, 55), matrix(c(9, 9 * 0.9, 9 * 0.92, 9 * 1), 2, 2)))
+
+#se ve que es bimodal en el plot
+lim <- c(48, 78)
+rafalib::mypar()
+plot(x, xlim=lim, ylim=lim) # Ahora no tenemos escalados los valores
+
+#Nuestras variables son otra vez vectores de dimension 2, con dos alturas. 
+#Vamos a ver si con sólo una dimension somos capaces de identificar las dos 
+#clases que tenemos: adultos y niños.
+
+rafalib::mypar()
+
+
+plot(x, xlim=lim, ylim=lim)
+lines(x[c(1, 2),], col = "blue", lwd = 2)
+lines(x[c(2, 51),], col = "red", lwd = 2)
+points(x[c(1, 2, 51),], pch = 16)
+d <- dist(x)
+as.matrix(d)[1, 2]
+as.matrix(d)[2, 51]
+
+#La linea roja nos marca la distancia entre los dos puntos azules. 
+#Usando la transformación que ya conocemos:
+
+z  <- cbind((x[,2] + x[,1])/2,  x[,2] - x[,1])
+
+#Vemos que la media es suficiente para explicar los datos 
+#y que la distancia permanece igual al rotar:
+rafalib::mypar()
+plot(z, xlim=lim, ylim = lim - mean(lim))
+lines(z[c(1,2),], col = "blue", lwd = 2)
+lines(z[c(2,51),], col = "red", lwd = 2)
+points(z[c(1,2,51),], pch = 16)
+
+#explorando la primera dimension de z
+qplot(z[,1], bins = 20, color = I("black"))
+
+#tambien somos capaces de ver la bimodalidad, no en la segunda:
+qplot(z[,2], bins = 20, color = I("black"))
+
+#PCA ha funcionado bien porque las variables de x estaban correlacionadas
+cor(x[,1], x[,2])
+
+#las transformadas ya no lo están
+cor(z[,1], z[,2])
+
+#################################################################
+
+#la suma de los cuadrados de cada columna es (si las variables estan centradas)
+#la varianza de cada columna
+colMeans(x^2) 
+#la variable z recoge el 99% de la variabilidad de los datos
+colMeans(z^2)
+v <- colMeans(z^2)
+v/sum(v) # Comprobamos como la primera componente explica un 99% de la variabilidad de los datos
+
+#La _primera componente principal_ de una matriz $X$ es 
+#la transformacion lineal ortogonal (su inversa es su traspuesta) 
+#que maximiza la variabilidad. La función `prcomp` produce exactamente esto:
+  
+pca <- prcomp(x)
+pca$rotation # Matriz que utiliza para la rotación
+head(pca$x) # Los numeros valores transformados/girados
+
+#Es una matriz ortogonal (su traspuesta es igual a su inversa)
+t(pca$rotation)
+inv(pca$rotation)
+
+#comprobamos que svd en datos estandarizados produce el mismo resultado:
+s <- svd( Y - rowMeans(Y) )
+pc<-prcomp(t(Y))
+mypar(1,2)
+for(i in 1:nrow(Y) ){
+  plot(pc$x[,i], s$d[i]*s$v[,i])
+}
+
+#los pesos de la rotacion son:
+pc$rotation
+
+
+install_github("dagdata","genomicsclass")
+data(tissuesGeneExpression)
+library(rafalib)
+group <- as.fumeric(tab$Tissue)
+
+#pca
+x <- t(e)
+pc <- prcomp(x)
+# ?prcomp
+names(pc)
+plot(pc$x[,1], pc$x[,2], col=group, main="PCA", xlab="PC1", ylab="PC2")
+
+#PCA es equivalente a calcular SVD en los datos centrados por columnas 
+#(una vez traspuesta nuetra matriz x tiene los genes en las columnas) 
+#Podemos usar la función _sweep_ para trabajar con filas y columnas eficientemente. 
+
+cx <- sweep(x, 2, colMeans(x), "-")
+sv <- svd(cx)
+names(sv)
+plot(sv$u[,1], sv$u[,2], col=group, main="SVD", xlab="U1", ylab="U2")
+
+sv$v[1:5,1:5]
+pc$rotation[1:5,1:5]
+
+head(sv$d^2)
+head(pc$sdev^2)
+head(sv$d^2 / (ncol(e) - 1))
+
+#Si dividimos la varianza por la suma obtenemos un plot del radio de 
+#varianza explicada por cada componente principal:
+
+plot(sv$d^2 / sum(sv$d^2), xlim=c(0,15), type="b", pch=16,
+     xlab="principal components", 
+     ylab="variance explained")
+plot(sv$d^2 / sum(sv$d^2), type="b", pch=16,
+     xlab="principal components", 
+     ylab="variance explained")
+
+#Si no hubiéramos centrado los datos antes de hacer `svd` el plot habría sido algo distinto:
+  
+svNoCenter <- svd(x)
+plot(pc$x[,1], pc$x[,2], col=group, main="PCA", xlab="PC1", ylab="PC2")
+points(0,0,pch=3,cex=4,lwd=4)
+plot(svNoCenter$u[,1], svNoCenter$u[,2], col=group, main="SVD not centered", xlab="U1", ylab="U2")
+
+#usado sobre las filas nos ayuda a detectar sesgos
+sv2 <- svd(t(e))
+plot(sv2$u[,1], sv2$u[,2], col=group, main="samples vs genes (typical PCA)", xlab="U1", ylab="U2")
+sv1 <- svd(e)
+plot(sv1$v[,1], sv1$v[,2], col=group, main="genes vs samples (SVA)", xlab="V1", ylab="V2")
+
+# tSNE usa probabilidades condicionales
+
+install.packages("Rtsne")
+library(dplyr)
+library(Rtsne)
+library(dslabs)
+if(!exists("mnist")) mnist <- read_mnist()
+
+train_full <- mnist$train$images
+train <- sample_frac(as.data.frame(train_full),0.33)
+
+## Curating the database for analysis with both t-SNE and PCA
+label<-mnist$train$label
+## for plotting
+colors = rainbow(10)
+names(colors) = unique(label)
+
+## Executing the algorithm on curated data
+tsne <- Rtsne(train[,-1], dims = 2, 
+              perplexity=30, 
+              verbose=TRUE, 
+              max_iter = 500,
+              col=label)
+exeTimeTsne<- system.time(Rtsne(train[,-1], dims = 2, perplexity=30, verbose=TRUE, max_iter = 500))
+
+plot(tsne$Y, t='n', main="tsne")
+text(tsne$Y, labels=label, col=colors[label])
+
