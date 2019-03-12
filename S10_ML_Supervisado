@@ -1,0 +1,167 @@
+## Benchmark
+## Modelo de Bayes
+## Árboles de decisión
+## Random forests
+## KNN
+
+
+data("Titanic") # Para cargar un dataset incoporado ya en R
+View(Titanic)
+
+titanic <-  as.data.frame(Titanic)
+
+# Un dataset es linealmente separable cuando hay una línea recta que puede separar los datos representados. 
+# Los árboles necesitan datos que se puedan separar en una línea.
+
+# Modelo de Benchmark ----------------------------------------------------------------
+
+library(readr)
+library(dplyr)
+library(tidyr)
+benchmark <-  glm(data=Titanic, family='binomial',formula=Survived~Class+Sex+Age, weights = titanic$Freq) # Para indicar el peso de cada valor lo indicamos con Weights.
+summary(benchmark) # podemos ver los datos de predicciones. Por ejemplo siendo una mujer tienes una probabilidad muy alta de sobrevivir. Siendo de 3a clase lo contrario.
+# GLM dará el mejor resultado posible con los datos que le das
+
+
+# Modelo de Bayes --------------------------------------------------------------------
+# install.packages("e1071")
+library(e1071)
+
+# Es un modelo que es muy versátil y sirve para muchas cosas
+nb <- naiveBayes(Survived~Class+Sex+Age, data=titanic)
+nb
+
+# Con 'a priori' comenzará con un 50% si y 50% no, y poco a poco irá actualizando las probabilidades con probabildades condicionadas. 
+# Como el dato está mal introducido porque hemos dicho que coja todo el DataSet de Titanic.
+
+# Ahora en vez de usar Weights podemos indicar como datos Titanic con mayúsucla, ya que en este DS en particular al usarlo con mayúscula es una tabla de frecuencias. 
+# Sino, tendríamos que convertir el DF a una tabla de frecuencias.
+nb <- naiveBayes(Survived~Class+Sex+Age, data=Titanic)
+nb # Cada una de las probabilidades que salen son un porcentaje que se irá multiplicando para conseguir la probabilidad de supervencia total
+predict(nb, newdata = Titanic) # Nos indica por cada uno de los valores del DS si ese tipo de persona podría sobrevivir o no
+# Nos dirá por ejemplo que un niño de 2a clase no sobrevivirá porque únicamente valora que sea hombre el niño. 
+# Predice mal porque es un modelo muy simple y no tiene libertad para predecir bien con todas las variables
+
+# Unimos los resultados de la predicción con el DataSet
+cbind(titanic, predict(nb, newdata = Titanic)) 
+
+predict(benchmark, newdata = Titanic, type = "response") # Type = Response <-resultado antes de aplicar la logísitca. Link <-  Después de aplicar
+
+hist(predict(benchmark, newdata = Titanic, type = "response"), breaks = 30 )
+predict(benchmark, newdata = Titanic, type = "response") > 0.6 # Vemos qué tipo de persona tendría una probabilidad de sobrevivir superior al 60%
+
+# Para comparar ambos modelos en una misma tabla:
+View(cbind(titanic,
+           predict(nb, newdata = Titanic),
+           predict(benchmark, newdata = Titanic, type = "response") > 0.6))
+# No coinciden en mujer adulta de 3a clase, en Bayes falla porque es muy similar el número de mujeres que sobreviven con las que no
+# Supuesto de aditividad: Sólo le dejamos trabajar con las 3 variables por separado. No le dejamos interactuar con las variables. Hace falta darle más opciones para interactuar.
+
+
+# Ahora vamos a hacer otro Bayes pero interactivo
+nb2 <- naiveBayes(Survived~Class+Sex+Age+Sex*Class, data=Titanic) # Damos permiso a una posible interacción entre Sexo y Clase
+nb2
+View(cbind(titanic,
+           predict(nb2, newdata = Titanic),
+           predict(benchmark, newdata = Titanic, type = "response") > 0.6))
+# Da el mismo resultado, y es que NaiveBayes no puede hacer efectos interactivos entre los datos. 
+# La parte de Sex*Class la ignora por completo, pero R da error, aunque debería.
+
+
+
+# MODELO CON INTERACCIÓN - ÁRBOLES DE DECISIÓN -----------------------------------------------------------
+
+# Una buena práctica es hacer un modelo con interacción y otro sin interacción y comparar.
+# El primer corte puede ser bueno hacerlo por la variable que más correlación tenga con la variable que queremos predecir, aunque no siempre es así.
+# No garantiza que el resultado sea el mejor, nunca podremos tener seguridad al 100% de que el árbol que nos ha dado de resultado sea al mejor, ya que es imposible probar todos los árboles/combinaciones posibles.
+# El punto de corte que escoje un árbol es un parámetro. El propio modelo en si es un parámetro.
+# Hiperparámetro tiene que ver con la forma en que hemos entrenado el modelo.
+
+#install.packages("tree")
+#install.packages("titanic")
+#install.packages("ROCR")
+
+library(tree)
+library(dplyr)
+library(titanic)
+library(caret)
+library(ROCR)
+
+tree(Survived ~ Age, titanic_train) 
+# Distingue por edad porque es la única variable que le hemos dado
+# Si sólo tiene un único corte el árbol sí que será el mejor en este único caso
+# root es la raíz desde la que partimos
+# El resto son los cortes que toma para cada una de las ramas. Split => Age <> 6.5
+# n = número de elementos que van hacia cada rama
+# deviance =
+# yval = la probabilidad de supervivencia en cada uno de las ramas dependiendo de su edad. A la izquierda deja un 70% de supervivientes.
+# El * indica que es un nodo hoja, nodo final
+# El valor de la curva Roc que más se acerque a la esquina superior izquierda es el valor más ideal
+
+tree(Survived ~ Age + Sex, titanic_train) # Dará error porque hay NAs, missing values
+miArbol <- tree(Survived ~ Age + Pclass, titanic_train) 
+# plot
+# text, para mostrar en gráfico el árbol
+predict(miArbol, newdata = titanic_test)
+
+
+#Nota: cuidado con los NAs
+# Quitar la gente que tiene NA en la edad
+# Guardo el predict del árbol
+# Guardo como factor
+
+
+# RANDOM FOREST ---------------------------------------------
+
+# Se entrenamn varios árboles por separado. El restulado de cada árbol tiene un voto y al final se hace una suma a ver qué resultado es el más repetido
+# Cada árbol da un %, y por medio de los votos se saca el % final de supervivencia
+# Una buena práctica es comenzar con pocos árboles e ir subiendo el número poco a poco
+# No se encontrará el mejor árbol pero tenemos la garantía de que nos acercaremos al mejor resultado
+# Puede hacer regresión y clasificación
+
+library(randomForest)
+
+# Con los Random Forest tendremos que eliminar los NAs por capricho de la librería, por eso con el Random Tree no sería necesario
+titanic_train <- titanic_train[,!is.na(titanic_train$Age)] # Nos quedamos con todos los valores que no son NAs
+titanic_train <- titanic_train %>% filter(!is.na(Age)) # Igual pero con dplyr
+myForest <- randomForest(Survived ~ Pclass + Age, titanic_train)
+myForest # El tipo es regresión, si son factores sería del tipo clasificación
+
+# KNN --- K NEAREST NEIGHBOR CLASSIFICATION--------------------------------------------------------------
+
+# Une por cercanía o también por el coseno. Los valores pueden estar cercanos o en la misma dirección.
+library(class)
+
+# k = número de vecinos cercanos que vamos a querer. Es un hiperparámetro. Cuantos más vecinos pongas, mayor será el rango de respuestas. 
+# Para decidir cuántos vecinos hay que ver la densidad de nuestros datos. Si hay concentraciones muy densas podemos coger muchas K pero si los datos están muy dispersos, hay mucha probabilidad de coger datos intermedios erróneos
+# La diferencia con K MEANS es que este es no supervisado
+
+# En el caso del DS de Titanic, una persona con rango de edad similar pero estando en 1a o 2a, estarán muy cercanas en la representación, por lo que KNN no será buena idea para este DS
+# El dataSet de Iris será un buen DS ya que flores con un tamaño de pétalo y sépalo similar nos permitirá adivinar el tipo de flor
+
+iris
+ggplot(iris) + geom_point(aes_string(x="Petal.Length", y="Petal.Width", color="Species"))
+# Se puede ver en el gráfico que el KNN es buena técnica porque hay agrupaciones por Species
+
+# Vamos a separar los valores de Iris para grupo de entreno y de examen
+idxTraining <- sample(1:nrow(iris), 110)
+# iris %>% sample_n(110) # Con Dplyr, si quiero coger una muestra pero no voy a usar el resto
+iris_training <- iris[idxTraining,]
+iris_test <-  iris[-idxTraining,]
+
+# cl => el resultado correcto del training
+cl <- iris_training$Species
+
+# Tenemos que retirar la variable Species porque sino al pasar el KNN estamos haciendo trampa y no estamos entrenando bien el modelo
+iris_training <- iris_training[,-5] # Forma casera de eliminar una columna de un DS
+iris_training <- iris_training[,colnames(iris_training) != "Species"] 
+iris_test <- iris_test[,colnames(iris_test) != "Species"] 
+View(iris_training) # Ya no tenemos la columna Species
+
+knn(iris_training, iris_test, cl) # En esta librería nos da ya el restulado a los valores de test, es diferente al resto de modelos que podíamos hacer un predict
+
+knn(iris_training, iris_test, cl, k=1, prob=TRUE) # Ahora da todo con una probabilidad de 1 porque hemos indicamos que sólo hay 1 vecino con K
+knn(iris_training, iris_test, cl, k=8, prob=TRUE) 
+knn(iris_training, iris_test, cl, k=80, prob=TRUE) 
+# Cuantos más vecinos pongamos, bajará la probabilidad de los votos porque se pelearán entre ellos por acaparar el valor real
+
