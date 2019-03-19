@@ -1,7 +1,8 @@
 ## Limpieza y preparación de datos con Janitor y Purr
 ## Exploración de datos y control de NAs con DataExplorer
 ## Imputation
-##
+## Imputation on TimeSeries
+## Oversampling
 
 
 
@@ -482,6 +483,33 @@ summary(pool(modelFit2))
 ------------------------------------------------------------------------------------------------------------------
 
 
+
+library(imputeTS)
+
+x <- ts(c(1, 2, 3, 4, 5, 6, 7, 8, NA, NA, 11, 12))
+
+#impute using the mean of the whole series
+na.mean(x)
+
+# impute using the median
+na.mean(x, option="median")
+
+#since our data has an order might make sense to interpolate
+na.interpolation(x)
+
+# Cargamos dataset tsAirgap con número de pasajeros total que viajan cada mes desde 1949 a 1960.
+tsAirgap
+statsNA(tsAirgap) # El equivalente a un str() pero con datos sobre NAs y de su distribución en la serie temporal
+plotNA.distribution(tsAirgap) # Visualización en un plot de la serie temporal y las zonas en rojo donde faltan datos.
+plotNA.distributionBar(tsAirgap, breaks = 20)
+
+# Aplicación del filtro Kalman para smoothing en series temporales
+imp <- na.kalman(tsAirgap)
+plotNA.imputations(tsAirgap, imp, tsAirgapComplete)
+
+# Aplicación del filtro Kalman a la serie temporal del número de viajeros.
+tsAirgap.imp <- na.mean(tsAirgap)
+plotNA.imputations(tsAirgap, tsAirgap.imp)
 
 
 
